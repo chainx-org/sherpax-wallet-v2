@@ -3,7 +3,7 @@
 import type { DeriveBalancesAll, DeriveStakingAccount } from '@polkadot/api-derive/types';
 import type { ConstValue } from '@polkadot/react-components/InputConsts/types';
 import type { ConstantCodec } from '@polkadot/types/metadata/decorate/types';
-import type { ComponentProps as Props } from '../types';
+// import type { ComponentProps as Props } from '../types';
 import type { ActionStatus } from '@polkadot/react-components/Status/types';
 import type { KeypairType } from '@polkadot/util-crypto/types';
 import type { GeneratorMatch, GeneratorMatches, GeneratorResult } from '@polkadot/vanitygen/types';
@@ -336,14 +336,14 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
       </div>
       <br />
 
-      <div>InputExtrinsic
+      {/* <div>InputExtrinsic
         <InputExtrinsic
           defaultValue={defaultValue}
           isDisabled
           label={t<string>('decoded call')}
         />
       </div>
-      <br />
+      <br /> */}
 
       <div>Menu &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Popup弹出的111即为Menu组件
       </div>
@@ -747,7 +747,7 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
       </div>
       <br />
 
-      <div>Forget 弹出框&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      {/* <div>Forget 弹出框&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <button className='myButton' onClick={() => setForgetVisible(true)}>Forget按钮</button>
         {forgetVisible &&
           <Forget
@@ -759,7 +759,7 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
             <p>Forget测试数据</p>
           </Forget>}
       </div>
-      <br />
+      <br /> */}
 
       <div>HelpOverlay &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;右上角的问号
         <div>
@@ -894,7 +894,7 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
       </div>
       <br />
 
-      <div>InputWasm
+      {/* <div>InputWasm
         <div>
           <InputWasm
             help={t<string>('The compiled runtime WASM for the parachain you wish to register.')}
@@ -905,7 +905,7 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
           />
         </div>
       </div>
-      <br />
+      <br /> */}
 
       <div>Inset
         <div>
@@ -1012,7 +1012,7 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
       </div>
       <br />
 
-      <div>Password
+      {/* <div>Password
         <div>
           <Password
             autoFocus
@@ -1025,7 +1025,7 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
           />
         </div>
       </div>
-      <br />
+      <br /> */}
 
       <div>PasswordStrength
         <div>
@@ -1225,7 +1225,7 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
       </div>
       <br />
 
-      <div>VoteValue
+      {/* <div>VoteValue
         <div style={{ marginLeft: '80px' }}>
           <VoteValue
             accountId={'5UzmGBgdiLXBiChZCPh4PJarnwxDMZLbNaANEpi4zHkdnDDP'}
@@ -1234,7 +1234,7 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
           />
         </div>
       </div>
-      <br />
+      <br /> */}
 
 
       {/* {matches.length !== 0 && (
