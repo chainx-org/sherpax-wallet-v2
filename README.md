@@ -49,7 +49,7 @@ To get started -
 3. Ensure that you have a recent version of Yarn, for development purposes [Yarn >=1.10.1](https://yarnpkg.com/docs/install) is required.
 4. Install the dependencies by running `yarn`
 5. Ready! Now you can launch the UI (assuming you have a local Polkadot Node running), via `yarn run start`
-6. Access the UI via [http://localhost:3001](http://localhost:3001)
+6. Access the UI via [http://localhost:3000](http://localhost:3000)
 
 ## Docker
 
