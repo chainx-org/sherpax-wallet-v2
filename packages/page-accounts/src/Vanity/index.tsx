@@ -1,6 +1,5 @@
 // Copyright 2017-2022 @polkadot/app-accounts authors & contributors
 // SPDX-License-Identifier: Apache-2.0
-import type { DeriveBalancesAll, DeriveStakingAccount } from '@polkadot/api-derive/types';
 import type { ConstValue } from '@polkadot/react-components/InputConsts/types';
 import type { ConstantCodec } from '@polkadot/types/metadata/decorate/types';
 // import type { ComponentProps as Props } from '../types';
@@ -8,21 +7,18 @@ import type { ActionStatus } from '@polkadot/react-components/Status/types';
 import type { KeypairType } from '@polkadot/util-crypto/types';
 import type { GeneratorMatch, GeneratorMatches, GeneratorResult } from '@polkadot/vanitygen/types';
 // import type { Extrinsic } from '@polkadot/types/interfaces';
-import type { DeriveProposalImage } from '@polkadot/api-derive/types';
-import type { Hash, Proposal, ProposalIndex } from '@polkadot/types/interfaces';
+// import type { DeriveProposalImage } from '@polkadot/api-derive/types';
+import type {  Proposal} from '@polkadot/types/interfaces';
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-
-import { Button, Dropdown, Input, Table, IdentityIcon, InputAddress, InputAddressMulti, InputConsts, InputExtrinsic, Menu, Modal, Popup, Tabs, AccountName, AddressInfo, AddressMini, AddressRow, AvatarItem, AddressSmall, AddressToggle, Available, Badge, BatchWarning, Bonded, Call, CallExpander, Card, CardSummary, ChainImg, ChainLock, Checkbox, Columar, ConvictionDropdown, CopyButton, CryptoType, Digits, EditButton, Editor, ErrorBoundary, ExpandButton, Expander, FilterInput, FilterOverlay, Flag, Forget, HelpOverlay, Icon, IconLink, InfoForInput, InputAddressSimple, InputBalance, InputFile, InputNumber, InputTags, InputWasm, Inset, Label, LabelHelp, Labelled, LinkExternal, LockedVote, MarkError, MarkWarning, Nonce, Output, ParaLink, Password, PasswordStrength, Progress, ProposedAction, Row, Sidebar, Spinner, SortDropdown, Static, SummaryBox, Tag, Tags, TextArea, Toggle, ToggleGroup, Tooltip, TxButton, VoteAccount, VoteValue,Extrinsic } from '@polkadot/react-components';
-
-import { useApi, useIsMountedRef, useCall } from '@polkadot/react-hooks';
-import { settings } from '@polkadot/ui-settings';
+// InputExtrinsic,InputWasm,Forget,Password,  VoteValue,
+import { Button, Dropdown, Input, Table, IdentityIcon, InputAddress, InputAddressMulti, InputConsts,  Menu, Modal, Popup, Tabs, AccountName, AddressInfo, AddressMini, AddressRow, AvatarItem, AddressSmall, AddressToggle, Available, Badge, BatchWarning, Bonded, CallExpander, CardSummary, ChainImg, ChainLock, Checkbox, Columar, ConvictionDropdown, CopyButton, CryptoType, Digits, EditButton, Editor, ErrorBoundary, ExpandButton, Expander, FilterInput, FilterOverlay, Flag, HelpOverlay, Icon, IconLink, InfoForInput, InputAddressSimple, InputBalance, InputFile, InputNumber, InputTags,  Inset, Label, LabelHelp, Labelled, LinkExternal, LockedVote, MarkError, MarkWarning, Nonce, Output, ParaLink,  PasswordStrength, Progress, ProposedAction, Row, Sidebar, Spinner, SortDropdown, Static, SummaryBox, Tag, Tags, TextArea, Toggle, ToggleGroup, Tooltip, TxButton, VoteAccount,Extrinsic } from '@polkadot/react-components';
+import { useApi, useIsMountedRef } from '@polkadot/react-hooks';
 import generator from '@polkadot/vanitygen/generator';
-import matchRegex from '@polkadot/vanitygen/regex';
+// import matchRegex from '@polkadot/vanitygen/regex';
 import generatorSort from '@polkadot/vanitygen/sort';
-import { formatBalance, formatNumber } from '@polkadot/util';
-import CreateModal from '../modals/Create';
+import { formatNumber } from '@polkadot/util';
 import { useTranslation } from '../translate';
 import Match from './Match';
 
@@ -57,12 +53,12 @@ const BOOL_OPTIONS = [
 
 function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, call, onClose }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
-  const { api, isEthereum ,apiDefaultTxSudo} = useApi();
+  const { api ,apiDefaultTxSudo} = useApi();
   const results = useRef<GeneratorResult[]>([]);
   const runningRef = useRef(false);
   const mountedRef = useIsMountedRef();
-  const [createSeed, setCreateSeed] = useState<string | null>(null);
-  const [{ elapsed, isRunning, keyCount, matches }, setResults] = useState<Results>({
+  // const [createSeed, setCreateSeed] = useState<string | null>(null);
+  const [{isRunning }, setResults] = useState<Results>({
     elapsed: 0,
     isRunning: false,
     keyCount: -1,
@@ -70,19 +66,20 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
     matches: [],
     startAt: 0
   });
-  const [{ isMatchValid, match }, setMatch] = useState<Match>({ isMatchValid: true, match: DEFAULT_MATCH });
-  const [type, setType] = useState<KeypairType>('ed25519');
+  const [{ isMatchValid, match }] = useState<Match>({ isMatchValid: true, match: DEFAULT_MATCH });
+  const [type, ] = useState<KeypairType>('ed25519');
   const [withCase, setWithCase] = useState(true);
-  const [delegatingAccount, setDelegatingAccount] = useState<string | null>(previousDelegatingAccount || null);
+  const [, setDelegatingAccount] = useState<string | null>(previousDelegatingAccount || null);
 
-  const _clearSeed = useCallback(
-    () => setCreateSeed(null),
-    []
-  );
+  // const _clearSeed = useCallback(
+  //   () => setCreateSeed(null),
+  //   []
+  // );
+
   const [visible, setVisible] = useState(false)
-  const [forgetVisible, setForgetVisible] = useState(false)
+  // const [forgetVisible, setForgetVisible] = useState(false)
   const [siderVisible, setSiderVisible] = useState(false)
-  const [textVisible, setTextVisible] = useState(false)
+  const [, setTextVisible] = useState(false)
 
 
   const _checkMatches = useCallback(
@@ -141,26 +138,26 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
     [_checkMatches, api, match, mountedRef, runningRef, type, withCase]
   );
 
-  const _onChangeMatch = useCallback(
-    (match: string): void => setMatch({
-      isMatchValid:
-        matchRegex.test(match) &&
-        (match.length !== 0) &&
-        (match.length < 31),
-      match
-    }),
-    []
-  );
+  // const _onChangeMatch = useCallback(
+  //   (match: string): void => setMatch({
+  //     isMatchValid:
+  //       matchRegex.test(match) &&
+  //       (match.length !== 0) &&
+  //       (match.length < 31),
+  //     match
+  //   }),
+  //   []
+  // );
 
-  const _onRemove = useCallback(
-    (address: string): void => setResults(
-      (results: Results): Results => ({
-        ...results,
-        matches: results.matches.filter((item) => item.address !== address)
-      })
-    ),
-    []
-  );
+  // const _onRemove = useCallback(
+  //   (address: string): void => setResults(
+  //     (results: Results): Results => ({
+  //       ...results,
+  //       matches: results.matches.filter((item) => item.address !== address)
+  //     })
+  //   ),
+  //   []
+  // );
 
   const _toggleStart = useCallback(
     (): void => setResults(
@@ -184,18 +181,18 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
     }
   }, [_executeGeneration, isRunning]);
 
-  const header = useMemo(() => [
-    [t('matches'), 'start', 2],
-    [t('Evaluated {{count}} keys in {{elapsed}}s ({{avg}} keys/s)', {
-      replace: {
-        avg: (keyCount / (elapsed / 1000)).toFixed(3),
-        count: keyCount,
-        elapsed: (elapsed / 1000).toFixed(2)
-      }
-    }), 'start'],
-    [t('secret'), 'start'],
-    []
-  ], [elapsed, keyCount, t]);
+  // const header = useMemo(() => [
+  //   [t('matches'), 'start', 2],
+  //   [t('Evaluated {{count}} keys in {{elapsed}}s ({{avg}} keys/s)', {
+  //     replace: {
+  //       avg: (keyCount / (elapsed / 1000)).toFixed(3),
+  //       count: keyCount,
+  //       elapsed: (elapsed / 1000).toFixed(2)
+  //     }
+  //   }), 'start'],
+  //   [t('secret'), 'start'],
+  //   []
+  // ], [elapsed, keyCount, t]);
 
 
   const itemsRef = useRef([
@@ -217,9 +214,9 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
       section
     };
   });
-  const [value, setValue] = useState(defaultValue);
+  const [, setValue] = useState(defaultValue);
 
-  const preimage = useCall<DeriveProposalImage>(api.derive.democracy.preimage, [value]);
+  // const preimage = useCall<DeriveProposalImage>(api.derive.democracy.preimage, [value]);
 
   
 
@@ -422,7 +419,7 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
       </div>
       <br />
 
-      {/* <div> AddressInfo 传值
+      <div> AddressInfo 传值
         <AddressInfo
           address={'5UzmGBgdiLXBiChZCPh4PJarnwxDMZLbNaANEpi4zHkdnDDP'}
           // balancesAll={balancesAll}
@@ -438,7 +435,7 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
           }}
         />
       </div>
-      <br /> */}
+      <br />
 
       <div> AddressMini &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <AddressMini
@@ -530,10 +527,10 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
       </div>
       <br />
 
-      {/* <div>CallExpander  传值
+      <div>CallExpander  传值
         <CallExpander value={call} />
       </div>
-      <br /> */}
+      <br />
 
       {/* <div> Card  我们发现了这个 Polkadot 地址的预声明。 但是，证明需要使用此帐户进行签名。 要继续证明，请先将此帐户添加为自有帐户。
         <Card isError>
@@ -1178,7 +1175,7 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
       <br />
       <br />
 
-      {/* <div>ToggleGroup  传值
+      <div>ToggleGroup  传值
         <div>
           <ToggleGroup
             onChange={'5UzmGBgdiLXBiChZCPh4PJarnwxDMZLbNaANEpi4zHkdnDDP'}
@@ -1187,9 +1184,9 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
           />
         </div>
       </div>
-      <br /> */}
+      <br />
 
-      {/* <div>Tooltip  传值
+      <div>Tooltip  传值
         <div>
           <Tooltip
             text={
@@ -1203,7 +1200,7 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
           />
         </div>
       </div>
-      <br /> */}
+      <br />
 
       <div>TxButton
         <div style={{ marginLeft: '80px' }}>
@@ -1234,7 +1231,7 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
           />
         </div>
       </div>
-      <br /> */}
+      <br /> */}yar
 
 
       {/* {matches.length !== 0 && (
