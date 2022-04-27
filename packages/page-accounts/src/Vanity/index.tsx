@@ -1231,7 +1231,7 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
           />
         </div>
       </div>
-      <br /> */}yar
+      <br /> */}
 
 
       {/* {matches.length !== 0 && (
