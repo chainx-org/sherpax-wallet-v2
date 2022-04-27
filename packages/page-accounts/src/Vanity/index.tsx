@@ -1106,6 +1106,7 @@ function VanityApp({ className = '', onStatusChange, previousDelegatingAccount, 
           <Spinner label={t<string>('Retrieving sub-identities')} />
         </div>
       </div>
+      
       <br />
 
       <div>Static
