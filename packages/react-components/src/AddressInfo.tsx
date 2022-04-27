@@ -303,7 +303,6 @@ function createBalanceItems (formatIndex: number, lookup: Record<string, string>
 
   const allReserves = (deriveBalances?.namedReserves || []).reduce<PalletBalancesReserveData[]>((t, r) => t.concat(...r), []);
   const hasNamedReserves = !!allReserves && allReserves.length !== 0;
-  console.log(deriveBalances,'deriveBalances');
   
 
   balanceDisplay.locked && balancesAll && (isAllLocked || deriveBalances.lockedBalance?.gtn(0)) && allItems.push(
