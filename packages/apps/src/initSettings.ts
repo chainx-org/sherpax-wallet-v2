@@ -17,7 +17,7 @@ function networkOrUrl (apiUrl: string): void {
   }
 }
 
-function getApiUrl (): string {
+export default function getApiUrl (): string {
   // we split here so that both these forms are allowed
   //  - http://localhost:3000/?rpc=wss://substrate-rpc.parity.io/#/explorer
   //  - http://localhost:3000/#/explorer?rpc=wss://substrate-rpc.parity.io

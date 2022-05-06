@@ -16,10 +16,12 @@ import { useAccounts, useApi, useCall, useTeleport } from '@polkadot/react-hooks
 
 import { findMissingApis } from '../endpoint';
 import { useTranslation } from '../translate';
+import SettingNodeWrapper from './style/SettingNodeWrapper';
 import ChainInfo from './ChainInfo';
 import Grouping from './Grouping';
 import Item from './Item';
 import NodeInfo from './NodeInfo';
+import SettingNode from './SettingNode';
 
 interface Props {
   className?: string;
@@ -120,7 +122,9 @@ function Menu ({ className = '' }: Props): React.ReactElement<Props> {
             ))}
           </ul>
         </div>
-        <NodeInfo className='media--1400' />
+        <SettingNodeWrapper>
+          <SettingNode></SettingNode>
+        </SettingNodeWrapper>
       </div>
     </div>
   );
