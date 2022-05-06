@@ -1,5 +1,6 @@
 build/
 build-cjs/
+.vscode/*
 build-esm/
 coverage/
 node_modules/

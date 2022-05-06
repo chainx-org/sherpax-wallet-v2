@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 export { checkVisibility } from './checkVisibility';
+export { default as classes } from './classes';
 export { getAddressMeta } from './getAddressMeta';
 export { getAddressName } from './getAddressName';
 export { getAddressTags } from './getAddressTags';
