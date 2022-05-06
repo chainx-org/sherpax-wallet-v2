@@ -26,7 +26,7 @@ export interface Route {
     needsTeleport?: boolean;
   };
   group: RouteGroup;
-  icon: IconName;
+  icon?: IconName;
   isIgnored?: boolean;
   name: string;
   text: string;

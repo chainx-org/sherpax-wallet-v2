@@ -4,19 +4,18 @@
 import type { TFunction } from 'i18next';
 import type { Routes } from './types';
 
-import accounts from './accounts';
-import addresses from './addresses';
-import assets from './assets';
+// import addresses from './addresses';
+// import assets from './assets';
 import bounties from './bounties';
-import calendar from './calendar';
+// import calendar from './calendar';
 import claims from './claims';
 import contracts from './contracts';
 import council from './council';
 import democracy from './democracy';
-import explorer from './explorer';
 import extrinsics from './extrinsics';
 import files from './files';
 import gilt from './gilt';
+import interChain from './Inter-chain';
 import js from './js';
 import membership from './membership';
 import nfts from './nfts';
@@ -31,17 +30,18 @@ import storage from './storage';
 import sudo from './sudo';
 import techcomm from './techcomm';
 import teleport from './teleport';
-import transfer from './transfer';
+// import transfer from './transfer';
 import treasury from './treasury';
+import wallet from './wallet';
 
 export default function create (t: TFunction): Routes {
   return [
-    accounts(t),
-    addresses(t),
-    explorer(t),
+    wallet(t),
+    // addresses(t),
+    interChain(t),
     claims(t),
     poll(t),
-    transfer(t),
+    // transfer(t),
     teleport(t),
     staking(t),
     democracy(t),
@@ -52,10 +52,10 @@ export default function create (t: TFunction): Routes {
     membership(t),
     parachains(t),
     gilt(t),
-    assets(t),
+    // assets(t),
     nfts(t),
     society(t),
-    calendar(t),
+    // calendar(t),
     contracts(t),
     storage(t),
     extrinsics(t),

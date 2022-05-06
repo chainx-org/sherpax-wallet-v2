@@ -13,9 +13,8 @@ export default function create (t: TFunction): Route {
       needsApi: []
     },
     group: 'accounts',
-    icon: 'users',
-    name: 'accounts',
-    text: t('nav.accounts', 'Accounts', { ns: 'apps-routing' }),
+    name: 'wallet',
+    text: t('nav.accounts', 'Wallet', { ns: 'apps-routing' }),
     useCounter
   };
 }

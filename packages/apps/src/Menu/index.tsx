@@ -25,23 +25,6 @@ interface Props {
   className?: string;
 }
 
-function createExternals (t: TFunction): ItemRoute[] {
-  return [
-    {
-      href: 'https://github.com/polkadot-js/apps',
-      icon: 'code-branch',
-      name: 'github',
-      text: t<string>('nav.github', 'GitHub', { ns: 'apps-routing' })
-    },
-    {
-      href: 'https://wiki.polkadot.network',
-      icon: 'book',
-      name: 'wiki',
-      text: t<string>('nav.wiki', 'Wiki', { ns: 'apps-routing' })
-    }
-  ];
-}
-
 function checkVisible ({ api, isApiConnected, isApiReady }: ApiProps, allowTeleport: boolean, hasAccounts: boolean, hasSudo: boolean, { isHidden, needsAccounts, needsApi, needsApiCheck, needsApiInstances, needsSudo, needsTeleport }: Route['display']): boolean {
   if (isHidden) {
     return false;
@@ -93,7 +76,6 @@ function Menu ({ className = '' }: Props): React.ReactElement<Props> {
   const sudoKey = useCall<AccountId>(apiProps.isApiReady && apiProps.api.query.sudo?.key);
   const location = useLocation();
 
-  const externalRef = useRef(createExternals(t));
   const routeRef = useRef(createRoutes(t));
 
   const groupRef = useRef({
@@ -134,18 +116,6 @@ function Menu ({ className = '' }: Props): React.ReactElement<Props> {
                 key={name}
                 name={name}
                 routes={routes}
-              />
-            ))}
-          </ul>
-        </div>
-        <div className='menuSection media--1200'>
-          <ul className='menuItems'>
-            {externalRef.current.map((route): React.ReactNode => (
-              <Item
-                isLink
-                isToplevel
-                key={route.name}
-                route={route}
               />
             ))}
           </ul>

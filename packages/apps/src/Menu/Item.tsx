@@ -32,12 +32,7 @@ function Item ({ className = '', isLink, isToplevel, route: { Modal, href, icon,
       >
         <Icon icon={icon} />
         {text}
-        {!!count && (
-          <Badge
-            color={'white'}
-            info={count}
-          />
-        )}
+
       </a>
       {Modal && isModalVisible && (
         <Modal onClose={toggleModal} />
@@ -58,8 +53,8 @@ export default React.memo(styled(Item)`
     border-radius: 0.15rem;
 
     a {
-      padding: 0.857rem 0.857em 0.857rem 1rem;
-      line-height: 1.214rem;
+      padding: 0.5714rem 1.9286rem;
+      line-height: 1.614rem;
       border-radius: 0.25rem;
     }
 
@@ -77,7 +72,7 @@ export default React.memo(styled(Item)`
       border-radius: 0.15rem 0.15rem 0 0;
 
       a {
-        padding: 0.857rem 1.429rem 0.857rem;
+        padding: 0.5714rem 1.9286rem;
         cursor: default;
       }
 
@@ -87,22 +82,20 @@ export default React.memo(styled(Item)`
     }
 
     .ui--Badge {
-      top: 0.7rem;
+      top: 0.6rem;
     }
   }
 
-  &&.withCounter a {
-    padding-right: 3.2rem;
-  }
-
   a {
-    color: inherit !important;
+    color: #353D41 !important;
+    font-family: 'PingFangSC-Medium, PingFang SC' !important;
     display: block;
     padding: 0.5rem 1.15rem 0.57rem;
     text-decoration: none;
     font-weight: 400;
-    font-size: 1rem;
-    line-height: 1.5rem;
+    font-size: 1.0714rem;
+    height: 2.5714rem;
+    line-height: 1.614rem;
   }
 
   .ui--Badge {

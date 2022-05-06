@@ -38,7 +38,7 @@ function getContrast (uiHighlight: string | undefined): string {
 
   return brightness > BRIGHTNESS
     ? 'rgba(45, 43, 41, 0.875)'
-    : 'rgba(255, 253, 251, 0.875)';
+    : '#353D41';
 }
 
 function getMenuHoverContrast (uiHighlight: string | undefined): string {

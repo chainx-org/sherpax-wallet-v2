@@ -14,7 +14,7 @@ const emptyColor = '#99999';
 
 // based on chain name
 // alphabetical
-const chainSherpax = '#6bbee8';
+const chainSherpax = '#6098FF';
 const chainAcala = '#645AFF';
 const chainAjuna = 'linear-gradient(135deg, #0e0c14, #12203b, #1f3451)';
 const chainAleph = '#00CCAB';
