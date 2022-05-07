@@ -4,8 +4,8 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 
-import CreateModal from '@polkadot/app-accounts-chainx/modals/Create';
-import ImportModal from '@polkadot/app-accounts-chainx/modals/Import';
+import CreateModal from '@polkadot/app-accounts/modals/Create';
+import ImportModal from '@polkadot/app-accounts/modals/Import';
 import { useTranslation } from '@polkadot/app-accounts-chainx/translate';
 import { StatusContext } from '@polkadot/react-components';
 import { BareProps as Props } from '@polkadot/react-components/types';
@@ -51,7 +51,7 @@ function NodeInfo ({ className = '' }: Props): React.ReactElement<Props> {
           onStatusChange={queueAction}
           setStoredValue={setValue}
           storedValue={currentAccount}
-        />
+          />
         : <>
           <Button
             isDisabled={isIpfs}

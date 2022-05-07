@@ -2,18 +2,20 @@
 // This software may be modified and distributed under the terms
 // of the Apache-2.0 license. See the LICENSE file for details.
 
-import React, {useContext, useEffect, useState} from 'react';
-import styled from 'styled-components';
-import { AddressSmall, Balance, Button} from '@polkadot/react-components';
-import {AccountContext} from '@polkadot/react-components-chainx/AccountProvider';
-import { useTranslation } from '../translate';
-import AccountActions from '@polkadot/react-components-chainx/AccountStatus/AccountActions';
-import { KeyringAddress } from '@polkadot/ui-keyring/types'
-import {Delegation} from '@polkadot/app-accounts-chainx/types';
-import {ProxyDefinition} from '@polkadot/types/interfaces';
 import BN from 'bn.js';
-import {useApi, useCall} from '@polkadot/react-hooks';
-import {DeriveBalancesAll} from '@polkadot/api-derive/types';
+import React, { useContext, useEffect, useState } from 'react';
+import styled from 'styled-components';
+
+import { DeriveBalancesAll } from '@polkadot/api-derive/types';
+import { Delegation } from '@polkadot/app-accounts-chainx/types';
+import { AddressSmall, Balance, Button } from '@polkadot/react-components';
+import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
+import AccountActions from '@polkadot/react-components-chainx/AccountStatus/AccountActions';
+import { useApi, useCall } from '@polkadot/react-hooks';
+import { ProxyDefinition } from '@polkadot/types/interfaces';
+import { KeyringAddress } from '@polkadot/ui-keyring/types';
+
+import { useTranslation } from '../translate';
 
 function noop () { }
 
@@ -31,10 +33,10 @@ interface Props {
   isContract?: boolean;
 }
 
-function Account ({ account, address, className, isAccountChecked, setStoredValue, isValid: propsIsValid, isContract, delegation, proxy}: Props): React.ReactElement<Props> | null {
+function Account ({ account, address, className, delegation, isAccountChecked, isContract, isValid: propsIsValid, proxy, setStoredValue }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const { changeAccount } = useContext(AccountContext);
-  const {api} = useApi()
+  const { api } = useApi();
   const allBalances = useCall<DeriveBalancesAll>(api.derive.balances.all, [address]);
 
   return (
@@ -46,36 +48,38 @@ function Account ({ account, address, className, isAccountChecked, setStoredValu
       </td>
 
       <td className='middle'>
-        <Balance className='accountBox--all'
-                 label={t('balances')}
-                 params={address}
-                 balance={allBalances?.freeBalance.sub(allBalances?.frozenMisc)}
+        <Balance
+          balance={allBalances?.freeBalance.sub(allBalances?.frozenMisc)}
+          className='accountBox--all'
+          label={t('balances')}
+          params={address}
         />
 
       </td>
       <td className='number middle samewidth'>
-        {isAccountChecked ? <Button
+        {isAccountChecked
+          ? <Button
             icon={'check'}
             label={''}
             onClick={noop}
-          >
+            >
           </Button>
           : <Button
             icon={'plus'}
             isBasic={true}
             label={t('Change')}
             onClick={() => {
-              setStoredValue(address)
-              changeAccount(address)
+              setStoredValue(address);
+              changeAccount(address);
             }}
-          />}
+            />}
       </td>
       <td>
         <AccountActions
           account={account}
-          propsIsValid={propsIsValid}
-          isContract={isContract}
           delegation={delegation}
+          isContract={isContract}
+          propsIsValid={propsIsValid}
           proxy={proxy}
         />
       </td>

@@ -6,12 +6,11 @@ import type { ButtonProps } from './types';
 
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
+
 import Icon from '@polkadot/react-components/Icon';
 import Spinner from '@polkadot/react-components/Spinner';
 
-
-
-function Button({ children, className = '', icon, isBasic, isBusy, isCircular, isDisabled, isFull, isIcon, isSelected, isToplevel, label, onClick, onMouseEnter, onMouseLeave, tabIndex, withoutLink, color }: ButtonProps): React.ReactElement<ButtonProps> {
+function Button ({ children, className = '', color, icon, isBasic, isBusy, isCircular, isDisabled, isFull, isIcon, isSelected, isToplevel, label, onClick, onMouseEnter, onMouseLeave, tabIndex, withoutLink }: ButtonProps): React.ReactElement<ButtonProps> {
   const _onClick = useCallback(
     () => !(isBusy || isDisabled) && onClick && onClick(),
     [isBusy, isDisabled, onClick]
@@ -25,7 +24,12 @@ function Button({ children, className = '', icon, isBasic, isBusy, isCircular, i
       onMouseLeave={onMouseLeave}
       tabIndex={tabIndex}
     >
-      {icon ?<Icon icon={icon} color={color} />:''}
+      {icon
+        ? <Icon
+          color={color}
+          icon={icon}
+          />
+        : ''}
       {label}
       {children}
       <Spinner
@@ -41,19 +45,19 @@ const ICON_PADDING = 0.5;
 export default React.memo(styled(Button)(({ theme }: ThemeProps) => `
   background: transparent;
   border: none;
-  color: #ED2B89;
+  color: white;
   cursor: pointer;
   line-height: 1;
   margin: 0;
   position: relative;
   vertical-align: middle;
   text-align: center;
-  border: 1px solid #ED2B89;
+  border: 1px solid white;
 
   &:hover{
     background: transparent;
     color: #FFF !important;
-    box-shadow: 0 0 1px #ED2B89;
+    box-shadow: 0 0 1px white;
   }
   &:not(.hasLabel) {
     padding: 0.7em;
@@ -95,7 +99,7 @@ export default React.memo(styled(Button)(({ theme }: ThemeProps) => `
   }
 
   &.primaryBtn.isDisabled:hover{
-    background: #ED2B89 !important;
+    background: white !important;
     box-shadow: none;
     cursor: not-allowed;
   }

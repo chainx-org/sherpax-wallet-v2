@@ -1,14 +1,19 @@
-  // Copyright 2017-2020 @polkadot/app-staking authors & contributors
+// Copyright 2017-2020 @polkadot/app-staking authors & contributors
 // This software may be modified and distributed under the terms
 // of the Apache-2.0 license. See the LICENSE file for details.
 
+// [object Object]
+// SPDX-License-Identifier: Apache-2.0
+
 import React, { useState } from 'react';
 import styled from 'styled-components';
+
 import { AddressRow } from '@polkadot/react-components';
 import { ActionStatus } from '@polkadot/react-components/Status/types';
-import AccountList from './AccountList';
 import Button from '@polkadot/react-components-chainx/Button';
-import {StyledWrapper} from './StyledWrapper';
+
+import AccountList from './AccountList';
+import { StyledWrapper } from './StyledWrapper';
 
 interface Props {
   onStatusChange?: (status: ActionStatus) => void;
@@ -17,8 +22,7 @@ interface Props {
   className?: string
 }
 
-
-function AccountStatus ({ storedValue, onStatusChange, setStoredValue, className}: Props): React.ReactElement<Props> {
+function AccountStatus ({ className, onStatusChange, setStoredValue, storedValue }: Props): React.ReactElement<Props> {
   const [isAccountListOpen, setIsAccountListOpen] = useState<boolean>(false);
 
   const _toggleAccountList = (): void => setIsAccountListOpen(!isAccountListOpen);
@@ -28,26 +32,28 @@ function AccountStatus ({ storedValue, onStatusChange, setStoredValue, className
 
       {isAccountListOpen && (
         <AccountList
-          storedValue={storedValue}
           onClose={_toggleAccountList}
           onStatusChange={onStatusChange}
           setStoredValue={setStoredValue}
+          storedValue={storedValue}
         />
       )}
-
       <StyledWrapper>
-        <div className='ui--AccountStatus-Box' >
+        <div className='ui--AccountStatus-Box'>
           <AddressRow
             className='ui--AccountStatus-Address'
             isEditable={true}
             value={storedValue}
           >
           </AddressRow>
-          <div className="usermarks" onClick={_toggleAccountList} ></div>
+          <div
+            className='usermarks'
+            onClick={_toggleAccountList}
+          ></div>
           <Button
             className='ui--AccountStatus-ChangeAccount'
-            isBasic={true}
             icon='angle-down'
+            isBasic={true}
             onClick={_toggleAccountList}
           />
         </div>

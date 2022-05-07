@@ -14,11 +14,11 @@ function Header ({ className = '', header, onClose }: HeaderProps) {
       {header && (
         <h1>{header}</h1>
       )}
-      <Button
+      {/* <Button
         dataTestId='close-modal'
         icon='times'
         onClick={onClose}
-      />
+      /> */}
     </div>
   );
 }

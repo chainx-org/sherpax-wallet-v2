@@ -80,7 +80,8 @@
       "@polkadot/react-signer/*": ["react-signer/src/*"],
       "@polkadot/test-support/": ["test-support/src/"],
       "@polkadot/test-support/*": ["test-support/src/*"],
-      "@polkadot/react-components-chainx/*":["react-components-chainx/src/*"]
+      "@polkadot/react-components-chainx/*":["react-components-chainx/src/*"],
+      "@polkadot/app-accounts-chainx/*":["page-accounts-chainx/src/*"]
     },
     "skipLibCheck": true
 	}
