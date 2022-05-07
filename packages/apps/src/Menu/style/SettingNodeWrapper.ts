@@ -6,6 +6,7 @@ import styled from 'styled-components';
 const SettingNodeWrapper = styled.div`
   ul {
     margin:0 ;
+    list-style:none ;
   }
   > .right{
     display: flex;

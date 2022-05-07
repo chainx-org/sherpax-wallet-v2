@@ -35,7 +35,7 @@ function SettingNode (): React.ReactElement {
   return (
     <>
       <ul className='right'>
-        <li
+        {/* <li
           className='switchNode media--800'
           onClick={toggleEndpoints}
         >
@@ -65,7 +65,7 @@ function SettingNode (): React.ReactElement {
               size='lg'
             />
           </Link>
-        </li>
+        </li> */}
         <li className='accountSelector'>
           <AccountSelect />
         </li>

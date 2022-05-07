@@ -10,6 +10,7 @@ import { ThemeProvider } from 'styled-components';
 
 import { Api } from '@polkadot/react-api';
 import Queue from '@polkadot/react-components/Status/Queue';
+import { AccountProvider } from '@polkadot/react-components-chainx/AccountProvider';
 import { BlockAuthors, Events } from '@polkadot/react-query';
 import { settings } from '@polkadot/ui-settings';
 
@@ -43,23 +44,25 @@ function Root ({ isElectron, store }: Props): React.ReactElement<Props> {
   return (
     <Suspense fallback='...'>
       <ThemeProvider theme={theme}>
-        <Queue>
-          <Api
-            apiUrl={settings.apiUrl}
-            isElectron={isElectron}
-            store={store}
-          >
-            <BlockAuthors>
-              <Events>
-                <HashRouter>
-                  <WindowDimensions>
-                    <Apps />
-                  </WindowDimensions>
-                </HashRouter>
-              </Events>
-            </BlockAuthors>
-          </Api>
-        </Queue>
+        <AccountProvider>
+          <Queue>
+            <Api
+              apiUrl={settings.apiUrl}
+              isElectron={isElectron}
+              store={store}
+            >
+              <BlockAuthors>
+                <Events>
+                  <HashRouter>
+                    <WindowDimensions>
+                      <Apps />
+                    </WindowDimensions>
+                  </HashRouter>
+                </Events>
+              </BlockAuthors>
+            </Api>
+          </Queue>
+        </AccountProvider>
       </ThemeProvider>
     </Suspense>
   );

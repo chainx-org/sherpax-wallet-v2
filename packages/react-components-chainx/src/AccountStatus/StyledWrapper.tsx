@@ -1,7 +1,11 @@
+// [object Object]
+// SPDX-License-Identifier: Apache-2.0
+
 import styled from 'styled-components';
 
 export const StyledWrapper = styled.div`
-  padding: 4px 0 0 2rem;
+
+  padding: 0 0 0 2rem;
   min-height: 61px;
   margin: 0 -1.5rem;
   display: flex !important;

@@ -1,4 +1,3 @@
-
 import React, { createContext, FC, useEffect, useState } from 'react';
 
 import { useLocalStorage } from '@polkadot/react-hooks-chainx';
@@ -19,15 +18,17 @@ export const AccountContext = createContext<AccountContextData>({} as AccountCon
 export const AccountProvider: FC = ({ children }) => {
   const [storedValue] = useLocalStorage<string>('currentAccount', '');
   const [currentAccount, setAccount] = useState<string>(storedValue);
-  function changeAccount(account: string) {
+
+  function changeAccount (account: string) {
     setAccount(account);
   }
-  
+
   return (
     <AccountContext.Provider value={{
       currentAccount,
-      changeAccount,
-    }} >
+      changeAccount
+    }}
+    >
       {children}
     </AccountContext.Provider>
   );

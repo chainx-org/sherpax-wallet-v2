@@ -54,7 +54,7 @@ export default React.memo(styled(Grouping)`
   .groupHdr {
     border-radius: 0.25rem;
     padding: 0.857rem 1.375rem;
-    font-size: 1.0714rem;
+    font-size: 1.0714rem!important;
     font-weight: 400;
     line-height: 1.214rem;
 

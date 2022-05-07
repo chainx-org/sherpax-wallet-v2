@@ -79,7 +79,8 @@
       "@polkadot/react-signer": ["react-signer/src"],
       "@polkadot/react-signer/*": ["react-signer/src/*"],
       "@polkadot/test-support/": ["test-support/src/"],
-      "@polkadot/test-support/*": ["test-support/src/*"]
+      "@polkadot/test-support/*": ["test-support/src/*"],
+      "@polkadot/react-components-chainx/*":["react-components-chainx/src/*"]
     },
     "skipLibCheck": true
 	}
