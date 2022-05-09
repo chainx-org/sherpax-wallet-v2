@@ -16,19 +16,19 @@ import {getLedger} from '@polkadot/react-api';
 import {ActionStatus} from '@polkadot/react-components/Status/types';
 import keyring from '@polkadot/ui-keyring';
 import Backup from '@polkadot/app-accounts-chainx/modals/Backup';
-import DelegateModal from '@polkadot/app-accounts-chainx/modals/Delegate';
+import DelegateModal from '@polkadot/app-accounts/modals/Delegate';
 import Derive from '@polkadot/app-accounts-chainx/modals/Derive';
 import Withdraw from '@polkadot/app-accounts-chainx/modals/withdraw';
 import XbtcTransfer from '@polkadot/app-accounts-chainx/modals/XBTCTransfer';
 import IdentityMain from '@polkadot/app-accounts-chainx/modals/IdentityMain';
 import IdentitySub from '@polkadot/app-accounts-chainx/modals/IdentitySub';
-import ChangePass from '@polkadot/app-accounts-chainx/modals/ChangePass';
+import ChangePass from '@polkadot/app-accounts/modals/ChangePass';
 import Deposite from '@polkadot/app-accounts-chainx/modals/deposite/deposite';
 import ProxyOverview from '@polkadot/app-accounts-chainx/modals/ProxyOverview';
 import MultisigApprove from '@polkadot/app-accounts-chainx/modals/MultisigApprove';
 import RecoverAccount from '@polkadot/app-accounts-chainx/modals/RecoverAccount';
 import RecoverSetup from '@polkadot/app-accounts-chainx/modals/RecoverSetup';
-import UndelegateModal from '@polkadot/app-accounts-chainx/modals/Undelegate';
+import UndelegateModal from '@polkadot/app-accounts/modals/Undelegate';
 import BN from 'bn.js';
 import {KeyringAddress} from '@polkadot/ui-keyring/types';
 import {Delegation} from '@polkadot/app-accounts-chainx/types';
@@ -42,7 +42,7 @@ interface DemocracyUnlockable {
 }
 
 interface Props {
-  account: KeyringAddress;
+  account: KeyringAddress | any;
   propsIsValid?: boolean;
   isContract?: boolean;
   delegation?: Delegation;
@@ -439,30 +439,30 @@ function AccountActions({account: {address, meta}, isContract, delegation, proxy
                 {t('Delegate democracy votes')}
               </Menu.Item>
             )),
-            (api.api.tx.multisig?.asMulti && isMultisig && (<Menu.Item
-                disabled={!multiInfos || !multiInfos.length}
-                key='multisigApprovals'
-                onClick={toggleMultisig}
-              >
-                {t('Multisig approvals')}
-              </Menu.Item>
-            )),
-            (
-              <Menu.Item
-                key='addMultisig'
-                onClick={toggleAddMultisig}
-              >
-                {t('Multisig')}
-              </Menu.Item>
-            ),
-            (api.api.tx.democracy?.unlock && democracyUnlockTx && (
-              <Menu.Item
-                key='clearDemocracy'
-                onClick={_clearDemocracyLocks}
-              >
-                {t('Clear expired democracy locks')}
-              </Menu.Item>
-            )),
+            // (api.api.tx.multisig?.asMulti && isMultisig && (<Menu.Item
+            //     disabled={!multiInfos || !multiInfos.length}
+            //     key='multisigApprovals'
+            //     onClick={toggleMultisig}
+            //   >
+            //     {t('Multisig approvals')}
+            //   </Menu.Item>
+            // )),
+            // (
+            //   <Menu.Item
+            //     key='addMultisig'
+            //     onClick={toggleAddMultisig}
+            //   >
+            //     {t('Multisig')}
+            //   </Menu.Item>
+            // ),
+            // (api.api.tx.democracy?.unlock && democracyUnlockTx && (
+            //   <Menu.Item
+            //     key='clearDemocracy'
+            //     onClick={_clearDemocracyLocks}
+            //   >
+            //     {t('Clear expired democracy locks')}
+            //   </Menu.Item>
+            // )),
             // (api.api.query.proxy?.proxies && (
             //   <Menu.Item
             //     key='proxy-overview'

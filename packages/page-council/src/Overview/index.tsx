@@ -43,6 +43,7 @@ function Overview ({ className = '', prime }: Props): React.ReactElement<Props> 
   const bestNumber = useBestNumber();
   const electionsInfo = useCall<DeriveElectionsInfo>(api.derive.elections.info);
   const allVotes = useCall<Record<string, AccountId[]>>(api.derive.council.votes, undefined, transformVotes);
+  const str = '5UzmGBgdiLXBiChZCPh4PJarnwxDMZLbNaANEpi4zHkdnDDP';
   const modElections = useModuleElections();
   const hasElections = !!modElections;
 
@@ -60,9 +61,13 @@ function Overview ({ className = '', prime }: Props): React.ReactElement<Props> 
         </Button.Group>
       )}
       <Members
+        // 所有投票
         allVotes={allVotes}
+        // 选举人
         electionsInfo={electionsInfo}
+        // 是否选举
         hasElections={hasElections}
+        // 主要的
         prime={prime}
       />
       {hasElections && (

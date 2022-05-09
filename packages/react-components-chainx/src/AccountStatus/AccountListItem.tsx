@@ -46,7 +46,6 @@ function Account ({ account, address, className, delegation, isAccountChecked, i
           value={address}
         />
       </td>
-
       <td className='middle'>
         <Balance
           balance={allBalances?.freeBalance.sub(allBalances?.frozenMisc)}
@@ -83,6 +82,7 @@ function Account ({ account, address, className, delegation, isAccountChecked, i
           proxy={proxy}
         />
       </td>
+
     </tr>
   );
 }

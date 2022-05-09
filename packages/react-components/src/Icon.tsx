@@ -1,19 +1,18 @@
-// Copyright 2017-2022 @polkadot/react-components authors & contributors
+// Copyright 2017-2020 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { IconName } from '@fortawesome/fontawesome-svg-core';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
   className?: string;
-  color?: 'gray' | 'green' | 'normal' | 'orange' | 'red' | 'transparent' | 'white' | 'darkGray';
+  color?: 'gray' | 'green' | 'normal' | 'orange' | 'red' | 'transparent' | 'white';
   icon: IconName;
-  isPadded?: boolean;
   isSpinning?: boolean;
   onClick?: () => void;
   size?: '1x' | '2x';
@@ -23,40 +22,26 @@ interface Props {
 // one-time init of FA libraries
 library.add(fas);
 
-function Icon ({ className = '', color = 'normal', icon, isPadded, isSpinning, onClick, size = '1x', tooltip }: Props): React.ReactElement<Props> {
-  const extraProps: Record<string, unknown> = {
-    'data-testid': icon,
-    ...(tooltip
-      ? {
-        'data-for': tooltip,
-        'data-tip': true
-      }
-      : {}
-    )
-  };
+function Icon ({ className = '', color = 'normal', icon, isSpinning, onClick, size = '1x', tooltip }: Props): React.ReactElement<Props> {
+  const extraProps = tooltip
+    ? { 'data-for': tooltip, 'data-tip': true }
+    : {};
 
   return (
     <FontAwesomeIcon
       {...extraProps}
-      className={`ui--Icon ${color}Color${onClick ? ' isClickable' : ''}${isPadded ? ' isPadded' : ''} ${className}`}
+      className={`ui--Icon ${color}Color${onClick ? ' isClickable' : ''} ${className}`}
       icon={icon}
       onClick={onClick}
       size={size}
       spin={isSpinning}
-      tabIndex={-1}
     />
   );
 }
 
 export default React.memo(styled(Icon)`
-  outline: none;
-
   &.isClickable {
     cursor: pointer;
-  }
-
-  &.isPadded {
-    margin: 0 0.25rem;
   }
 
   &.grayColor {
@@ -81,9 +66,5 @@ export default React.memo(styled(Icon)`
 
   &.whiteColor {
     color: white;
-  }
-
-  &.darkGrayColor {
-    color: #8B8B8B;
   }
 `);

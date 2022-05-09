@@ -19,8 +19,6 @@ import { useTranslation } from '../translate';
 import SettingNodeWrapper from './style/SettingNodeWrapper';
 import ChainInfo from './ChainInfo';
 import Grouping from './Grouping';
-import Item from './Item';
-import NodeInfo from './NodeInfo';
 import SettingNode from './SettingNode';
 
 interface Props {
@@ -141,10 +139,10 @@ export default React.memo(styled(Menu)`
     align-items: center;
     display: flex;
     justify-content: space-between;
-    padding: 0 1.5rem;
+    padding: 0 26px;
     width: 100%;
-    max-width: var(--width-full);
-    margin: 0 auto;
+    /* max-width: var(--width-full);
+    margin: 0 auto; */
   }
 
   &.isLoading {

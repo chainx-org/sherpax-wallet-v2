@@ -267,6 +267,7 @@ export default createGlobalStyle<Props & ThemeProps>(({ theme, uiHighlight }: Pr
 
 
   .ui--Menu {
+
     .ui--Menu__Item:hover {
        background: ${hexToRGB(getHighlight(uiHighlight), '.1')};
     }

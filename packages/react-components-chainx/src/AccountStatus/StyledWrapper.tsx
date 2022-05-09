@@ -77,6 +77,7 @@ export const StyledWrapper = styled.div`
         }
 
         svg{
+          margin-top: -1px ;
           width: 2.8rem;
           height: 2.8rem;
         }

@@ -16,15 +16,16 @@ interface Props {
   balance?: Balance;
   isPrime?: boolean;
   voters?: AccountId[];
+  withShortAddress?:boolean
 }
 
-function Candidate ({ address, balance, className = '', isPrime, voters }: Props): React.ReactElement<Props> {
+function Candidate ({ address, balance, className = '', isPrime, voters,withShortAddress }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   return (
     <tr className={className}>
       <td className='address'>
-        <AddressSmall value={address} />
+        <AddressSmall value={address} withShortAddress={withShortAddress}  />
       </td>
       <td>
         {isPrime && (

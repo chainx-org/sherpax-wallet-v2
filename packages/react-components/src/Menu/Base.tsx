@@ -18,7 +18,6 @@ export default React.memo(styled(Base)`
   display: flex;
   flex-direction: column;
   min-width: 14.286rem;
-  margin: 1rem 0;
 
   & > *:not(.ui--Menu__Item):not(.ui--Menu__Divider) {
     margin-right: 1rem;

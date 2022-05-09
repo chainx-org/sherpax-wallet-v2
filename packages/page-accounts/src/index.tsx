@@ -24,31 +24,9 @@ function AccountsApp ({ basePath, onStatusChange }: Props): React.ReactElement<P
   const { hasAccounts } = useAccounts();
   const { isIpfs } = useIpfs();
 
-  const tabsRef = useRef([
-    {
-      isRoot: true,
-      name: 'overview',
-      text: t<string>('My accounts')
-    },
-    {
-      name: 'vanity',
-      text: t<string>('Vanity generator')
-    },
-    // {
-    //   name: 'components',
-    //   text: t<string>('polkadot components')
-    // }
-
-  ]);
-
   return (
     <main className='accounts--App'>
-      <HelpOverlay md={basicMd as string} />
-      <Tabs
-        basePath={basePath}
-        hidden={(hasAccounts && !isIpfs) ? undefined : HIDDEN_ACC}
-        items={tabsRef.current}
-      />
+      {/* <HelpOverlay md={basicMd as string} /> */}
       <Switch>
         <Route path={`${basePath}/vanity`}>
           <Vanity
@@ -62,12 +40,6 @@ function AccountsApp ({ basePath, onStatusChange }: Props): React.ReactElement<P
             onStatusChange={onStatusChange}
           />
         </Route>
-        {/* <Route path={`${basePath}/components`}>
-        <Vanity
-            basePath={basePath}
-            onStatusChange={onStatusChange}
-          />
-        </Route> */}
       </Switch>
     </main>
   );
