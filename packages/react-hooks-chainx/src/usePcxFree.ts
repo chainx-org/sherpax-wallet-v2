@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
 import {useLocalStorage} from '@polkadot/react-hooks-chainx/index';
 import { date } from 'is';
-interface PcxFreeInfo {
+export interface PcxFreeInfo {
   free: number,
   reserved: number,
   miscFrozen: number,

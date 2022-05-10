@@ -15,7 +15,6 @@ export default function useMultisigApprovals (address: string): [H256, Multisig]
   const [trigger, incTrigger] = useIncrement();
   const mountedRef = useIsMountedRef();
 
-  console.log(events, '----------------------');
 
   // increment the trigger by looking at all events
   //   - filter the by multisig module (old utility is not supported)

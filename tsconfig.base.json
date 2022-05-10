@@ -82,6 +82,7 @@
       "@polkadot/test-support/*": ["test-support/src/*"],
       "@polkadot/react-components-chainx/*":["react-components-chainx/src/*"],
       "@polkadot/app-accounts-chainx/*":["page-accounts-chainx/src/*"],
+      "@polkadot/react-hooks-chainx/*":["react-hooks-chainx/src/*"],
       "@assets/*": ["assets/*"]
     },
     "skipLibCheck": true

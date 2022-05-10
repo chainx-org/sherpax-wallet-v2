@@ -6591,6 +6591,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bignumber@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "bignumber@npm:1.1.0"
+  checksum: 300f2c04fb8aa538b9e73e9c1f2c84abc06c5c7f2e8b10c8864ff540b6ff890c6665f1563c5a29f9f9b48ce131bebef245f32043082266bbb07fd098b60e341b
+  languageName: node
+  linkType: hard
+
 "binary-extensions@npm:^2.0.0":
   version: 2.1.0
   resolution: "binary-extensions@npm:2.1.0"
@@ -16134,6 +16141,7 @@ __metadata:
     "@types/store": ^2.0.2
     "@types/styled-components": ^5.1.24
     "@types/styled-theming": ^2.2.5
+    bignumber: ^1.1.0
     concurrently: ^7.0.0
     devtron: ^1.4.0
     dnslink-cloudflare: ^3.0.0

@@ -73,6 +73,7 @@ export default React.memo(styled(IdentityIcon)(({ theme }: ThemeProps) => `
     : ''}
 
   border: 1px solid ${theme.theme === 'dark' ? 'transparent' : '#ddd'};
+  background:white;
   border-radius: 50%;
   display: inline-block;
   overflow: hidden;

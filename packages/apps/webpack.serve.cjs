@@ -14,7 +14,15 @@ module.exports = merge(
       hot: true,
       open: false,
       port: 3000,
-      static: path.resolve(__dirname, 'build')
+      static: path.resolve(__dirname, 'build'),
+      proxy:{
+        '/v1': {
+          target: 'https://coming-zero-wallet.coming.chat',
+          pathRewrite: {'/v1' : ''},
+          changeOrigin: true,
+          secure: false,
+        }
+      }
     },
     plugins: [
       new HtmlWebpackPlugin({

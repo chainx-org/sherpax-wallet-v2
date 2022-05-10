@@ -69,3 +69,6 @@ export { useVotingStatus } from './useVotingStatus';
 export { useWeight } from './useWeight';
 export { useWeightFee } from './useWeightFee';
 export { useWindowSize } from './useWindowSize';
+export { useVestedLocked } from './useVestedLocked';
+export {useLockedBreakdown} from './useLockedBreakdown'
+

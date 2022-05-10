@@ -3,7 +3,7 @@
 
 import type { AccountId, Address } from '@polkadot/types/interfaces';
 
-import React from 'react';
+import React,{CSSProperties} from 'react';
 import styled from 'styled-components';
 
 import AccountName from './AccountName';
@@ -22,15 +22,18 @@ interface Props {
   withShortAddress?: boolean;
   toggle?: unknown;
   value?: string | Address | AccountId | null | Uint8Array;
+  iconSize?:number;
+  ShortAddressStyle:CSSProperties
+  accountNameStyle:CSSProperties
 }
 
-function AddressSmall ({ children, className = '', defaultName, onClickName, overrideName, parentAddress, toggle, value, withShortAddress = false, withSidebar = true }: Props): React.ReactElement<Props> {
+function AddressSmall ({ children, className = '', accountNameStyle,defaultName, onClickName, overrideName, parentAddress, toggle, value, withShortAddress = false, withSidebar = true,iconSize,ShortAddressStyle }: Props): React.ReactElement<Props> {
   const displayAsGrid = parentAddress || withShortAddress;
 
   return (
     <div className={`ui--AddressSmall ${className}`}>
       <div>
-        <IdentityIcon value={value as Uint8Array} />
+        <IdentityIcon value={value as Uint8Array} size={iconSize}   />
       </div>
       <div className={displayAsGrid ? 'addressGrid' : ''}>
         {parentAddress && (
@@ -39,6 +42,7 @@ function AddressSmall ({ children, className = '', defaultName, onClickName, ove
           </div>
         )}
         <AccountName
+          accountNameStyle={accountNameStyle}
           className={`accountName ${withSidebar ? 'withSidebar' : ''}`}
           defaultName={defaultName}
           onClick={onClickName}
@@ -53,6 +57,7 @@ function AddressSmall ({ children, className = '', defaultName, onClickName, ove
           <div
             className='shortAddress'
             data-testid='short-address'
+            style={ShortAddressStyle}
           >
             {toShortAddress(value)}
           </div>
@@ -107,7 +112,7 @@ export default React.memo(styled(AddressSmall)`
 
   .ui--AccountName {
     max-width: 26rem;
-    overflow: hidden;
+    //overflow: hidden;
 
     &.withSidebar {
       cursor: help;

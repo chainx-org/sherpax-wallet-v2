@@ -3,7 +3,7 @@
 
 import type { AccountId, Balance } from '@polkadot/types/interfaces';
 
-import React from 'react';
+import React,{CSSProperties} from 'react';
 
 import { AddressSmall, Tag } from '@polkadot/react-components';
 
@@ -17,15 +17,18 @@ interface Props {
   isPrime?: boolean;
   voters?: AccountId[];
   withShortAddress?:boolean
+  iconSize?:number
+  accountNameStyle?:CSSProperties
+  ShortAddressStyle?:CSSProperties
 }
 
-function Candidate ({ address, balance, className = '', isPrime, voters,withShortAddress }: Props): React.ReactElement<Props> {
+function Candidate ({ address, balance, className = '', isPrime, voters,withShortAddress,iconSize,accountNameStyle,ShortAddressStyle }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   return (
     <tr className={className}>
       <td className='address'>
-        <AddressSmall value={address} withShortAddress={withShortAddress}  />
+        <AddressSmall value={address} withShortAddress={withShortAddress}  iconSize={iconSize} accountNameStyle={accountNameStyle} ShortAddressStyle={ShortAddressStyle}  />
       </td>
       <td>
         {isPrime && (

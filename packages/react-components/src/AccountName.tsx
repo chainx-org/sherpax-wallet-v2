@@ -5,7 +5,7 @@ import type { IconName } from '@fortawesome/fontawesome-svg-core';
 import type { DeriveAccountRegistration } from '@polkadot/api-derive/types';
 import type { AccountId, AccountIndex, Address } from '@polkadot/types/interfaces';
 
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState,CSSProperties } from 'react';
 import styled from 'styled-components';
 
 import { AccountSidebarToggle } from '@polkadot/app-accounts/Sidebar';
@@ -27,6 +27,7 @@ interface Props {
   toggle?: boolean;
   value: AccountId | AccountIndex | Address | string | Uint8Array | null | undefined;
   withSidebar?: boolean;
+  accountNameStyle:CSSProperties
 }
 
 const KNOWN: [AccountId, string][] = [
@@ -130,7 +131,7 @@ function extractIdentity (address: string, identity: DeriveAccountRegistration):
   return elem;
 }
 
-function AccountName ({ children, className = '', defaultName, label, onClick, override, toggle, value, withSidebar }: Props): React.ReactElement<Props> {
+function AccountName ({ children, className = '', defaultName, label, onClick, override, toggle, value, withSidebar,accountNameStyle }: Props): React.ReactElement<Props> {
   const api = useSystemApi();
   const info = useDeriveAccountInfo(value);
   const [name, setName] = useState<React.ReactNode>(() => extractName((value || '').toString(), undefined, defaultName));
@@ -170,6 +171,7 @@ function AccountName ({ children, className = '', defaultName, label, onClick, o
 
   return (
     <div
+      style={accountNameStyle}
       className={`ui--AccountName${withSidebar ? ' withSidebar' : ''} ${className}`}
       data-testid='account-name'
       onClick={

@@ -29,7 +29,7 @@ export default React.memo(styled(Wallet)`
       box-sizing:border-box;
       padding:30px 33px ;
       width: 55.156vw;
-      height: 22.656vw;
+      height: 290px;
       margin-right:20px ;
       background: linear-gradient(135deg, #CBE5FF 0%, #83AFFF 100%);
       border: 1px solid #DCE0E2;
@@ -43,18 +43,51 @@ export default React.memo(styled(Wallet)`
         display: flex;
         width: 100%;
         justify-content:space-between;
+        margin-bottom: 36px;
         .send {
           display: flex;
           align-items: center;
         }
       }
+      .balance {
+        .details {
+          display: flex;
+          justify-content: space-between;
+          position: relative;
+          margin-top: 31px;
+          z-index: 1;
+        }
+      }
     }
     .right {
       flex:1 ;
-      height: 22.656vw;
+      box-sizing: border-box;
+      padding: 16px 26px;
+      height: 290px;
       background: #FFFFFF;
       border-radius: 4px;
       border: 1px solid #DCE0E2;
+      .estimated {
+        font-family: 'PingFangSC-Medium, PingFang SC,serif';
+        .estimated-tit {
+          font-size: 16px;
+          font-family: inherit;
+          font-weight: 500;
+          color: #4E4E4E;
+          line-height: 22px;
+          margin-bottom: 4px;
+        }
+        .btc-balance {
+          height: 37px;
+          font-size: 20px;
+          font-family: 'PingFangSC-Regular, PingFang SC,serif';
+          font-weight: 400;
+          color: #4E4E4E;
+          line-height: 28px;
+          padding-bottom: 9px;
+          border-bottom:  1px solid #DCE0E2;
+        }
+      }
     }
   }
 

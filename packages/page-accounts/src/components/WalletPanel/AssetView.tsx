@@ -1,7 +1,6 @@
 import type {  DeriveBalancesAll } from '@polkadot/api-derive/types';
 import React from 'react';
 import styled from 'styled-components';
-import { FormatBalance } from '@polkadot/react-components-chainx';
 import {useApi} from '@polkadot/react-hooks';
 import {toPrecision} from '@polkadot/app-accounts-chainx/Myview/toPrecision';
 import BigNumber from 'bignumber.js';
@@ -10,9 +9,13 @@ import { formatBalance } from '@polkadot/util';
 
 const Title = styled.h6`
   margin: 0;
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.32);
-  line-height: 20px;
+  margin-bottom: 7px;
+  font-size: 16px;
+  font-family: 'PingFangSC-Regular, PingFang SC,serif';
+  font-weight: 400;
+  color: #353D41;
+  opacity: .8;
+  line-height: 22px;
 `;
 
 const HelpValue = styled.span`
@@ -75,15 +78,19 @@ const HelpValue = styled.span`
 `;
 
 const Value = styled.div`
-  margin: 4px 0 0;
   font-size: 16px;
-  line-height: 24px;
-  color: #000000;
-  font-weight: 600;
+  width: 92px;
+  font-family: 'PingFangSC-Medium, PingFang SC,serif';
+  font-weight: 500;
+  color: #353D41;
+  line-height: 22px;
 
   &.bold{
     font-size: 24px;
-    line-height: 36px;
+    font-family: 'PingFangSC-Semibold, PingFang SC,serif';
+    font-weight: 600;
+    color: #353D41;
+    line-height: 33px;
   }
 `;
 
@@ -123,7 +130,7 @@ export default function ({ bold, title, value, help }: Props): React.ReactElemen
         <HelpValue className="helpmsg">
           <Icon icon='question-circle' size='1x'/>
           <div className="helpCon">{help}</div>
-        </HelpValue> : "" } 
+        </HelpValue> : "" }
       </Title>
       <Value className={bold ? 'bold' : ''}>
         {/* {props.value} */}
