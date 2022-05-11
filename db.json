@@ -1,0 +1,58 @@
+{
+  "getCoinExchangeRate": {
+    "data": [
+      {
+        "coin": "PCX",
+        "price": 1.044
+      },
+      {
+        "coin": "KSX",
+        "price": 0.4
+      },
+      {
+        "coin": "sBTC",
+        "price": 2000
+      },
+      {
+        "coin": "MINI",
+        "price": 3
+      },
+      {
+        "coin": "DOT",
+        "price": 11.6872
+      },
+      {
+        "coin": "BNB",
+        "price": 320.46
+      },
+      {
+        "coin": "ETH",
+        "price": 2374.66
+      },
+      {
+        "coin": "XBTC",
+        "price": 31360.7
+      },
+      {
+        "coin": "KSM",
+        "price": 99.1763
+      },
+      {
+        "coin": "USDT",
+        "price": 1
+      },
+      {
+        "coin": "USB",
+        "price": 1
+      },
+      {
+        "coin": "USDC",
+        "price": 1
+      },
+      {
+        "coin": "BUSD",
+        "price": 1
+      }
+    ]
+  }
+}

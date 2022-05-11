@@ -1,13 +1,20 @@
 import React from 'react'
 
-interface Props  {}
+import type {IEstimated} from "@polkadot/react-hooks/useAssetsBalance";
 
-const Estimated = (props: Props) => {
+
+interface Props  {
+  estimated:IEstimated
+}
+
+const Estimated = ({estimated:{estimatedBtc,estimatedDollar}}: Props) => {
   return (
     <div className='estimated'>
       <div className="estimated-tit">Estimated Balance</div>
       <div className="btc-balance">
-        0.003BTC≈ $1,730.07
+        <span>{estimatedBtc} BTC </span>
+         ≈
+        <span> $ {estimatedDollar} </span>
       </div>
     </div>
   )

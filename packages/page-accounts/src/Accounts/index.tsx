@@ -28,7 +28,7 @@ export default React.memo(styled(Wallet)`
       position: relative;
       box-sizing:border-box;
       padding:30px 33px ;
-      width: 55.156vw;
+      flex:1;
       height: 290px;
       margin-right:20px ;
       background: linear-gradient(135deg, #CBE5FF 0%, #83AFFF 100%);
@@ -60,7 +60,8 @@ export default React.memo(styled(Wallet)`
       }
     }
     .right {
-      flex:1 ;
+      font-family: 'PingFangSC-Medium, PingFang SC,serif';
+      width:39.063vw;
       box-sizing: border-box;
       padding: 16px 26px;
       height: 290px;
@@ -68,7 +69,7 @@ export default React.memo(styled(Wallet)`
       border-radius: 4px;
       border: 1px solid #DCE0E2;
       .estimated {
-        font-family: 'PingFangSC-Medium, PingFang SC,serif';
+        font-family: inherit;
         .estimated-tit {
           font-size: 16px;
           font-family: inherit;
@@ -86,6 +87,19 @@ export default React.memo(styled(Wallet)`
           line-height: 28px;
           padding-bottom: 9px;
           border-bottom:  1px solid #DCE0E2;
+        }
+
+      }
+      .assetAllocation {
+        width: 100%;
+        height: 100%;
+        .chart-tit {
+          margin-top: 9px;
+          font-size: 16px;
+          font-family: inherit;
+          font-weight: 500;
+          color: #4E4E4E;
+          line-height: 22px;
         }
       }
     }

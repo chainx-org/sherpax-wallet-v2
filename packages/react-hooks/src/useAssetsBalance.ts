@@ -1,11 +1,7 @@
-import {useEffect,useState,useMemo} from 'react'
+import {useEffect, useState, useMemo, useContext, useCallback} from 'react'
 import axios,{AxiosInstance} from 'axios'
-import  useBalances from '@polkadot/app-assets/Balances/useBalances'
-import useAssetIds from '@polkadot/app-assets/useAssetIds'
-import useAssetInfos from '@polkadot/app-assets/useAssetInfos'
-import type { AssetInfoComplete } from '@polkadot/app-assets/types';
-
-
+import { useApi} from '@polkadot/react-hooks';
+import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
 
 interface ITokens  {
   chainId: number;
@@ -16,35 +12,56 @@ interface ITokens  {
   decimals: number;
   logoURI: string;
 }
+interface ICurrentBalance {
+  transBalance:number
+  coin: string
+}
+export interface ICoinData {
+  coin:string,
+  price:number
+}
+
+export interface ITotalBalance {
+  coin:string,
+  dollar:number
+}
+
+export interface IEstimated {
+  estimatedDollar:string,
+  estimatedBtc:string
+}
+
 
 let coinInstance:AxiosInstance
 let tokenListInstance:AxiosInstance
+let testInstance:AxiosInstance
 
 if (process.env.NODE_ENV === "development") {
   coinInstance  = axios.create({baseURL:'/v1'})
+  testInstance = axios.create({baseURL:'http://localhost:3004'})
   tokenListInstance = axios.create({baseURL:'https://raw.githubusercontent.com/chainx-org/token-list/main/'})
 }  else if (process.env.NODE_ENV === "production") {
   axios.defaults.baseURL = "";
 }
 
 
-export default function useAssetsBalance() {
-  const [coinExchangeRate,setCoinExchangeRate] = useState([])
-  const [tokenList,setTokenList] = useState([])
-
-  const [infoIndex, setInfoIndex] = useState(0);
-  const [info, setInfo] = useState<AssetInfoComplete | null>(null);
-  const balances = useBalances(info?.id);
-  const ids = useAssetIds();
-  const infos = useAssetInfos(ids);
-
-  console.log(ids,infos,`------243242`)
-
+export default  function  useAssetsBalance() {
+  let targetArr:ICurrentBalance[] = []
+  const { api } = useApi();
+  const {currentAccount} = useContext(AccountContext)
+  const [currentBalance,setCurrentBalance] = useState<ICurrentBalance[]>([])
+  const [coinExchangeRate,setCoinExchangeRate] = useState<ICoinData[]>([])
+  const [tokenList,setTokenList] = useState<ITokens[]>([])
+  const [totalBalance,setTotalBalance] = useState<ITotalBalance[]>([])
+  const [estimated,setEstimated] = useState<IEstimated>({estimatedDollar:'',estimatedBtc:''})
+  const [btcDollar,setBtcDollar] = useState(0)
 
 
   useEffect(() => {
-    coinInstance.get("/getCoinExchangeRate").then(res => {
+    //testInstance json-server 数据
+    testInstance.get("/getCoinExchangeRate").then(res => {
       if(!res) return
+      setBtcDollar((res.data.data.filter(item => item.coin === 'XBTC'))[0].price)
       setCoinExchangeRate(res.data.data)
     })
     tokenListInstance.get('/chainx.tokenlist.json').then(res => {
@@ -54,28 +71,53 @@ export default function useAssetsBalance() {
         return item.assetId !== 99
       })
 
-      console.log(tokenList,`---tokenList`)
-
       setTokenList(tokenList)
+      tokenList.map( async item => {
+        const {assetId} = item
+        const res = await api.query.assets.account([assetId],currentAccount)
+        if(!res?.toJSON()) return
+        const {balance} = res?.toJSON()
+        const transBalance = balance / Math.pow(10,item.decimals)
+        targetArr.push({transBalance,coin:item.symbol.toUpperCase()})
+
+        if(targetArr.length === tokenList.length) {
+          setCurrentBalance(targetArr)
+        }
+      })
     })
   },[])
 
-  //链上的接口数据
 
-  const completeInfos = useMemo(
-    () => infos
-      .filter((i): i is AssetInfoComplete => !!(i.details && i.metadata) && !i.details.supply.isZero())
-      .sort((a, b) => a.id.cmp(b.id)),
-    [infos]
-  );
+  //转为需要的数据
+    //1.所有币种对应的美元
+    //2.总美元 以及总美元 -> btc
+  useEffect(() => {
+    const totalBalanceOrigin = coinExchangeRate.map((item:any) => {
+      const coin = item.coin.toUpperCase()
+      const balanceArr = currentBalance.filter(balance => balance.coin.toUpperCase() === coin)
+      if(!balanceArr.length) return
 
-  useEffect((): void => {
-    setInfo(() =>
-      infoIndex >= 0 && infoIndex < completeInfos.length
-        ? completeInfos[infoIndex]
-        : null
-    );
-  }, [completeInfos, infoIndex]);
+      return {coin:`${balanceArr[0].coin}`,dollar:balanceArr[0].transBalance * item.price }
+    })
 
-  console.log(coinExchangeRate)
+    const totalBalance = totalBalanceOrigin.sort((a:any,b:any) =>  b.dollar - a.dollar).filter(Boolean)
+    setTotalBalance(totalBalance)
+
+
+    const estimatedDollar = totalBalance.reduce(((prev:any,current:any) => {
+      return prev + current.dollar
+    }),0)
+    let estimatedBtc = (estimatedDollar / btcDollar).toFixed(3)
+
+    if(estimatedBtc == 'NaN') {
+      estimatedBtc = '0.000'
+    }
+
+    setEstimated({estimatedDollar:Number(estimatedDollar.toFixed(2)).toLocaleString(),estimatedBtc})
+
+
+  },[currentBalance,coinExchangeRate])
+
+
+  return [totalBalance,estimated]
 }
