@@ -1,29 +1,31 @@
 // Copyright 2017-2022 @polkadot/app-accounts authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from 'styled-components';
 
 import WallerPanel from '../components/WalletPanel';
+import AssetsTable from '../components/AssetsTable'
 
 interface Props {
   className?: string;
 }
 
 function Wallet ({ className = '' }: Props): React.ReactElement<Props> {
+
   return (
     <div className={className}>
       <WallerPanel></WallerPanel>
+      <AssetsTable></AssetsTable>
     </div>
   );
 }
 
 export default React.memo(styled(Wallet)`
-
+  padding:16px 26px ;
   .walletPanel {
     display:flex;
     justify-content: space-between;
-    padding:16px 26px ;
     .left {
       position: relative;
       box-sizing:border-box;
@@ -104,5 +106,7 @@ export default React.memo(styled(Wallet)`
       }
     }
   }
-
+  .assetsTable{
+    margin-top: 30px;
+  }
 `);

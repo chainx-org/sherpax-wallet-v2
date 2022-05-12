@@ -52,7 +52,7 @@ function Button ({ activeOnEnter, children, className = '', dataTestId = '', ico
       onMouseLeave={_onMouseLeave}
       tabIndex={tabIndex}
     >
-      {icon && <Icon icon={icon} />}
+      {icon && <Icon icon={icon}  />}
       {label}
       {children}
       <Spinner
@@ -76,6 +76,20 @@ export default React.memo(styled(Button)`
   position: relative;
   vertical-align: middle;
   text-align: center;
+
+  &.mar15 {
+    margin-right: 15px;
+  }
+  &.send-button {
+    &:hover {
+      background: transparent!important;
+    }
+    svg {
+      color: white!important;
+      margin-right: 8px;
+      background: rgb(96, 152, 255)!important;
+    }
+  }
 
   &:not(.hasLabel) {
     padding: 0.7em;

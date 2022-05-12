@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useMemo} from 'react'
 import {ITotalBalance} from "@polkadot/react-hooks/useAssetsBalance";
 import { Pie } from '@ant-design/plots';
 
@@ -44,22 +44,24 @@ const AssetAllocation = ({totalBalance}: Props) => {
       },
     },
     legend: {
-      // layout: 'horizontal',
       position: 'right',
-      offsetX: -65,
+      offsetX: -60,
+      itemWidth:150,
       itemValue:{
         alignRight:true,
-        formatter: (text) => {
-          return '47.55%';
+        formatter: (text,record) => {
+          const item = totalBalance.filter(d => d.coin === record.value)
+          return `${(item[0].percent*100).toFixed(2)} % `;
         },
-      }
+      },
     }
   };
 
   return (
     <div className="assetAllocation">
       <div className="chart-tit">Asset Allocation</div>
-      <Pie {...config} />
+      {useMemo(() => <Pie {...config} />,[totalBalance])}
+
     </div>
   )
 }

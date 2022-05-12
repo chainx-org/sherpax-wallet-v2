@@ -36,9 +36,9 @@ function Apps ({ className = '' }: Props): React.ReactElement<Props> {
       <div className={`apps--Wrapper theme--${theme} ${className}`}>
         <Menu />
         <AccountSidebar>
-          <Signer>
-            <Content />
-          </Signer>
+            <Signer>
+              <Content />
+            </Signer>
           <ConnectingOverlay />
           <div id={PORTAL_ID} />
         </AccountSidebar>

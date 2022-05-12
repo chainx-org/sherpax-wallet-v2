@@ -1,6 +1,6 @@
 import {useEffect, useState, useMemo, useContext, useCallback} from 'react'
 import axios,{AxiosInstance} from 'axios'
-import { useApi} from '@polkadot/react-hooks';
+import { useApi } from '@polkadot/react-hooks';
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
 
 interface ITokens  {
@@ -14,7 +14,8 @@ interface ITokens  {
 }
 interface ICurrentBalance {
   transBalance:number
-  coin: string
+  coin: string,
+  logo:string,
 }
 export interface ICoinData {
   coin:string,
@@ -23,7 +24,10 @@ export interface ICoinData {
 
 export interface ITotalBalance {
   coin:string,
-  dollar:number
+  dollar:number,
+  percent:number,
+  logo:string,
+  coinNum:number,
 }
 
 export interface IEstimated {
@@ -46,8 +50,6 @@ if (process.env.NODE_ENV === "development") {
 
 
 export default  function  useAssetsBalance() {
-  let targetArr:ICurrentBalance[] = []
-  const { api } = useApi();
   const {currentAccount} = useContext(AccountContext)
   const [currentBalance,setCurrentBalance] = useState<ICurrentBalance[]>([])
   const [coinExchangeRate,setCoinExchangeRate] = useState<ICoinData[]>([])
@@ -55,9 +57,14 @@ export default  function  useAssetsBalance() {
   const [totalBalance,setTotalBalance] = useState<ITotalBalance[]>([])
   const [estimated,setEstimated] = useState<IEstimated>({estimatedDollar:'',estimatedBtc:''})
   const [btcDollar,setBtcDollar] = useState(0)
+  const { api } = useApi();
+  let targetArr:ICurrentBalance[] = []
+
+
 
 
   useEffect(() => {
+    setCurrentBalance([])
     //testInstance json-server 数据
     testInstance.get("/getCoinExchangeRate").then(res => {
       if(!res) return
@@ -75,29 +82,42 @@ export default  function  useAssetsBalance() {
       tokenList.map( async item => {
         const {assetId} = item
         const res = await api.query.assets.account([assetId],currentAccount)
-        if(!res?.toJSON()) return
+
+
+        if(!res?.toJSON()) {
+          targetArr.push({transBalance:0,coin:item.symbol.toUpperCase(),logo:item.logoURI})
+          return
+        }
+
         const {balance} = res?.toJSON()
         const transBalance = balance / Math.pow(10,item.decimals)
-        targetArr.push({transBalance,coin:item.symbol.toUpperCase()})
+        targetArr.push({transBalance,coin:item.symbol.toUpperCase(),logo:item.logoURI})
 
         if(targetArr.length === tokenList.length) {
           setCurrentBalance(targetArr)
         }
       })
     })
-  },[])
+  },[currentAccount])
 
 
   //转为需要的数据
     //1.所有币种对应的美元
     //2.总美元 以及总美元 -> btc
   useEffect(() => {
+
     const totalBalanceOrigin = coinExchangeRate.map((item:any) => {
       const coin = item.coin.toUpperCase()
-      const balanceArr = currentBalance.filter(balance => balance.coin.toUpperCase() === coin)
-      if(!balanceArr.length) return
+      const [balanceArr] = currentBalance.filter(balance => balance.coin.toUpperCase() === coin)
+      if(!balanceArr) return
 
-      return {coin:`${balanceArr[0].coin}`,dollar:balanceArr[0].transBalance * item.price }
+      return {
+        coin:`${balanceArr.coin}`,
+        dollar:balanceArr.transBalance * item.price,
+        percent: (balanceArr.transBalance * item.price) / Number(estimated.estimatedDollar),
+        logo:balanceArr.logo,
+        coinNum:balanceArr.transBalance
+      }
     })
 
     const totalBalance = totalBalanceOrigin.sort((a:any,b:any) =>  b.dollar - a.dollar).filter(Boolean)
@@ -116,7 +136,9 @@ export default  function  useAssetsBalance() {
     setEstimated({estimatedDollar:Number(estimatedDollar.toFixed(2)).toLocaleString(),estimatedBtc})
 
 
-  },[currentBalance,coinExchangeRate])
+  },[currentBalance,coinExchangeRate,estimated.estimatedDollar])
+
+
 
 
   return [totalBalance,estimated]

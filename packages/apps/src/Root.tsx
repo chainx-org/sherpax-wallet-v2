@@ -45,23 +45,23 @@ function Root ({ isElectron, store }: Props): React.ReactElement<Props> {
     <Suspense fallback='...'>
       <ThemeProvider theme={theme}>
         <AccountProvider>
-          <Queue>
-            <Api
-              apiUrl={settings.apiUrl}
-              isElectron={isElectron}
-              store={store}
-            >
-              <BlockAuthors>
-                <Events>
-                  <HashRouter>
-                    <WindowDimensions>
-                      <Apps />
-                    </WindowDimensions>
-                  </HashRouter>
-                </Events>
-              </BlockAuthors>
-            </Api>
-          </Queue>
+            <Queue>
+              <Api
+                apiUrl={settings.apiUrl}
+                isElectron={isElectron}
+                store={store}
+              >
+                <BlockAuthors>
+                  <Events>
+                    <HashRouter>
+                      <WindowDimensions>
+                        <Apps />
+                      </WindowDimensions>
+                    </HashRouter>
+                  </Events>
+                </BlockAuthors>
+              </Api>
+            </Queue>
         </AccountProvider>
       </ThemeProvider>
     </Suspense>

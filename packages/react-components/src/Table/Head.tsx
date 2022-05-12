@@ -58,23 +58,39 @@ function Head ({ className = '', filter, header, isEmpty }: Props): React.ReactE
 
 export default React.memo(styled(Head)`
   position: relative;
-  z-index: 1;
-
+  display: inline-block;
+  border: 1px solid #DCE0E2;
+  z-index: 99999;
+  margin-bottom: 5px;
+  font-family: 'PingFangSC-Regular, PingFang SC,serif';
+  width: 100%;
+  background: white;
   th {
+    box-sizing: border-box;
+    flex: 1;
+    text-transform:capitalize;
     font: var(--font-sans);
     font-weight: var(--font-weight-normal);
-    padding: 0.375rem 1rem;
-    text-align: right;
+    padding: 0.375rem 0;
+    text-align: left;
     vertical-align: middle;
     white-space: nowrap;
+    height: 40px;
+    line-height: 30px;
 
     h1, h2 {
       font-size: 1.75rem;
     }
 
     h1 {
-      display: table-cell;
+      margin-top: 4px;
       vertical-align: middle;
+      text-transform: capitalize;
+      font-size: 16px;
+      font-family: inherit;
+      font-weight: 400;
+      color: #4E4E4E;
+      line-height: 22px;
 
       .ui--Icon {
         font-size: 1rem;
@@ -83,9 +99,7 @@ export default React.memo(styled(Head)`
       }
     }
 
-    &:first-child {
-      border-left: 1px solid var(--border-table);
-    }
+
 
     &:last-child {
       border-right: 1px solid var(--border-table);
@@ -132,15 +146,8 @@ export default React.memo(styled(Head)`
   }
 
   tr {
+    display: flex;
     background: var(--bg-table);
-    text-transform: lowercase;
-
-    &:first-child {
-      th {
-        border-top: 1px solid var(--border-table);
-      }
-    }
-
     &.filter {
       .ui.input,
       .ui.selection.dropdown {
@@ -153,12 +160,17 @@ export default React.memo(styled(Head)`
 
       th {
         padding: 0;
+        text-transform:capitalize;
       }
     }
 
     &:not(.filter) {
       th {
-        color: var(--color-table-head);
+        font-family: 'PingFangSC-Medium, PingFang SC,serif';
+        width: 147px;
+        font-size: 14px;
+        font-weight: 400;
+        color: rgba(78, 78, 78, .8);
       }
     }
   }

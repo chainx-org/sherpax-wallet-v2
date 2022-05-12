@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react'
+import React, {useCallback, useEffect,useContext} from 'react'
 import Estimated from './Estimated'
 import AssetAllocation from './AssetAllocation'
 
@@ -9,6 +9,7 @@ interface Props  {}
 
 const BalanceChart = (props: Props) => {
   let [totalBalance,estimated] = useAssetsBalance()
+
 
   return (
     <div className="balanceChart">
