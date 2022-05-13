@@ -81,8 +81,10 @@ export default React.memo(styled(Button)`
     margin-right: 15px;
   }
   &.send-button {
-    &:hover {
-      background: transparent!important;
+    text-transform: capitalize;
+    &.isDisabled, &.isReadOnly {
+      background: rgb(96, 152, 255)!important;
+      cursor: pointer;
     }
     svg {
       color: white!important;

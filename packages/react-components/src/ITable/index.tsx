@@ -33,9 +33,8 @@ function extractBodyChildren (children: React.ReactNode): [boolean, React.ReactN
   return [isEmpty, isEmpty ? null : kids];
 }
 
-function Table ({ children, className = '', empty, emptySpinner, filter, footer, header, isFixed, legend, noBodyTag, withCollapsibleRows = false }: TableProps): React.ReactElement<TableProps> {
+function ITable ({ children, className = '', empty, emptySpinner, filter, footer, header, isFixed, legend, noBodyTag, withCollapsibleRows = false }: TableProps): React.ReactElement<TableProps> {
   const [isEmpty, bodyChildren] = extractBodyChildren(children);
-
   return (
     <div className={`ui--Table ${className}`}>
       {legend}
@@ -61,18 +60,56 @@ function Table ({ children, className = '', empty, emptySpinner, filter, footer,
   );
 }
 
-export default React.memo(styled(Table)`
-  margin-bottom: 1.5rem;
+export default React.memo(styled(ITable)`
+  margin-bottom: 28px;
   max-width: 100%;
   width: 100%;
+
+
+  &.transfer {
+    table {
+      background: red!important;
+      tbody {
+        tr {
+          td {
+            padding-right: 0;
+            &:first-child {
+              flex: .6;
+              justify-content: start;
+              align-items: center;
+              padding-left: 40px;
+            }
+            &:nth-child(2) {
+              flex: .5;
+              margin-right: 38px;
+            }
+            &:last-child {
+              padding-left: 70px;
+            }
+            &:nth-child(3) {
+              flex: .1;
+              text-align: left;
+            }
+            margin: 0;
+            flex: 1;
+            text-align: left;
+          }
+        }
+      }
+    }
+  }
+
+
 
   table {
     border-spacing: 0;
     max-width: 100%;
     overflow: hidden;
     position: relative;
+    border-collapse:collapse!important;
     width: 100%;
     z-index: 1;
+    background: rgb(245, 243, 241)!important;
 
     &.isFixed {
       table-layout: fixed;
@@ -84,14 +121,7 @@ export default React.memo(styled(Table)`
 
       td,
       &:not(.filter) th {
-        &:first-child {
-          padding-left: 1.5rem;
-        }
-
-        &:last-child {
-          padding-right: 0.75rem;
-        }
-
+          padding-left: 8px;
         &.all {
           width: 100%;
 
@@ -116,21 +146,54 @@ export default React.memo(styled(Table)`
   }
 
   tbody {
-    position: relative;
+    width: 100%;
+    background: white!important;
+    tr:last-child {
+      border-bottom: 1px solid #DCE0E2;
+    }
+    tr {
+      display:flex!important;
+      width: 100%;
+      height: 48px;
+      line-height: 48px;
+    }
 
     td {
-      border-bottom: 1px solid var(--border-table);
-      padding: 0.5rem 1rem;
+      font-family: 'PingFangSC-Medium, PingFang SC,serif';
+      flex: 1;
       text-align: left;
       vertical-align: middle;
+      margin: 0 1rem;
+      height: 46px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4E4E4E;
+      line-height: 46px;
+
+      img {
+        width: 26px;
+        height: 26px;
+        margin-right: 7px;
+      }
 
       &:first-child {
-        border-left: 1px solid var(--border-table);
+        flex: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      &:last-child {
+        text-align: center;
       }
 
-      &:last-child {
-        border-right: 1px solid var(--border-table);
-      }
+      //&:first-child {
+      //  border-left: 1px solid var(--border-table);
+      //}
+      //
+      //&:last-child {
+      //  border-right: 1px solid var(--border-table);
+      //}
 
       label {
         display: block !important;
@@ -271,23 +334,31 @@ export default React.memo(styled(Table)`
     }
 
     tr {
+      display: inline-block;
+      border: 1px solid #DCE0E2;
+      border-bottom :1px solid transparent;
       &.hasOddRowColoring,
       &:nth-child(odd) {
         background: var(--bg-table);
       }
 
-      &:first-child {
-        td {
-          border-top: 0.25rem solid var(--bg-page);
-        }
 
-        td:first-child {
-          border-top-left-radius: 0.25rem;
-        }
+      //&:first-child {
+      //  td {
+      //    border-top: 0.25rem solid var(--bg-page);
+      //  }
+      //
+      //  td:first-child {
+      //    border-top-left-radius: 0.25rem;
+      //  }
+      //
+      //  td:last-child {
+      //    border-top-right-radius: 0.25rem;
+      //  }
+      //}
 
-        td:last-child {
-          border-top-right-radius: 0.25rem;
-        }
+      &:nth-child(even) {
+        background: rgb(248, 249, 250)!important;
       }
 
       &:last-child {
@@ -328,4 +399,5 @@ export default React.memo(styled(Table)`
       }
     }
   }
+
 `);

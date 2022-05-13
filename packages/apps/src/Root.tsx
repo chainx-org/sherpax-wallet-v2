@@ -11,6 +11,7 @@ import { ThemeProvider } from 'styled-components';
 import { Api } from '@polkadot/react-api';
 import Queue from '@polkadot/react-components/Status/Queue';
 import { AccountProvider } from '@polkadot/react-components-chainx/AccountProvider';
+import {TokenListProvider} from '@polkadot/react-components-chainx/TokenListProvider'
 import { BlockAuthors, Events } from '@polkadot/react-query';
 import { settings } from '@polkadot/ui-settings';
 
@@ -44,7 +45,8 @@ function Root ({ isElectron, store }: Props): React.ReactElement<Props> {
   return (
     <Suspense fallback='...'>
       <ThemeProvider theme={theme}>
-        <AccountProvider>
+        <TokenListProvider>
+          <AccountProvider>
             <Queue>
               <Api
                 apiUrl={settings.apiUrl}
@@ -62,7 +64,9 @@ function Root ({ isElectron, store }: Props): React.ReactElement<Props> {
                 </BlockAuthors>
               </Api>
             </Queue>
-        </AccountProvider>
+          </AccountProvider>
+        </TokenListProvider>
+
       </ThemeProvider>
     </Suspense>
   );

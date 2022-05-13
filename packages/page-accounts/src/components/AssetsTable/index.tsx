@@ -1,5 +1,5 @@
 import React, {useContext, useRef} from 'react'
-import {Button, Table} from '@polkadot/react-components'
+import {Button, ITable} from '@polkadot/react-components'
 import {useTranslation} from '@polkadot/app-accounts-chainx/translate'
 import useAssetsBalance from '@polkadot/react-hooks/useAssetsBalance'
 import {isFunction} from "@polkadot/util";
@@ -22,7 +22,6 @@ const AssetsTable = (props: Props) => {
   ]);
 
   const [totalBalance,estimated] = useAssetsBalance()
-  console.log(totalBalance,estimated,`-432423`)
   const api = useApi();
   const { currentAccount } = useContext(AccountContext);
   const [isTransferOpen, toggleTransfer] = useToggle();
@@ -37,7 +36,7 @@ const AssetsTable = (props: Props) => {
           senderId={currentAccount}
         />
       )}
-      <Table header={header.current} >
+      <ITable header={header.current} empty={t('No open tips')}  >
         {totalBalance.map(((item,index) => {
           return (
             <tr key={index}>
@@ -54,17 +53,18 @@ const AssetsTable = (props: Props) => {
                     onClick={toggleTransfer}
                   />
                 )}
-                <Button
-                  className='send-button'
-                  icon='paper-plane'
-                  label={t<string>('Swap')}
-                  onClick={toggleTransfer}
-                />
+                <a href="https://soswap.finance" target="_blank" style={{color:'rgba(78, 78, 78, 1)'}} >
+                  <Button
+                    className='send-button'
+                    icon='arrow-right-arrow-left'
+                    label={t<string>('Swap')}
+                  />
+                </a>
               </td>
             </tr>
           )
         }))}
-      </Table>
+      </ITable>
     </div>
   )
 }

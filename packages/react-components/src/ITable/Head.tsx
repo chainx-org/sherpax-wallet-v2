@@ -1,10 +1,11 @@
 // Copyright 2017-2022 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from 'styled-components';
 
 import Icon from '../Icon';
+import {AccountContext} from "@polkadot/react-components-chainx/AccountProvider";
 
 type HeaderDef = [React.ReactNode?, string?, number?, (() => void)?];
 
@@ -16,6 +17,8 @@ interface Props {
 }
 
 function Head ({ className = '', filter, header, isEmpty }: Props): React.ReactElement<Props> | null {
+  const { currentAccount } = useContext(AccountContext);
+
   if (!header?.length) {
     return null;
   }
@@ -49,6 +52,7 @@ function Head ({ className = '', filter, header, isEmpty }: Props): React.ReactE
                 ? ''
                 : label
             }
+            {className === 'move' && <a href={`https://scan.sherpax.io/account/${currentAccount}`} target="_blank"> Move </a>  }
           </th>
         )}
       </tr>
@@ -58,23 +62,67 @@ function Head ({ className = '', filter, header, isEmpty }: Props): React.ReactE
 
 export default React.memo(styled(Head)`
   position: relative;
-  z-index: 1;
-
+  display: inline-block;
+  border: 1px solid #DCE0E2;
+  z-index: 9;
+  margin-bottom: 5px;
+  font-family: 'PingFangSC-Regular, PingFang SC,serif';
+  width: 100%;
+  background: white;
   th {
+    box-sizing: border-box;
+    flex: 1;
+    text-transform:capitalize;
     font: var(--font-sans);
     font-weight: var(--font-weight-normal);
-    padding: 0.375rem 1rem;
-    text-align: right;
+    padding: 0.375rem 0;
+    text-align: left;
     vertical-align: middle;
     white-space: nowrap;
+    height: 40px;
+    line-height: 30px;
+    &.move {
+      position: relative;
+      padding-right: 26px;
+      font-size: 16px!important;
+      text-align: right;
+      a {
+        display: inline-block;
+        color: rgba(78, 78, 78, 1)!important;
+        &:after {
+          display: inline-block;
+          content: '>';
+          width: 20px;
+          height: 20px;
+          line-height: 20px;
+          margin-top: 5px;
+          margin-left: 8px;
+          text-align: center;
+          border-radius: 50%;
+          color: white;
+          background: #6098FF;
+        }
+      }
+
+
+    }
+    &:first-child {
+
+    }
 
     h1, h2 {
       font-size: 1.75rem;
     }
 
     h1 {
-      display: table-cell;
+      margin-top: 4px;
       vertical-align: middle;
+      text-transform: capitalize;
+      font-size: 16px;
+      font-family: inherit;
+      font-weight: 400;
+      color: #4E4E4E;
+      line-height: 22px;
 
       .ui--Icon {
         font-size: 1rem;
@@ -83,9 +131,7 @@ export default React.memo(styled(Head)`
       }
     }
 
-    &:first-child {
-      border-left: 1px solid var(--border-table);
-    }
+
 
     &:last-child {
       border-right: 1px solid var(--border-table);
@@ -132,15 +178,8 @@ export default React.memo(styled(Head)`
   }
 
   tr {
+    display: flex;
     background: var(--bg-table);
-    text-transform: lowercase;
-
-    &:first-child {
-      th {
-        border-top: 1px solid var(--border-table);
-      }
-    }
-
     &.filter {
       .ui.input,
       .ui.selection.dropdown {
@@ -153,12 +192,18 @@ export default React.memo(styled(Head)`
 
       th {
         padding: 0;
+        text-transform:capitalize;
       }
     }
 
     &:not(.filter) {
       th {
-        color: var(--color-table-head);
+        margin-left: 8px;
+        font-family: 'PingFangSC-Medium, PingFang SC,serif';
+        width: 147px;
+        font-size: 14px;
+        font-weight: 400;
+        color: rgba(78, 78, 78, .8);
       }
     }
   }

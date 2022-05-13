@@ -88,6 +88,7 @@ export { default as Static } from './Static';
 export { default as Status, StatusContext } from './Status';
 export { default as SummaryBox } from './SummaryBox';
 export { default as Table } from './Table';
+export { default as ITable } from './ITable';
 export { default as Tabs, TabsContext } from './Tabs';
 export { default as Tag } from './Tag';
 export { default as Tags } from './Tags';

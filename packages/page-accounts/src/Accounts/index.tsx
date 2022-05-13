@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 import WallerPanel from '../components/WalletPanel';
 import AssetsTable from '../components/AssetsTable'
+import Transactions from '../components/Transactions'
 
 interface Props {
   className?: string;
@@ -17,6 +18,7 @@ function Wallet ({ className = '' }: Props): React.ReactElement<Props> {
     <div className={className}>
       <WallerPanel></WallerPanel>
       <AssetsTable></AssetsTable>
+      <Transactions></Transactions>
     </div>
   );
 }
@@ -108,5 +110,19 @@ export default React.memo(styled(Wallet)`
   }
   .assetsTable{
     margin-top: 30px;
+  }
+  .transactions {
+    .tableList {
+      display: flex;
+      justify-content: space-between;
+      .transfersTable {
+        flex: 1;
+        margin-right: 20px;
+      }
+      .transfersCrossTable {
+        flex: 1;
+
+      }
+    }
   }
 `);
