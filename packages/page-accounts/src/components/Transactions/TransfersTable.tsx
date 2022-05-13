@@ -15,6 +15,7 @@ interface TransferItem {
   balance: string;
   extrinsic_idx: number;
   success: boolean;
+  transferHash:string
 }
 
 const TransfersTable = ({transfersData}: Props) => {
@@ -28,7 +29,7 @@ const TransfersTable = ({transfersData}: Props) => {
             return (
               <tr key={item.extrinsicHash}>
                 <td> <img src={KSX_SVG} alt="ksx"/> {item.balance} </td>
-                <td><a href={`https://scan.sherpax.io/trade/${item.extrinsicHash}`} target="_blank">{item.extrinsicHash}</a> </td>
+                <td><a href={`https://scan.sherpax.io/trade/${item.extrinsicHash}`} target="_blank">{item.transferHash}</a> </td>
                 <td> {item.from === currentAccount ? 'Out' : 'In'} </td>
                 <td> {item.blockTime} </td>
               </tr>

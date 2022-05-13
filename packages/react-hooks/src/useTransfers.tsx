@@ -48,7 +48,7 @@ export function useTransfers() {
 
 
         item.balance = `${Number((item.balance / Math.pow(10,18))).toFixed(4)} KSX`
-        item.extrinsicHash = item.extrinsicHash.substring(0,7).concat('...').concat(item.extrinsicHash.substring(item.extrinsicHash.length - 5))
+        item.transferHash = item.extrinsicHash.substring(0,7).concat('...').concat(item.extrinsicHash.substring(item.extrinsicHash.length - 5))
 
         return item
       })
