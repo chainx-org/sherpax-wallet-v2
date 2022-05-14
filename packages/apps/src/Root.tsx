@@ -11,7 +11,8 @@ import { ThemeProvider } from 'styled-components';
 import { Api } from '@polkadot/react-api';
 import Queue from '@polkadot/react-components/Status/Queue';
 import { AccountProvider } from '@polkadot/react-components-chainx/AccountProvider';
-import {TokenListProvider} from '@polkadot/react-components-chainx/TokenListProvider'
+import {TokenListProvider} from '@polkadot/react-components-chainx/TokenListProvider';
+import {KSXBalanceProvider} from '@polkadot/react-components-chainx/KSXBalanceProvider';
 import { BlockAuthors, Events } from '@polkadot/react-query';
 import { settings } from '@polkadot/ui-settings';
 
@@ -47,23 +48,25 @@ function Root ({ isElectron, store }: Props): React.ReactElement<Props> {
       <ThemeProvider theme={theme}>
         <TokenListProvider>
           <AccountProvider>
-            <Queue>
-              <Api
-                apiUrl={settings.apiUrl}
-                isElectron={isElectron}
-                store={store}
-              >
-                <BlockAuthors>
-                  <Events>
-                    <HashRouter>
-                      <WindowDimensions>
-                        <Apps />
-                      </WindowDimensions>
-                    </HashRouter>
-                  </Events>
-                </BlockAuthors>
-              </Api>
-            </Queue>
+              <Queue>
+                <Api
+                  apiUrl={settings.apiUrl}
+                  isElectron={isElectron}
+                  store={store}
+                >
+                  <BlockAuthors>
+                    <Events>
+                      <HashRouter>
+                        <WindowDimensions>
+                          <KSXBalanceProvider>
+                            <Apps />
+                          </KSXBalanceProvider>
+                        </WindowDimensions>
+                      </HashRouter>
+                    </Events>
+                  </BlockAuthors>
+                </Api>
+              </Queue>
           </AccountProvider>
         </TokenListProvider>
 

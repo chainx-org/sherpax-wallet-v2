@@ -62,9 +62,6 @@ export default function Balance({lookup}: Props) {
       setMiscFrozen((new BigNumber(miscFrozened)).toNumber())
 
 
-
-
-
     } else {
       setDefaultValue(JSON.parse(window.localStorage.getItem('pcxFreeInfo')))
       // setDefaultredeemV(JSON.parse(window.localStorage.getItem('redeemV')))

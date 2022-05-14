@@ -6,6 +6,7 @@ import {isFunction} from "@polkadot/util";
 import {useApi, useToggle} from "@polkadot/react-hooks";
 import Transfer from "@polkadot/app-accounts/modals/Transfer";
 import {AccountContext} from "@polkadot/react-components-chainx/AccountProvider";
+import KSX_SVG from '../../../svg/ksx.svg'
 
 interface Props  {}
 
@@ -36,11 +37,11 @@ const AssetsTable = (props: Props) => {
           senderId={currentAccount}
         />
       )}
-      <ITable header={header.current} empty={t('No open tips')}  >
+      <ITable header={header.current} >
         {totalBalance.map(((item,index) => {
           return (
             <tr key={index}>
-              <td><img src={item.logo} alt="coin" /> <span style={{textAlign:"left",width:'20px'}}>{item.coin} </span> </td>
+              <td> <img src={ item.coin === 'KSX' ? KSX_SVG : item.logo} alt="coin"/> <span style={{textAlign:"left",width:'20px'}}>{item.coin} </span> </td>
               <td>{item.coinNum.toFixed(4)} {item.coin} </td>
               <td>≈ $ {item.dollar.toFixed(2).toLocaleString()}</td>
               <td>

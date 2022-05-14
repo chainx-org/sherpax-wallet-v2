@@ -32,7 +32,7 @@ const TransfersCrossTable = ({transfersDataCross}: Props) => {
         {
           transfersDataCross.map((item:ITransFersCross) => {
             return (
-              <tr>
+              <tr key={item.blockTimestamp}>
                 <td>
                   <img src={item.logoUrl} alt="cross_coin"/>
                   {item.balance}

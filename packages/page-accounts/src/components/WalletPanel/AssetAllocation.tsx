@@ -1,4 +1,4 @@
-import React,{useMemo} from 'react'
+import React, {useEffect, useMemo, useState} from 'react'
 import {ITotalBalance} from "@polkadot/react-hooks/useAssetsBalance";
 import { Pie } from '@ant-design/plots';
 
@@ -8,13 +8,32 @@ interface Props  {
 }
 
 const AssetAllocation = ({totalBalance}: Props) => {
+  const [targetData,setTargetData] = useState([])
+
+
+  useEffect(() => {
+    const firstFive = totalBalance.slice(0,5)
+    let otherData = totalBalance.slice(5,totalBalance.length).reduce((prev:ITotalBalance,current:ITotalBalance) => {
+      return {
+        coin:'Others',
+        dollar: prev.dollar + current.dollar,
+        percent: prev.percent + current.percent
+      }
+    },{dollar:0,percent:0})
+
+    if(firstFive.length > 1) {
+      setTargetData([...firstFive,otherData])
+    }
+
+  },[totalBalance])
+
 
   const config = {
     appendPadding: 5,
     autoFit:true,
     width:400,
     height:170,
-    data:totalBalance,
+    data:targetData,
     angleField: 'dollar',
     colorField: 'coin',
     radius: 1,
@@ -50,7 +69,7 @@ const AssetAllocation = ({totalBalance}: Props) => {
       itemValue:{
         alignRight:true,
         formatter: (text,record) => {
-          const item = totalBalance.filter(d => d.coin === record.value)
+          const item = targetData.filter(d => d.coin === record.value)
           return `${(item[0].percent*100).toFixed(2)} % `;
         },
       },
@@ -60,7 +79,7 @@ const AssetAllocation = ({totalBalance}: Props) => {
   return (
     <div className="assetAllocation">
       <div className="chart-tit">Asset Allocation</div>
-      {useMemo(() => <Pie {...config} />,[totalBalance])}
+      {useMemo(() => <Pie {...config} />,[targetData])}
 
     </div>
   )

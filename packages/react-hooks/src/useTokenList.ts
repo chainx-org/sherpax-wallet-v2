@@ -22,7 +22,14 @@ export function useTokenList() {
       if (!res) return
       const tokens = res.data.tokens
 
-      setTokenList(tokens)
+      const tokenList = tokens.filter((item:ITokens) => {
+        return item.assetId !== 99
+      })
+
+      tokenList.push({symbol:'KSX',logoURI:'',chainId:0,decimals:18,name:'ksx',address:'',assetId:99})
+
+
+      setTokenList(tokenList)
     })
   },[])
 
