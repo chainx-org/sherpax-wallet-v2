@@ -12,8 +12,7 @@ const Transactions = (props: Props) => {
   const { t } = useTranslation();
 
   const transfersData = useTransfers()
-
-
+  const transfersDataCross = useTransfersCross()
 
 
   const header = useRef([
@@ -27,7 +26,7 @@ const Transactions = (props: Props) => {
       <Head header={header.current}></Head>
       <div className="tableList">
         <TransfersTable transfersData={transfersData}></TransfersTable>
-        <TransfersCrossTable></TransfersCrossTable>
+        <TransfersCrossTable transfersDataCross={transfersDataCross}></TransfersCrossTable>
       </div>
     </div>
   )

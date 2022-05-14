@@ -77,18 +77,18 @@ export default React.memo(styled(ITable)`
               flex: .6;
               justify-content: start;
               align-items: center;
-              padding-left: 40px;
+              padding-left: 24px;
             }
             &:nth-child(2) {
               flex: .5;
               margin-right: 38px;
             }
-            &:last-child {
-              padding-left: 70px;
-            }
             &:nth-child(3) {
               flex: .1;
               text-align: left;
+            }
+            &:nth-child(4) {
+              padding-left: 70px;
             }
             margin: 0;
             flex: 1;

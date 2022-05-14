@@ -23,7 +23,7 @@ const TransfersTable = ({transfersData}: Props) => {
 
   return (
     <div className="transfersTable">
-      <ITable className="transfer">
+      <ITable className="transfer" empty="No latest asset transactions" >
         {
           transfersData.map((item:TransferItem) => {
             return (

@@ -6,6 +6,7 @@ import changeTime from '@polkadot/react-hooks/utils/changeTime'
 import {TokenListContext} from "@polkadot/react-components-chainx/TokenListProvider";
 
 
+
 let BASE_URL = ''
 
 if (process.env.NODE_ENV === 'development') {
@@ -23,7 +24,9 @@ const axiosInstance = axios.create({
   baseURL:BASE_URL
 })
 
-
+function shortHah(value:string) {
+  return value.substring(0,7).concat('...').concat(value.substring(value.length - 5))
+}
 
 export function useTransfers() {
   const tokenList = useContext(TokenListContext)
@@ -41,19 +44,18 @@ export function useTransfers() {
         page_size:10
       }
     }).then(res => {
-      if(!res.data.items.length) return
+      if(!res.data.items.length) {
+        setTransfer([])
+        return
+      }
 
       const transferMap = res.data.items.map((item:any) => {
         item.blockTime = changeTime(item.blockTime)
-
-
         item.balance = `${Number((item.balance / Math.pow(10,18))).toFixed(4)} KSX`
-        item.transferHash = item.extrinsicHash.substring(0,7).concat('...').concat(item.extrinsicHash.substring(item.extrinsicHash.length - 5))
-
+        item.transferHash =  shortHah(item.extrinsicHash)
         return item
       })
 
-      console.log((transferMap))
 
       setTransfer(transferMap)
     })
@@ -68,6 +70,7 @@ export function useTransfersCross() {
   const { currentAccount } = useContext(AccountContext);
   const  [transferCross,setTransferCross] = useState([])
   useEffect(() => {
+
     //请求跨链资产交易
     axiosInstance.get(`/palletAssets/${currentAccount}/transfers`,{
       params:{
@@ -76,7 +79,25 @@ export function useTransfersCross() {
         page_size:10
       }
     }).then(res => {
-      setTransferCross((res.data.items))
+      if(!res.data.items.length) {
+        setTransferCross([])
+        return
+      }
+
+      const transferCrossMap = res.data.items.map((item:any) => {
+        const [token] = tokenList.filter(token => token.assetId === item.assetId)
+
+        item.blockTime = changeTime(item.blockTimestamp)
+        item.balance = `${Number((item.balance / Math.pow(10, token.decimals))).toFixed(4)} ${token.symbol}`
+        item.logoUrl = token.logoURI
+        item.transferHash = shortHah(item.extrinsicHash)
+
+
+        return item
+      })
+
+
+      setTransferCross((transferCrossMap))
     })
   },[currentAccount])
 
