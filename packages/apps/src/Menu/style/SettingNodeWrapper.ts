@@ -25,6 +25,7 @@ const SettingNodeWrapper = styled.div`
         border-radius: 18px;
 
         .netInfo{
+          font-size: 0.8rem;
           text-transform: capitalize;
           min-width: 5.5rem;
         }

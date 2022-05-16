@@ -3,7 +3,7 @@
 // of the Apache-2.0 license. See the LICENSE file for details.
 
 import React from 'react';
-import { Modal } from '@polkadot/react-components';
+import { Modal2 as Modal } from '@polkadot/react-components';
 import General from './General';
 
 import { useTranslation } from '../../translate';
@@ -24,6 +24,7 @@ function NetworkModal ({ className, onClose }: Props): React.ReactElement<Props>
       size='large'
     >
       <Modal.Content>
+        {/*//选择节点地方*/}
         <General
           isModalContent
           onClose={onClose}

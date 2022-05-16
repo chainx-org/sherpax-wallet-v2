@@ -130,8 +130,8 @@ export default React.memo(styled(FormatBalance)`
     text-align: right;
 
     > .ui--FormatBalance-postfix {
-      font-weight: var(--font-weight-light);
-      opacity: 0.7;
+      //font-weight: var(--font-weight-light);
+      //opacity: 0.7;
       vertical-align: baseline;
     }
   }

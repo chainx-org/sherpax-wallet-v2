@@ -23,7 +23,7 @@ export default (_theme: ThemeDef): string => `
   .ui.selection.dropdown,
   .ui.input > input,
   .ui.selection.dropdown > input {
-    background: var(--bg-input);
+    // background: var(--bg-input);
     color: var(--color-text);
     font: var(--font-sans);
     font-size: 1rem;

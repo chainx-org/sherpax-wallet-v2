@@ -93,7 +93,7 @@
   "You need to supply at last one running validator for your parachain alongside this request.": "You need to supply at last one running validator for your parachain alongside this request.",
   "active": "active",
   "active raised / cap": "active raised / cap",
-  "amount": "amount",
+  "Amount": "Amount",
   "auctions": "auctions",
   "backed": "backed",
   "balance": "balance",

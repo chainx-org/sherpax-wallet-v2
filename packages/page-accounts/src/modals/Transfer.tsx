@@ -141,7 +141,7 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
               <MarkError content={t<string>('The recipient is associated with a known phishing site on {{url}}', { replace: { url: recipientPhish } })} />
             )}
           </Modal.Columns>
-          <Modal.Columns hint={t<string>('If the recipient account is new, the balance needs to be more than the existential deposit. Likewise if the sending account balance drops below the same value, the account will be removed from the state.')}>
+          <Modal.Columns >
             {canToggleAll && isAll
               ? (
                 <InputBalance
@@ -157,50 +157,22 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
                 <>
                   <InputBalance
                     autoFocus
-                    help={t<string>('Type the amount you want to transfer. Note that you can select the unit on the right e.g sending 1 milli is equivalent to sending 0.001.')}
+                    help={t<string>('Type the amount you want to transfer.')}
                     isError={!hasAvailable}
                     isZeroable
-                    label={t<string>('amount')}
+                    label={t<string>('Amount')}
                     maxValue={maxTransfer}
                     onChange={setAmount}
                   />
                   <InputBalance
-                    defaultValue={api.consts.balances?.existentialDeposit}
+                    defaultValue={0}
                     help={t<string>('The minimum amount that an account should have to be deemed active')}
                     isDisabled
-                    label={t<string>('existential deposit')}
+                    label={t<string>('Existential Deposit')}
                   />
                 </>
               )
             }
-          </Modal.Columns>
-          <Modal.Columns hint={t('With the keep-alive option set, the account is protected against removal due to low balances.')}>
-            {isFunction(api.tx.balances?.transferKeepAlive) && (
-              <Toggle
-                className='typeToggle'
-                label={
-                  isProtected
-                    ? t<string>('Transfer with account keep-alive checks')
-                    : t<string>('Normal transfer without keep-alive checks')
-                }
-                onChange={setIsProtected}
-                value={isProtected}
-              />
-            )}
-            {canToggleAll && (
-              <Toggle
-                className='typeToggle'
-                label={t<string>('Transfer the full account balance, reap the sender')}
-                onChange={setIsAll}
-                value={isAll}
-              />
-            )}
-            {!isProtected && !noReference && (
-              <MarkWarning content={t<string>('There is an existing reference count on the sender account. As such the account cannot be reaped from the state.')} />
-            )}
-            {noFees && (
-              <MarkWarning content={t<string>('The transaction, after application of the transfer fees, will drop the available balance below the existential deposit. As such the transfer will fail. The account needs more free funds to cover the transaction fees.')} />
-            )}
           </Modal.Columns>
         </div>
       </Modal.Content>
@@ -232,6 +204,8 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
 }
 
 export default React.memo(styled(Transfer)`
+  background: rgb(249, 249, 249);
+
   .balance {
     margin-bottom: 0.5rem;
     text-align: right;

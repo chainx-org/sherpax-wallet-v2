@@ -71,24 +71,22 @@ export default React.memo(styled(ITable)`
       background: red!important;
       tbody {
         tr {
+
           td {
             padding-right: 0;
             &:first-child {
-              flex: .6;
               justify-content: start;
               align-items: center;
               padding-left: 24px;
             }
-            &:nth-child(2) {
-              flex: .5;
-              margin-right: 38px;
+            &:last-child {
+              flex: 1.5;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
             }
             &:nth-child(3) {
-              flex: .1;
-              text-align: left;
-            }
-            &:nth-child(4) {
-              padding-left: 70px;
+              flex: .5;
             }
             margin: 0;
             flex: 1;
@@ -119,9 +117,14 @@ export default React.memo(styled(ITable)`
       max-width: 100%;
       width: 100%;
 
+      td {
+        &:nth-child(3) {
+          padding-left: 10px;
+        }
+      }
+
       td,
       &:not(.filter) th {
-          padding-left: 8px;
         &.all {
           width: 100%;
 
@@ -163,7 +166,6 @@ export default React.memo(styled(ITable)`
       flex: 1;
       text-align: left;
       vertical-align: middle;
-      margin: 0 1rem;
       height: 46px;
       font-size: 14px;
       font-weight: 500;

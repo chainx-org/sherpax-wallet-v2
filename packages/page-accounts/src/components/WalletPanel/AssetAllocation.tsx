@@ -1,6 +1,7 @@
 import React, {useEffect, useMemo, useState} from 'react'
 import {ITotalBalance} from "@polkadot/react-hooks/useAssetsBalance";
 import { Pie } from '@ant-design/plots';
+import {LabelHelp} from "@polkadot/react-components";
 
 
 interface Props  {
@@ -78,7 +79,14 @@ const AssetAllocation = ({totalBalance}: Props) => {
 
   return (
     <div className="assetAllocation">
-      <div className="chart-tit">Asset Allocation</div>
+      <div className="chart-tit">
+        Asset Allocation
+        <LabelHelp
+          className="tips"
+          help={'Asset Allocation = The display of each asset in account (sorted by each asset\'s latest market value)'}
+          icon={'circle-question'}
+        />
+      </div>
       {useMemo(() => <Pie {...config} />,[targetData])}
 
     </div>

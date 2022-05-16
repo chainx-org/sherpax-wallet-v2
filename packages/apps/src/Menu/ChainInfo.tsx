@@ -3,14 +3,17 @@
 
 import type { RuntimeVersion } from '@polkadot/types/interfaces';
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 
 import { ChainImg, Icon } from '@polkadot/react-components';
 import { useApi, useCall, useIpfs, useToggle } from '@polkadot/react-hooks';
 import { BestNumber, Chain } from '@polkadot/react-query';
 
-import Endpoints from '../Endpoints';
+import Endpoints from '@polkadot/apps/Endpoints/modals/Network';
+import getApiUrl from "@polkadot/apps/initSettings";
+import store from "store";
+import {useTranslation} from "@polkadot/apps/translate";
 
 interface Props {
   className?: string;
@@ -18,34 +21,48 @@ interface Props {
 
 function ChainInfo ({ className }: Props): React.ReactElement<Props> {
   const { api, isApiReady } = useApi();
+  const { t } = useTranslation();
+
+  const apiUrl = getApiUrl();
   const runtimeVersion = useCall<RuntimeVersion>(isApiReady && api.rpc.state.subscribeRuntimeVersion);
   const { ipnsChain } = useIpfs();
   const [isEndpointsVisible, toggleEndpoints] = useToggle();
+  const [netInfo, setNetInfo] = useState<string>('');
   const canToggle = !ipnsChain;
+  const stored = store.get('settings') as Record<string, unknown> || {};
+
+  const nodeMap: {[key: string]: string} = {
+    'wss://mainnet.sherpax.io': 'Mainnet',
+    'wss://sherpax-testnet.chainx.org': 'Testnet'
+  };
+
+  useEffect(() => {
+    if (Object.keys(nodeMap).includes(apiUrl)) {
+      setNetInfo(nodeMap[apiUrl]);
+    } else {
+      setNetInfo(t('Test Node'));
+    }
+  }, [apiUrl, stored]);
 
   return (
     <div className={className}>
       <div
         className={`apps--SideBar-logo-inner${canToggle ? ' isClickable' : ''} highlight--color-contrast`}
-        onClick={toggleEndpoints}
       >
         <ChainImg />
         <div className='info media--1000'>
-          <Chain className='chain' />
-          {runtimeVersion && (
-            <div className='runtimeVersion'>{runtimeVersion.specName.toString()}/{runtimeVersion.specVersion.toNumber()}</div>
-          )}
+          <div className="net" onClick={toggleEndpoints}>
+            <Chain className='chain' />
+            <div className="select-net">
+              <div className='circle' />
+              <div className='netInfo'>{netInfo}</div>
+            </div>
+          </div>
           <BestNumber
             className='bestNumber'
             label='#'
           />
         </div>
-        {canToggle && (
-          <Icon
-            className='dropdown'
-            icon={isEndpointsVisible ? 'caret-right' : 'caret-down'}
-          />
-        )}
       </div>
       {isEndpointsVisible && (
         <Endpoints onClose={toggleEndpoints} />
@@ -55,6 +72,33 @@ function ChainInfo ({ className }: Props): React.ReactElement<Props> {
 }
 
 export default React.memo(styled(ChainInfo)`
+  .net {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .select-net {
+      border: 1px solid #353D41;
+      border-radius: 2px;
+      display: flex;
+      padding: 2px 5px;
+      align-items: center;
+      margin-left: 5px;
+      .netInfo{
+        font-size: .8rem;
+        text-transform: capitalize;
+      }
+
+      > div {
+        &.circle{
+          margin-right: 5px;
+          height: 0.5em;
+          width: 0.5em;
+          border-radius: 50%;
+          background: rgba(52, 198, 154);
+        }
+      }
+    }
+  }
   box-sizing: border-box;
   padding: 0.5rem 1rem 0.5rem 0;
   margin: 0;
@@ -92,6 +136,7 @@ export default React.memo(styled(ChainInfo)`
       text-align: right;
 
       .chain {
+        font-size: 1rem;
         max-width: 16rem;
         white-space: nowrap;
         overflow: hidden;
@@ -99,8 +144,12 @@ export default React.memo(styled(ChainInfo)`
       }
 
       .chain, .bestNumber {
-        font-size: 0.9rem;
+        font-size: .9rem;
         line-height: 1.2;
+        text-align: left;
+      }
+      .bestNumber {
+        font-size: 1rem;
       }
 
       .runtimeVersion {

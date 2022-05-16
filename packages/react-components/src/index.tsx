@@ -70,6 +70,7 @@ export { default as MarkError } from './MarkError';
 export { default as MarkWarning } from './MarkWarning';
 export { default as Menu } from './Menu';
 export { default as Modal } from './Modal';
+export { default as Modal2 } from './Modal2';
 export { default as Nonce } from './Nonce';
 export { default as Output } from './Output';
 export { default as Password } from './Password';

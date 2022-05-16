@@ -72,6 +72,9 @@ export default React.memo(styled(Head)`
   th {
     box-sizing: border-box;
     flex: 1;
+    &:nth-child(3) {
+      margin-left: -8px;
+    }
     text-transform:capitalize;
     font: var(--font-sans);
     font-weight: var(--font-weight-normal);
@@ -92,10 +95,10 @@ export default React.memo(styled(Head)`
         &:after {
           display: inline-block;
           content: '>';
-          width: 20px;
-          height: 20px;
-          line-height: 20px;
-          margin-top: 5px;
+          width: 24px;
+          height: 24px;
+          line-height: 24px;
+          margin-top: 3px;
           margin-left: 8px;
           text-align: center;
           border-radius: 50%;
@@ -198,12 +201,14 @@ export default React.memo(styled(Head)`
 
     &:not(.filter) {
       th {
-        margin-left: 8px;
         font-family: 'PingFangSC-Medium, PingFang SC,serif';
         width: 147px;
         font-size: 14px;
         font-weight: 400;
         color: rgba(78, 78, 78, .8);
+        &:first-child {
+          margin-left: 8px;
+        }
       }
     }
   }

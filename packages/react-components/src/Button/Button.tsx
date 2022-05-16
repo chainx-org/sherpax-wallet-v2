@@ -9,7 +9,9 @@ import styled from 'styled-components';
 import Icon from '../Icon';
 import Spinner from '../Spinner';
 
-function Button ({ activeOnEnter, children, className = '', dataTestId = '', icon, isBasic, isBusy, isCircular, isDisabled, isFull, isIcon, isSelected, isToplevel, label, onClick, isReadOnly = !onClick, onMouseEnter, onMouseLeave, tabIndex, withoutLink }: ButtonProps): React.ReactElement<ButtonProps> {
+function Button ({ activeOnEnter, children, className = '', dataTestId = '', icon, isBasic, isBusy, isCircular,
+                   isDisabled, isFull, isIcon, isSelected, isToplevel, label, onClick, isReadOnly = !onClick,
+                   onMouseEnter, onMouseLeave, tabIndex, withoutLink }: ButtonProps): React.ReactElement<ButtonProps> {
   const _onClick = useCallback(
     (): void => {
       !(isBusy || isDisabled) && onClick && onClick();
@@ -77,6 +79,15 @@ export default React.memo(styled(Button)`
   vertical-align: middle;
   text-align: center;
 
+  &:hover {
+    color: white!important;
+  }
+
+  svg {
+    color: white!important;
+    background: rgb(96, 152, 255)!important;
+  }
+
   &.mar15 {
     margin-right: 15px;
   }
@@ -87,10 +98,20 @@ export default React.memo(styled(Button)`
       cursor: pointer;
     }
     svg {
-      color: white!important;
       margin-right: 8px;
-      background: rgb(96, 152, 255)!important;
     }
+  }
+  &.send-24 {
+    vertical-align: middle;
+    margin-top: -4px;
+    margin-right: 7px;
+
+    svg {
+      width: 10px;
+      height: 10px;
+      vertical-align: middle;
+    }
+
   }
 
   &:not(.hasLabel) {

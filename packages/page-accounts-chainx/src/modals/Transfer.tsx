@@ -84,7 +84,7 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
     }
   }, [api, balances, propRecipientId, propSenderId, recipientId, senderId]);
 
-  
+
   useEffect((): void => {
     checkPhishing(propSenderId || senderId, propRecipientId || recipientId)
       .then(setPhishing)
@@ -97,7 +97,7 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
       : accountInfo.consumers.isZero()
     : true;
   const canToggleAll = !isProtected && balances && balances.accountId.eq(senderId) && maxTransfer && noReference;
- 
+
   useEffect(()=>{
     if(Number(amount) == 0) {
       setIsAmounts(true)
@@ -105,7 +105,7 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
       setIsAmounts(false)
     }
   },[amount])
- 
+
 
   return (
     <Modal
@@ -179,7 +179,7 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
                   <>
                     <InputPCXBalance
                       autoFocus
-                      help={t<string>('Type the amount you want to transfer. Note that you can select the unit on the right e.g sending 1 milli is equivalent to sending 0.001.')}
+                      help={t<string>('Type the amount you want to transfer.')}
                       isError={!hasAvailable}
                       isZeroable
                       label={t<string>('Amount')}
@@ -255,7 +255,7 @@ export default React.memo(styled(Transfer)`
     padding-right: 1rem;
 
     .label {
-      opacity: 0.7;
+      opacity: 1;
     }
   }
 

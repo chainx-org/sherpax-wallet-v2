@@ -7,7 +7,7 @@ import { Option } from '@polkadot/apps-config/settings/types';
 import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import { createLanguages, createSs58 } from '@polkadot/apps-config/settings';
 import { isLedgerCapable } from '@polkadot/react-api';
-import { Button, ButtonCancel, Dropdown, Modal } from '@polkadot/react-components';
+import { Button, ButtonCancel, Dropdown, Modal2 as Modal } from '@polkadot/react-components';
 import uiSettings from '@polkadot/ui-settings';
 import type { SettingsStruct } from '@polkadot/ui-settings/types';
 

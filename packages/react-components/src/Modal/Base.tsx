@@ -79,10 +79,9 @@ export default React.memo(styled(Base)`
 
   .ui--Modal__body {
     margin-top: 30px;
-    background: var(--bg-page);
+    background: #f9f9f9;
     border-radius: 4px;
     box-shadow: none;
-
     display: flex;
     flex-direction: column;
     position: absolute;

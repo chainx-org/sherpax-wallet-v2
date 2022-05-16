@@ -29,8 +29,9 @@ function Transfer ({ accountId, assetId, className, minBalance, siFormat: [siDec
   return (
     <>
       <Button
+        className='send-24 send-button'
         icon='paper-plane'
-        label={t<string>('send')}
+        label={t<string>('Send')}
         onClick={toggleOpen}
       />
       {isOpen && (
@@ -55,7 +56,7 @@ function Transfer ({ accountId, assetId, className, minBalance, siFormat: [siDec
                 type='allPlus'
               />
             </Modal.Columns>
-            <Modal.Columns hint={t<string>('The amount of tokens to transfer to the account.')}>
+            <Modal.Columns >
               <InputBalance
                 autoFocus
                 label={t<string>('amount to transfer')}
@@ -64,25 +65,13 @@ function Transfer ({ accountId, assetId, className, minBalance, siFormat: [siDec
                 siSymbol={siSymbol}
               />
             </Modal.Columns>
-            <Modal.Columns hint={t<string>('The minimum balance allowed for the asset.')}>
+            <Modal.Columns >
               <InputBalance
                 defaultValue={minBalance}
                 isDisabled
                 label={t<string>('minimum balance')}
                 siDecimals={siDecimals}
                 siSymbol={siSymbol}
-              />
-            </Modal.Columns>
-            <Modal.Columns hint={t('With the keep-alive option set, the account is protected against removal due to low balances.')}>
-              <Toggle
-                className='typeToggle'
-                label={
-                  isProtected
-                    ? t<string>('Transfer with account keep-alive checks')
-                    : t<string>('Normal transfer without keep-alive checks')
-                }
-                onChange={setIsProtected}
-                value={isProtected}
               />
             </Modal.Columns>
           </Modal.Content>

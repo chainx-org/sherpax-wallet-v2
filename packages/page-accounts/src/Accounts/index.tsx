@@ -25,9 +25,11 @@ function Wallet ({ className = '' }: Props): React.ReactElement<Props> {
 
 export default React.memo(styled(Wallet)`
   padding:16px 26px ;
+  font-family: 'PingFangSC-Medium, PingFang SC,serif';
   .walletPanel {
     display:flex;
     justify-content: space-between;
+
     .left {
       position: relative;
       box-sizing:border-box;
@@ -64,7 +66,7 @@ export default React.memo(styled(Wallet)`
       }
     }
     .right {
-      font-family: 'PingFangSC-Medium, PingFang SC,serif';
+      font-family: inherit;
       width:39.063vw;
       box-sizing: border-box;
       padding: 16px 26px;
@@ -104,6 +106,9 @@ export default React.memo(styled(Wallet)`
           font-weight: 500;
           color: #4E4E4E;
           line-height: 22px;
+          svg {
+            color: rgb(172, 172, 172);
+          }
         }
       }
     }

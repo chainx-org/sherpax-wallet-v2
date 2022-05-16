@@ -14,11 +14,10 @@ function Header ({ className = '', header, onClose }: HeaderProps) {
       {header && (
         <h1>{header}</h1>
       )}
-      {/* <Button
+      <Button
         dataTestId='close-modal'
         icon='times'
-        onClick={onClose}
-      /> */}
+        onClick={onClose}></Button>
     </div>
   );
 }
@@ -27,4 +26,13 @@ export default React.memo(styled(Header)`
   display: flex;
   justify-content: space-between;
   padding: 0.75rem 1.5rem 0;
+
+  h1 {
+    text-transform: capitalize;
+    font-size: 24px;
+    font-family: inherit;
+    font-weight: 400;
+    color: #4E4E4E;
+    line-height: 33px;
+  }
 `);

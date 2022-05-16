@@ -64,6 +64,14 @@ export default React.memo(styled(Tooltip)`
   > div {
     overflow: hidden;
   }
+  &.tips {
+    padding: 17px 8px;
+    width: 278px;
+    font-size: 13px;
+    line-height: 16px;
+    background: rgba(0, 0, 0, 0.76);
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.16), 0 0 8px 0 rgba(0, 0, 0, 0.08);
+  }
 
   &.ui--Tooltip {
     z-index: 1002;

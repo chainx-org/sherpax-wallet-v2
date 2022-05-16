@@ -21,9 +21,6 @@ const AccountRow = (props: Props) => {
     address:currentAccount
   }
 
-
-
-
   return (
     <div className='accountRow'>
       <Candidate address={currentAccount} withShortAddress={true} iconSize={28}

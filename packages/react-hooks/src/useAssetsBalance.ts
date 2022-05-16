@@ -16,10 +16,12 @@ interface ITokens  {
   decimals: number;
   logoURI: string;
 }
-interface ICurrentBalance {
+export interface ICurrentBalance {
   transBalance:number
   coin: string,
   logo:string,
+  decimals: number;
+  assetId: number;
 }
 export interface ICoinData {
   coin:string,
@@ -32,6 +34,8 @@ export interface ITotalBalance {
   percent:number,
   logo:string,
   coinNum:number,
+  decimals: number;
+  assetId: number;
 }
 
 export interface IEstimated {
@@ -81,15 +85,20 @@ export default  function  useAssetsBalance() {
 
     tokenList.map( async item => {
       const {assetId} = item
+      //增加ksx 计算总资产
       if(assetId === 99) {
-        targetArr.push({transBalance:allKsxBalance / Math.pow(10,18),coin:item.symbol.toUpperCase(),logo:item.logoURI})
+        targetArr.push({transBalance:allKsxBalance / Math.pow(10,18),
+                        coin:item.symbol.toUpperCase(),logo:item.logoURI,assetId:item.assetId,
+                        decimals:item.decimals
+        })
         return
       }
       const res = await api.query.assets.account([assetId],currentAccount)
 
 
       if(!res?.toJSON()) {
-        targetArr.push({transBalance:0,coin:item.symbol.toUpperCase(),logo:item.logoURI})
+        //增加跨链资产中余额为0的币
+        targetArr.push({transBalance:0,coin:item.symbol.toUpperCase(),logo:item.logoURI,assetId:item.assetId,decimals:item.decimals})
 
         if(targetArr.length === tokenList.length) {
           setCurrentBalance(targetArr)
@@ -100,7 +109,7 @@ export default  function  useAssetsBalance() {
 
       const {balance} = res?.toJSON()
       const transBalance = balance / Math.pow(10,item.decimals)
-      targetArr.push({transBalance,coin:item.symbol.toUpperCase(),logo:item.logoURI})
+      targetArr.push({transBalance,coin:item.symbol.toUpperCase(),logo:item.logoURI,assetId:item.assetId,decimals:item.decimals})
 
       if(targetArr.length === tokenList.length) {
         setCurrentBalance(targetArr)
@@ -116,24 +125,21 @@ export default  function  useAssetsBalance() {
   useEffect(() => {
     const totalBalanceOrigin = coinExchangeRate.map((item:any) => {
       const coin = item.coin.toUpperCase()
-      const [balanceArr] = currentBalance.filter(balance => balance.coin.toUpperCase() === coin)
-      if(!balanceArr) return
+      const [balance] = currentBalance.filter(balance => balance.coin.toUpperCase() === coin)
+      if(!balance) return
 
       return {
-        coin:`${balanceArr.coin}`,
-        dollar:balanceArr.transBalance * item.price,
-        percent: (balanceArr.transBalance * item.price) / Number(estimated.estimatedDollar),
-        logo:balanceArr.logo,
-        coinNum:balanceArr.transBalance
+        coin:`${balance.coin}`,
+        dollar:balance.transBalance * item.price,
+        percent: (balance.transBalance * item.price) / Number(estimated.estimatedDollar),
+        logo:balance.logo,
+        coinNum:balance.transBalance,
+        decimals: balance.decimals,
+        assetId: balance.assetId,
       }
     })
 
     const totalBalance = totalBalanceOrigin.sort((a:any,b:any) =>  b.dollar - a.dollar).filter(Boolean)
-
-
-
-
-
 
     setTotalBalance(totalBalance)
 
@@ -150,9 +156,6 @@ export default  function  useAssetsBalance() {
 
 
   },[currentBalance,coinExchangeRate,estimated.estimatedDollar])
-
-
-
 
   return [totalBalance,estimated]
 }
