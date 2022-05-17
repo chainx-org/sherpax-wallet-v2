@@ -2,19 +2,14 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import type { KeyedEvent } from '@polkadot/react-query/types';
+import styled  from "styled-components";
 
 import React, { useContext, useMemo, useRef } from 'react';
-import { Route, Switch } from 'react-router';
-
-import { Tabs } from '@polkadot/react-components';
 import { useApi } from '@polkadot/react-hooks';
+import InterChain from './components/inter-chain'
 import { BlockAuthorsContext, EventsContext } from '@polkadot/react-query';
 
-import BlockInfo from './BlockInfo';
-import Forks from './Forks';
-import Latency from './Latency';
-import Main from './Main';
-import NodeInfo from './NodeInfo';
+
 import { useTranslation } from './translate';
 
 interface Props {
@@ -29,59 +24,50 @@ function ExplorerApp ({ basePath, className }: Props): React.ReactElement<Props>
   const { lastHeaders } = useContext(BlockAuthorsContext);
   const { eventCount, events } = useContext(EventsContext);
 
-  const itemsRef = useRef([
-    {
-      isRoot: true,
-      name: 'chain',
-      text: t<string>('Chain info')
-    },
-    {
-      hasParams: true,
-      name: 'query',
-      text: t<string>('Block details')
-    },
-    {
-      name: 'latency',
-      text: t<string>('Latency')
-    },
-    {
-      name: 'forks',
-      text: t<string>('Forks')
-    },
-    {
-      name: 'node',
-      text: t<string>('Node info')
-    }
-  ]);
-
-  const hidden = useMemo(
-    () => api.query.babe ? [] : ['forks'],
-    [api]
-  );
 
   return (
     <main className={className}>
-      <Tabs
-        basePath={basePath}
-        hidden={hidden}
-        items={itemsRef.current}
-      />
-      <Switch>
-        <Route path={`${basePath}/forks`}><Forks /></Route>
-        <Route path={`${basePath}/latency`}><Latency /></Route>
-        <Route path={`${basePath}/query/:value`}><BlockInfo /></Route>
-        <Route path={`${basePath}/query`}><BlockInfo /></Route>
-        <Route path={`${basePath}/node`}><NodeInfo /></Route>
-        <Route>
-          <Main
-            eventCount={eventCount}
-            events={events}
-            headers={lastHeaders}
-          />
-        </Route>
-      </Switch>
+      <InterChain />
     </main>
   );
 }
 
-export default React.memo(ExplorerApp);
+export default React.memo(styled(ExplorerApp) `
+  .inter-chain {
+    padding: 26px;
+    .table-coin {
+      display: flex;
+      margin-top: 30px;
+      .top-up-table,
+      .withdrawals-table {
+        table {
+          tr {
+            td {
+              &:first-child {
+                flex: 1;
+                justify-content: start;
+                margin-left: 25px;
+              }
+              &:last-child {
+                text-align: left;
+                margin-right: 25px;
+                max-width: 300px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
+            }
+          }
+        }
+      }
+      .top-up {
+        flex: 1;
+        margin-right: 20px;
+      }
+      .withdrawals {
+        flex: 1;
+      }
+    }
+  }
+
+`)

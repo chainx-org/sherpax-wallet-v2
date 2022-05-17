@@ -1,13 +1,12 @@
 import React,{useContext, useEffect, useState} from 'react'
 import  axios from 'axios'
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
-
-import changeTime from '@polkadot/react-hooks/utils/changeTime'
 import {TokenListContext} from "@polkadot/react-components-chainx/TokenListProvider";
+import changeTime from '@polkadot/react-hooks/utils/changeTime'
 
 
 
-let BASE_URL = ''
+export let BASE_URL = ''
 
 if (process.env.NODE_ENV === 'development') {
   ///pre地址
@@ -20,11 +19,12 @@ if (process.env.NODE_ENV === 'development') {
   }
 }
 
-const axiosInstance = axios.create({
+
+export const axiosInstance = axios.create({
   baseURL:BASE_URL
 })
 
-function shortHah(value:string) {
+export function shortHah(value:string) {
   return value.substring(0,7).concat('...').concat(value.substring(value.length - 5))
 }
 

@@ -114,7 +114,7 @@ export default React.memo(styled(Wallet)`
     }
   }
   .assetsTable{
-    margin-top: 30px;
+    margin: 30px 0 28px 0;
   }
   .transactions {
     .tableList {

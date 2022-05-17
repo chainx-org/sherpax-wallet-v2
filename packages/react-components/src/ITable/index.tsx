@@ -61,7 +61,7 @@ function ITable ({ children, className = '', empty, emptySpinner, filter, footer
 }
 
 export default React.memo(styled(ITable)`
-  margin-bottom: 28px;
+  //margin-bottom: 28px;
   max-width: 100%;
   width: 100%;
 
