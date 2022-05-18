@@ -29,7 +29,7 @@ function Transfer ({ accountId, assetId, className, minBalance, siFormat: [siDec
   return (
     <>
       <Button
-        className={`send-24 send-button ${className}`}
+        className={`send-24 send-button ${className ? className : ''}`}
         icon='paper-plane'
         label={t<string>('Send')}
         onClick={toggleOpen}
@@ -37,13 +37,14 @@ function Transfer ({ accountId, assetId, className, minBalance, siFormat: [siDec
       {isOpen && (
         <Modal
           className={className}
-          header={t<string>('transfer asset')}
+          header={t<string>('Transfer Funds')}
           onClose={toggleOpen}
           size='large'
         >
           <Modal.Content>
             <Modal.Columns hint={t<string>('The account to transfer from. This account should have sufficient assets for this transfer.')}>
               <InputAddress
+                help={'The account you will send funds from.'}
                 defaultValue={accountId}
                 isDisabled
                 label={t<string>('send from')}
@@ -51,6 +52,7 @@ function Transfer ({ accountId, assetId, className, minBalance, siFormat: [siDec
             </Modal.Columns>
             <Modal.Columns hint={t<string>('The beneficiary will have access to the transferred asset when the transaction is included in a block.')}>
               <InputAddress
+                help={'Paste the address you want to send funds to.'}
                 label={t<string>('send to address')}
                 onChange={setRecipientId}
                 type='allPlus'
@@ -58,18 +60,10 @@ function Transfer ({ accountId, assetId, className, minBalance, siFormat: [siDec
             </Modal.Columns>
             <Modal.Columns >
               <InputBalance
+                help={"Transfer sBTC Amount"}
                 autoFocus
-                label={t<string>('amount to transfer')}
+                label={t<string>('Transfer sBTC Amount')}
                 onChange={setAmount}
-                siDecimals={siDecimals}
-                siSymbol={siSymbol}
-              />
-            </Modal.Columns>
-            <Modal.Columns >
-              <InputBalance
-                defaultValue={minBalance}
-                isDisabled
-                label={t<string>('minimum balance')}
                 siDecimals={siDecimals}
                 siSymbol={siSymbol}
               />
@@ -80,7 +74,7 @@ function Transfer ({ accountId, assetId, className, minBalance, siFormat: [siDec
               accountId={accountId}
               icon='paper-plane'
               isDisabled={!recipientId || !amount}
-              label={t<string>('Send')}
+              label={t<string>('Make transfer')}
               onStart={toggleOpen}
               params={[assetId, recipientId, amount]}
               tx={

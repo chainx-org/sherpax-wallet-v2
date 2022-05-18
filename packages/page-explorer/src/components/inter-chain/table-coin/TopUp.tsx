@@ -19,7 +19,7 @@ const TopUp = (props: Props) => {
 
   return (
     <div className="top-up">
-      <ITable header={header.current} empty="No latest cross-chain asset top up" className="top-up-table">
+      <ITable header={header.current} empty={'No latest cross-chain asset top up' } className="top-up-table">
         {toTop.map((item:IDataItem) => {
           return (
             <tr key={item.extrinsicHash}>

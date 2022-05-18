@@ -3,7 +3,7 @@
 
 // import BN from 'bn.js';
 import React, {Dispatch, useEffect, useState} from 'react';
-import {Input, InputAddress, Modal, TxButton} from '@polkadot/react-components';
+import {Input, InputAddress, Modal2 as Modal, TxButton2 as TxButton} from '@polkadot/react-components';
 import InputSBTCBalance from '@polkadot/react-components-chainx/InputSBTCBalance';
 import {useApi} from "@polkadot/react-hooks";
 import {useTranslation} from '../../translate';
@@ -18,7 +18,16 @@ interface Props {
 }
 
 const Wrapper = styled(Modal)`
+  > .header {
+    border: 0!important;
+  }
+  > .actions {
+    border: 0!important;
+    padding: 0!important;
+    background: none!important;
+  }
   > .content{
+    padding-top: 0!important;
     > div > div:nth-child(2){
       display: flex;
       > span{
@@ -86,7 +95,7 @@ function Withdraw({account, btc, onClose, setN}: Props): React.ReactElement<Prop
     }
     getMinWithdraw();
   }, [isApiReady]);
-  
+
   useEffect((): void => {
     const WithdrawAmount = new BigNumber(Number(amount) / Math.pow(10, 18))
     setFinalWithdraw(WithdrawAmount.minus(minfee).toNumber())

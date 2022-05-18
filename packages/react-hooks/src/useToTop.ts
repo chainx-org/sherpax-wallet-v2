@@ -18,7 +18,6 @@ export default function useToTop() {
   const [toTop,setToTop] = useState<IDataItem[]>([])
   let  { currentAccount } = useContext(AccountContext);
 
-  currentAccount = '0x006E97e28CAa58D3357d070C9535D6CD06bD875e'
 
   useEffect(() => {
     //sbtc币 充值 精度8

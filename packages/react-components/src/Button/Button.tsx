@@ -70,7 +70,6 @@ const ICON_PADDING = 0.5;
 export default React.memo(styled(Button)`
   background: transparent;
   border: none;
-  color: inherit;
   cursor: pointer;
   line-height: 1;
   margin: 0;
@@ -78,41 +77,57 @@ export default React.memo(styled(Button)`
   position: relative;
   vertical-align: middle;
   text-align: center;
+  color:  #4E4E4E;
 
   &:hover {
     color: white!important;
+    &.isDisabled, &.isReadOnly {
+      color:  #4E4E4E!important;
+    }
   }
 
   svg {
     color: white!important;
     background: rgb(96, 152, 255)!important;
+    vertical-align: middle;
   }
 
   &.mar15 {
     margin-right: 15px;
   }
+
   &.send-button {
+    padding: 0.7rem 16px!important;
     text-transform: capitalize;
-    &.isDisabled, &.isReadOnly {
-      background: rgb(96, 152, 255)!important;
-      cursor: pointer;
+    &:hover {
+      &.isDisabled, &.isReadOnly {
+        background: rgb(96, 152, 255)!important;
+        cursor: pointer;
+        color:  white!important;
+      }
     }
+
     svg {
       margin-right: 8px;
     }
   }
   &.send-24 {
-    vertical-align: middle;
     margin-top: -4px;
-    margin-right: 7px;
-
     svg {
       width: 10px;
       height: 10px;
-      vertical-align: middle;
     }
-
   }
+
+  &.send-28 {
+    margin-top: -4px;
+    vertical-align: bottom;
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
 
   &:not(.hasLabel) {
     padding: 0.7em;

@@ -6,7 +6,6 @@ import {isFunction} from "@polkadot/util";
 import {useApi, useToggle} from "@polkadot/react-hooks";
 import Transfer from '@polkadot/app-assets/Balances/Transfer'
 import {AccountContext} from "@polkadot/react-components-chainx/AccountProvider";
-import KSX_SVG from '../../../svg/ksx.svg'
 
 
 interface Props  {}

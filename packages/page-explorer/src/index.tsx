@@ -68,6 +68,35 @@ export default React.memo(styled(ExplorerApp) `
         flex: 1;
       }
     }
+    .coin-panel {
+      .coin-card{
+        padding: 24px 26px;
+        background: #FFFFFF;
+        border-radius: 2px;
+        border: 1px solid #DCE0E2;
+        .card-btns {
+          font-family: 'NotoSansSC-Bold, NotoSansSC  serif';
+          display: flex;
+          color: rgb(130, 128, 129);
+          font-weight: 600;
+          justify-content: space-between;
+          align-items: center;
+          .coin-logo {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            img {
+              width: 32px;
+              height: 32px;
+              margin-right: 8px;
+            }
+          }
+          a {
+            color: #4E4E4E;
+          }
+        }
+      }
+    }
   }
 
 `)

@@ -51,6 +51,7 @@ function TxButton ({ accountId, className = '', extrinsic: propsExtrinsic, icon,
   );
 
   const _onSend = useCallback(
+
     (): void => {
       let extrinsics: SubmittableExtrinsic<'promise'>[] | undefined;
 

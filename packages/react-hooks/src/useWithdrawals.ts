@@ -18,8 +18,6 @@ export default function useWithdrawals() {
   const [withdrawals,setWithdrawals] = useState<IDataItem[]>([])
   let  { currentAccount } = useContext(AccountContext);
 
-  currentAccount = '0x006E97e28CAa58D3357d070C9535D6CD06bD875e'
-
   useEffect(() => {
     //sbtc币 提款 精度8
     axiosInstance.get(`/xgateway/${currentAccount}/withdrawals`,{

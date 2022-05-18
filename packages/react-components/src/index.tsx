@@ -97,6 +97,7 @@ export { default as Toggle } from './Toggle';
 export { default as ToggleGroup } from './ToggleGroup';
 export { default as Tooltip } from './Tooltip';
 export { default as TxButton } from './TxButton';
+export { default as TxButton2 } from './TxButton2';
 export { default as VoteAccount } from './VoteAccount';
 export { default as VoteValue } from './VoteValue';
 export { default as TextArea } from './TextArea';
