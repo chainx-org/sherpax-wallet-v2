@@ -1,13 +1,12 @@
 import React from 'react'
-import CardBtns from './Card-btns'
+import CardBtns from './CardBtns'
+import AssetView from './AssetsView'
 
-
-interface Props  {}
-
-const CoinCard = (props: Props) => {
+const CoinCard = ({}) => {
   return (
     <div className="coin-card">
       <CardBtns/>
+      <AssetView/>
     </div>
   )
 }

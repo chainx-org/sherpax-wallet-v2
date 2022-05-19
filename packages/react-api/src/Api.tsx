@@ -27,6 +27,11 @@ import { defaults as addressDefaults } from '@polkadot/util-crypto/address/defau
 import ApiContext from './ApiContext';
 import registry from './typeRegistry';
 import { decodeUrlTypes } from './urlTypes';
+// @ts-ignore
+import rpc from './RPCTypes.json'
+// @ts-ignore
+import newTypes from './NewTypes.json'
+
 
 interface Props {
   children: React.ReactNode;
@@ -98,8 +103,11 @@ async function getInjectedAccounts (injectedPromise: Promise<InjectedExtension[]
   }
 }
 
-async function retrieve (api: ApiPromise, injectedPromise: Promise<InjectedExtension[]>): Promise<ChainData> {
+async function retrieve(api: ApiPromise, injectedPromise: Promise<InjectedExtension[]>): Promise<ChainData> {
   const [systemChain, systemChainType, systemName, systemVersion, injectedAccounts] = await Promise.all([
+    // const [bestHeader, chainProperties, systemChain, systemChainType, systemName, systemVersion, injectedAccounts] = await Promise.all([
+    // api.rpc.chain.getHeader(),
+    // api.rpc.system.properties(),
     api.rpc.system.chain(),
     api.rpc.system.chainType
       ? api.rpc.system.chainType()
@@ -107,10 +115,33 @@ async function retrieve (api: ApiPromise, injectedPromise: Promise<InjectedExten
     api.rpc.system.name(),
     api.rpc.system.version(),
     getInjectedAccounts(injectedPromise)
+    // injectedPromise
+    //   .then(() => web3Accounts())
+    //   .then((accounts) => accounts.map(({ address, meta }, whenCreated): InjectedAccountExt => ({
+    //     address,
+    //     meta: {
+    //       ...meta,
+    //       name: `${meta.name || 'unknown'} (${meta.source === 'polkadot-js' ? 'extension' : meta.source})`,
+    //       whenCreated
+    //     }
+    //   })))
+    //   .catch((error): InjectedAccountExt[] => {
+    //     console.error('web3Enable', error);
+
+    //     return [];
+    //   })
   ]);
+
+  // HACK Horrible hack to try and give some window to the DOT denomination
+  // const properties = api.genesisHash.eq(POLKADOT_GENESIS)
+  //   ? bestHeader.number.toBn().gte(POLKADOT_DENOM_BLOCK)
+  //     ? registry.createType('ChainProperties', { ...chainProperties, tokenDecimals: 10, tokenSymbol: 'DOT' })
+  //     : registry.createType('ChainProperties', { ...chainProperties, tokenDecimals: 12, tokenSymbol: 'DOT (old)' })
+  //   : chainProperties;
 
   return {
     injectedAccounts,
+    // properties,
     properties: registry.createType('ChainProperties', {
       ss58Format: api.registry.chainSS58,
       tokenDecimals: api.registry.chainDecimals,
@@ -211,11 +242,14 @@ async function createApi (apiUrl: string, signer: ApiSigner, onError: (error: un
     api = new ApiPromise({
       provider,
       registry,
+      rpc,
       signer,
       types,
       typesBundle,
       typesChain
     });
+
+    api.registerTypes(newTypes)
 
     // See https://github.com/polkadot-js/api/pull/4672#issuecomment-1078843960
     if (isLight) {

@@ -2,18 +2,20 @@
 import React, { useEffect } from 'react';
 import ClipboardJS from 'clipboard';
 import uniqid from 'uniqid';
-import copyIcon from './copy.svg';
+import copyIcon from './copy-blue.svg';
 import styled from 'styled-components';
 
 const Wrapper = styled.span`
   word-break: break-all;
   word-wrap: break-word;
+  border-left: 1px solid #dce0e2;
 
   i {
-    margin-left: 4px;
+    margin-left: 6px;
     img {
-      width: 11px;
+      width: 14px;
       cursor: pointer;
+      vertical-align: middle;
     }
   }
 `;

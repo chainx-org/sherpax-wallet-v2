@@ -96,6 +96,43 @@ export default React.memo(styled(ExplorerApp) `
           }
         }
       }
+      .assets-view {
+        margin-top: 40px;
+        display: flex;
+        justify-content: start;
+        align-items: end;
+        > div {
+          margin-right: 80px;
+          &:nth-child(2) {
+            margin-right: 110px;
+          }
+          &:last-child {
+            margin: 0;
+          }
+          h2 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 500;
+            color: #4E4E4E;
+            height: 33px;
+            line-height: 33px;
+            &.balance-tit {
+              font-size: 24px;
+              font-weight: 600;
+              color: #4E4E4E;
+            }
+
+          }
+          p {
+            font-weight: 400;
+            margin-bottom: 9px;
+            height: 16px;
+            font-size: 16px;
+            color: rgba(78, 78, 78, .8);
+            line-height: 16px;
+          }
+        }
+      }
     }
   }
 

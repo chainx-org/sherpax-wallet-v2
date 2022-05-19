@@ -1,5 +1,5 @@
 import React from 'react'
-import CoinCard from "./Coin-card"
+import CoinCard from "./CoinCard"
 
 
 interface Props  {}

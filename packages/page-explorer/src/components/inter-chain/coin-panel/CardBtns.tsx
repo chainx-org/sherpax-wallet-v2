@@ -28,7 +28,6 @@ const CardBtns = (props: Props) => {
   const currentAccountInfo = useSbtcAssets(currentAccount, n)
 
 
-
   return (
     <div className="card-btns">
       {isWithdraw && (
