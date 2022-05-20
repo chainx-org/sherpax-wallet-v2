@@ -446,9 +446,9 @@ export default createGlobalStyle<Props & ThemeProps>(({ theme, uiHighlight }: Pr
 
     &.warning {
       &:before {
-        background: rgba(255, 196, 12, 0.05);
+        background: #f9f3e1;
       }
-
+      color:#4e4e4e;
       border-color: rgba(255, 196, 12, 1);
     }
   }

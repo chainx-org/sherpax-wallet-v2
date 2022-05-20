@@ -1,10 +1,14 @@
 // Copyright 2017-2022 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useCallback } from 'react';
+import React, {useCallback, useContext} from 'react';
 import styled from 'styled-components';
+import ClipBoard from "@polkadot/app-accounts-chainx/modals/deposite2/ClipBoard";
+
 
 import Labelled from './Labelled';
+import {StatusContext} from "@polkadot/react-components/Status";
+import {useTranslation} from "@polkadot/app-accounts-chainx/translate";
 
 interface Props {
   children?: React.ReactNode;
@@ -25,6 +29,18 @@ function TextArea ({ children, className, help, isError, isReadOnly, label, onCh
     },
     [onChange]
   );
+  const { queueAction } = useContext(StatusContext);
+  const {t} = useTranslation();
+
+
+
+  function _onCopy() {
+    queueAction({
+      action: t('clipboard'),
+      message: t('copied'),
+      status: 'queued'
+    })
+  }
 
   return (
     <Labelled
@@ -47,11 +63,20 @@ function TextArea ({ children, className, help, isError, isReadOnly, label, onCh
         />
         {children}
       </div>
+      {/*<ClipBoard className='clip-board' id='' _onCopy={_onCopy} > {seed} </ClipBoard>*/}
     </Labelled>
   );
 }
 
-export default React.memo(styled(TextArea)`
+  export default React.memo(styled(TextArea)`
+  position: relative;
+  //.clip-board {
+  //  position: absolute;
+  //  font-size: 0;
+  //  border: 0;
+  //  left: 30px;
+  //  bottom: 20px;
+  //}
   .TextAreaWithDropdown {
     display: flex;
     textarea {

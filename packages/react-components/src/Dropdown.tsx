@@ -128,6 +128,11 @@ function BaseDropdown<Option> ({ allowAdd = false, children, className = '', def
 }
 
 const Dropdown = React.memo(styled(BaseDropdown)`
+  &:hover {
+    & + .bubble {
+      display: block!important;
+    }
+  }
   .ui--Dropdown-item {
     position: relative;
     white-space: nowrap;

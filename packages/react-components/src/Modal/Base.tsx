@@ -14,7 +14,7 @@ const ESC_KEYCODE = 27;
 
 function Base (props: ModalProps): React.ReactElement<ModalProps> {
   const { theme } = useContext(ThemeContext as React.Context<ThemeDef>);
-  const { children, className = '', header, onClose, size = 'medium', testId = 'modal' } = props;
+  const { children, className = '', header, onClose, size = 'medium', testId = 'modal',isShowHeader = true } = props;
 
   const listenKeyboard = useCallback((event: KeyboardEvent) => {
     if (event.key === 'Escape' || event.keyCode === ESC_KEYCODE) {
@@ -41,10 +41,13 @@ function Base (props: ModalProps): React.ReactElement<ModalProps> {
         onClick={onClose}
       />
       <div className='ui--Modal__body'>
-        <Header
+        {isShowHeader &&
+          <Header
           header={header}
           onClose={onClose}
-        />
+          />
+        }
+
         {children}
       </div>
     </div>,

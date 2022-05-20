@@ -8,7 +8,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { DEV_PHRASE } from '@polkadot/keyring/defaults';
-import { AddressRow, Button, Checkbox, CopyButton, Dropdown, Expander, Input, MarkError, MarkWarning, Modal, TextArea } from '@polkadot/react-components';
+import { AddressRow, Button, Checkbox, CopyButton, Dropdown, Expander, Input, MarkError, MarkWarning, Modal, TextArea,Tips} from '@polkadot/react-components';
 import { useApi, useLedger, useStepper } from '@polkadot/react-hooks';
 import { keyring } from '@polkadot/ui-keyring';
 import { settings } from '@polkadot/ui-settings';
@@ -293,27 +293,30 @@ function Create ({ className = '', onClose, onStatusChange, seed: propsSeed, typ
               />
             </TextArea>
           </Modal.Columns>
+          <Modal.Columns className="paddl2rem"> { t<string>('Note: If you need to import the mnemonic or raw seed that existed in the past, please clear the input box and enter it again.') } </Modal.Columns>
           <Expander
             className='accounts--Creator-advanced'
             isPadded
             summary={t<string>('Advanced creation options')}
           >
             {pairType !== 'ethereum' && (
-              <Modal.Columns hint={t<string>('If you are moving accounts between applications, ensure that you use the correct type.')}>
-                <Dropdown
-                  defaultValue={pairType}
-                  help={t<string>('Determines what cryptography will be used to create this account. Note that to validate on Polkadot, the session account must use "ed25519".')}
-                  label={t<string>('keypair crypto type')}
-                  onChange={_onChangePairType}
-                  options={
-                    isEthereum
-                      ? settings.availableCryptosEth
-                      : isLedgerEnabled
-                        ? settings.availableCryptosLedger
-                        : settings.availableCryptos
-                  }
-                  tabIndex={-1}
-                />
+              <Modal.Columns hint={t<string>('')}>
+                <Tips text={`If you are moving accounts between applications,ensure that you use the correct type.`}>
+                  <Dropdown
+                    defaultValue={pairType}
+                    help={t<string>('Determines what cryptography will be used to create this account. Note that to validate on Polkadot, the session account must use "ed25519".')}
+                    label={t<string>('keypair crypto type')}
+                    onChange={_onChangePairType}
+                    options={
+                      isEthereum
+                        ? settings.availableCryptosEth
+                        : isLedgerEnabled
+                          ? settings.availableCryptosLedger
+                          : settings.availableCryptos
+                    }
+                    tabIndex={-1}
+                  />
+                </Tips>
               </Modal.Columns>
             )}
             {pairType === 'ed25519-ledger'
@@ -334,31 +337,34 @@ function Create ({ className = '', onClose, onStatusChange, seed: propsSeed, typ
                   />
                 )
                 : (
-                  <Modal.Columns hint={t<string>('The derivation path allows you to create different accounts from the same base mnemonic.')}>
-                    <Input
-                      help={(t<string>('You can set a custom derivation path for this account using the following syntax "/<soft-key>//<hard-key>". The "/<soft-key>" and "//<hard-key>" may be repeated and mixed`. An optional "///<password>" can be used with a mnemonic seed, and may only be specified once.'))}
-                      isDisabled={seedType === 'raw'}
-                      isError={!!deriveValidation?.error}
-                      label={t<string>('secret derivation path')}
-                      onChange={_onChangePath}
-                      placeholder={
-                        seedType === 'raw'
-                          ? pairType === 'sr25519'
-                            ? t<string>('//hard/soft')
-                            : t<string>('//hard')
-                          : pairType === 'sr25519'
-                            ? t<string>('//hard/soft///password')
-                            : t<string>('//hard///password')
-                      }
-                      tabIndex={-1}
-                      value={derivePath}
-                    />
-                    {deriveValidation?.error && (
-                      <MarkError content={errorIndex.current[deriveValidation.error] || deriveValidation.error} />
-                    )}
-                    {deriveValidation?.warning && (
-                      <MarkWarning content={errorIndex.current[deriveValidation.warning]} />
-                    )}
+                  <Modal.Columns hint={t<string>('')}>
+                    <Tips text="The derivation path allows you to create different accounts from the same base mnemonic." >
+                      <Input
+                        help={(t<string>('You can set a custom derivation path for this account using the following syntax "/<soft-key>//<hard-key>". The "/<soft-key>" and "//<hard-key>" may be repeated and mixed`. An optional "///<password>" can be used with a mnemonic seed, and may only be specified once.'))}
+                        isDisabled={seedType === 'raw'}
+                        isError={!!deriveValidation?.error}
+                        label={t<string>('secret derivation path')}
+                        onChange={_onChangePath}
+                        placeholder={
+                          seedType === 'raw'
+                            ? pairType === 'sr25519'
+                              ? t<string>('//hard/soft')
+                              : t<string>('//hard')
+                            : pairType === 'sr25519'
+                              ? t<string>('//hard/soft///password')
+                              : t<string>('//hard///password')
+                        }
+                        tabIndex={-1}
+                        value={derivePath}
+                      />
+                      {deriveValidation?.error && (
+                        <MarkError content={errorIndex.current[deriveValidation.error] || deriveValidation.error} />
+                      )}
+                      {deriveValidation?.warning && (
+                        <MarkWarning content={errorIndex.current[deriveValidation.warning]} />
+                      )}
+                    </Tips>
+
                   </Modal.Columns>
                 )}
           </Expander>

@@ -15,6 +15,7 @@ function Header ({ className = '', header, onClose }: HeaderProps) {
         <h1>{header}</h1>
       )}
       <Button
+        // className="send-button"
         dataTestId='close-modal'
         icon='times'
         onClick={onClose}></Button>

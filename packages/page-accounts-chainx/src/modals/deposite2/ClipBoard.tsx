@@ -39,7 +39,7 @@ export default function ClipBoard({ children, className, id, onClick }: Props): 
   const uid = id || uniqid('clipboard_');
 
   return (
-    <Wrapper>
+    <Wrapper className={className}>
       <span className={className}
         id={uid}>
         {children}

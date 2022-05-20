@@ -78,18 +78,21 @@ export default React.memo(styled(Button)`
   vertical-align: middle;
   text-align: center;
   color:  #4E4E4E;
+  svg {
+    color: white!important;
+  }
 
   &:hover {
     color: white!important;
     &.isDisabled, &.isReadOnly {
-      color:  #4E4E4E!important;
+      color:  #bcbbba!important;
     }
   }
 
-  svg {
-    color: white!important;
-    background: rgb(96, 152, 255)!important;
-    vertical-align: middle;
+  &.white {
+    svg {
+      color: white!important;
+    }
   }
 
   &.mar15 {
@@ -97,8 +100,16 @@ export default React.memo(styled(Button)`
   }
 
   &.send-button {
-    padding: 0.7rem 16px!important;
+    &.padd16 {
+      padding: 0.7rem 16px!important;
+    }
     text-transform: capitalize;
+    svg {
+      color: white!important;
+      background: rgb(96, 152, 255)!important;
+      vertical-align: middle;
+    }
+
     &:hover {
       &.isDisabled, &.isReadOnly {
         background: rgb(96, 152, 255)!important;
@@ -128,7 +139,6 @@ export default React.memo(styled(Button)`
     }
   }
 
-
   &:not(.hasLabel) {
     padding: 0.7em;
 
@@ -152,6 +162,11 @@ export default React.memo(styled(Button)`
     .ui--Icon {
       color: white;
       margin-right: 0.425rem !important;
+      &:hover {
+        svg {
+          color: white;
+        }
+      }
     }
   }
 
@@ -213,5 +228,8 @@ export default React.memo(styled(Button)`
 
   &.isDisabled {
     color: #bcbbba;
+    svg {
+      color: #bcbbba!important;
+    }
   }
 `);

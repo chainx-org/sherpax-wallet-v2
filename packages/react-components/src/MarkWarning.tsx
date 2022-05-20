@@ -21,6 +21,7 @@ function MarkWarning ({ children, className = '', content }: Props): React.React
 }
 
 export default React.memo(styled(MarkWarning)`
+  color: #4e4e4e;
   .ui--Icon {
     color: rgba(255, 196, 12, 1);
     margin-right: 0.5rem;

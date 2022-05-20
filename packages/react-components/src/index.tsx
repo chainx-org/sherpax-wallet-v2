@@ -104,5 +104,5 @@ export { default as TextArea } from './TextArea';
 export { default as ExpandButton } from './ExpandButton';
 export { default as SortDropdown } from './SortDropdown';
 export { default as FilterInput } from './FilterInput';
-
 export { default as media } from './media';
+export { default as Tips } from './Tips';

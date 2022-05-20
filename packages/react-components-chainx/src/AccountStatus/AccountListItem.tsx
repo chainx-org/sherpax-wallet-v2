@@ -119,6 +119,15 @@ export default styled(Account)`
 
   .samewidth button:first-child {
     min-width: 6.5rem;
+    &:hover {
+      svg {
+        color: white!important;
+      }
+    }
+    svg {
+      background: transparent!important;
+      color: #3f3f3f!important;
+    }
     @media only screen and (max-width: 540px) {
       min-width: 0.5rem;
     }

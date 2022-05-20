@@ -94,7 +94,7 @@ function AccountList ({ className = '', onClose, onStatusChange, setStoredValue,
   const _toggleImport = (): void => setIsImportOpen(!isImportOpen);
 
   return (
-    <Modal>
+    <Modal isShowHeader={false}>
       <Wrapper className={className}>
         {isCreateOpen && (
           <Create
@@ -140,11 +140,13 @@ function AccountList ({ className = '', onClose, onStatusChange, setStoredValue,
               </div>
               <div>
                 <Button
+                  className="send-button"
                   icon={'plus'}
                   label={t('Add account')}
                   onClick={_toggleCreate}
                 />
                 <Button
+                  className="send-button"
                   icon={'sync'}
                   label={t('Restore JSON')}
                   onClick={_toggleImport}

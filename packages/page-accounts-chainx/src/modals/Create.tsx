@@ -425,6 +425,7 @@ function Create({ className = '', onClose, onStatusChange, seed: propsSeed, type
           )
           : (
             <Button
+              className="send-button"
               icon='step-forward'
               isDisabled={!isValid}
               label={t<string>('Next')}

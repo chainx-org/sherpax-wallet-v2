@@ -22,6 +22,7 @@ export interface ModalProps {
   children: React.ReactNode;
   className?: string;
   header?: React.ReactNode;
+  isShowHeader:boolean;
   open?: boolean;
   onClose: () => void;
   testId?: string;

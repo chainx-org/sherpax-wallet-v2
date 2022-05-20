@@ -51,15 +51,15 @@ const CardBtns = (props: Props) => {
         sBTC
       </div>
       <div className="btns">
-        <Button icon={'arrow-down'} label={t<string>('Top Up')}
+        <Button className="send-button padd16" icon={'arrow-down'} label={t<string>('Top Up')}
                 isDisabled={!isApiReady || !currentAccount || !hasAccounts || !hasCurrentName}
                 onClick={toggleDeposite}
         ></Button>
-        <Button icon={'arrow-up'} label={t<string>('Withdrawals')}  onClick={toggleWithdraw}
+        <Button className="send-button padd16"  icon={'arrow-up'} label={t<string>('Withdrawals')}  onClick={toggleWithdraw}
         ></Button>
         {isFunction(api.api.tx.balances?.transfer) && (
           <Transfer
-            className="send-28"
+            className="send-28 padd16"
             key='modal-transfer card-btns'
             // onClose={toggleTransfer}
             accountId={currentAccount}
@@ -68,7 +68,7 @@ const CardBtns = (props: Props) => {
           />
         )}
         <a href="https://soswap.finance" target="_blank">
-          <Button className="send-button" icon={'arrow-right-arrow-left'} label={t<string>('Swap')}></Button>
+          <Button className="send-button padd16" icon={'arrow-right-arrow-left'} label={t<string>('Swap')}></Button>
         </a>
       </div>
     </div>

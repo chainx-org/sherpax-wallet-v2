@@ -50,7 +50,7 @@ const AssetsTable = (props: Props) => {
                 )}
                 <a href="https://soswap.finance" target="_blank" style={{color:'rgba(78, 78, 78, 1)'}} >
                   <Button
-                    className='send-button send-24'
+                    className='send-button send-24 padd16'
                     icon='arrow-right-arrow-left'
                     label={t<string>('Swap')}
                   />

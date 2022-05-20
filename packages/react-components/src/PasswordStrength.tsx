@@ -65,7 +65,7 @@ export default React.memo(styled(PasswordStrength)`
     width: 100%;
     margin: 0 10px;
     border: 1px solid #DFDFDF;
-    border-radius: 0.15rem;
+    border-radius: 20rem;
     background: #ECECEC;
   }
 
@@ -74,7 +74,7 @@ export default React.memo(styled(PasswordStrength)`
     top: -0.07rem;
     height: 0.6rem;
     width: 100%;
-    border-radius: 0.15rem;
+    border-radius: 20rem;
     background: linear-gradient(90.43deg, #FF8B00 0%, #FFBB50 112.75%);
   }
 `);

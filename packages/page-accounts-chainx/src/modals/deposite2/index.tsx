@@ -189,19 +189,6 @@ export default function ({ address, onClose }: Props) {
               </div>
             </main>
           </Modal.Content>
-          {/*<Modal.Actions onCancel={onClose}>*/}
-          {/*  {*/}
-          {/*    (window as any).web3 &&*/}
-          {/*    (window as any).web3.currentProvider &&*/}
-          {/*    (window as any).web3.currentProvider.isComingWallet && apiUrl.includes('mainnet.sherpax') &&*/}
-          {/*    <Button*/}
-          {/*      className={''}*/}
-          {/*      onClick={TopUpLink}*/}
-          {/*      icon='sign-in-alt'*/}
-          {/*      label={t('Continue by COMING')}*/}
-          {/*    />*/}
-          {/*  }*/}
-          {/*</Modal.Actions>*/}
       </div>
     </Wrapper>
   );

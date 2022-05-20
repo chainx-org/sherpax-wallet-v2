@@ -22,13 +22,16 @@ export default React.memo(styled(Columns)`
   display: flex;
   justify-content: space-between;
 
+  &.paddl2rem {
+    padding-left: 2rem;
+  }
+
   &+& {
     margin-top: 0.25rem;
   }
 
   > div {
     padding: 0.25em 0;
-
     &:nth-child(1) {
       flex: 100%;
       max-width: 100%;

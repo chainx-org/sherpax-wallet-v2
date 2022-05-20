@@ -35,17 +35,6 @@ function SettingNode (): React.ReactElement {
   return (
     <>
       <ul className='right'>
-        {/*<li*/}
-        {/*  className='switchNode media--800'*/}
-        {/*  onClick={toggleEndpoints}*/}
-        {/*>*/}
-        {/*  <div className='circle' />*/}
-        {/*  <div className='netInfo'>{netInfo}</div>*/}
-        {/*  <Icon*/}
-        {/*    icon='angle-down'*/}
-        {/*    size='1x'*/}
-        {/*  />*/}
-        {/*</li>*/}
         <li className='accountSelector'>
           <AccountSelect />
         </li>

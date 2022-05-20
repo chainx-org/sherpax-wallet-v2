@@ -97,7 +97,7 @@ export const StyledWrapper = styled.div`
 
         .ui--Row-address{
           font-size: 12px;
-          color: #8E8E8E;
+          color: #353D41;
           padding-right: 0;
         }
       }
