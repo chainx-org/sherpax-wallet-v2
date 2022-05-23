@@ -46,3 +46,32 @@ export default function useWithdrawals() {
 
   return withdrawals
 }
+
+export function useTransfer() {
+  const [transfer,seTransfer] = useState<IDataItem[]>([])
+  let  { currentAccount } = useContext(AccountContext);
+
+  useEffect(() => {
+    axiosInstance.get(`/palletAssets/${currentAccount}/transfers`,{
+      params:{
+        asset_id:1,
+        page:0,
+        page_size:10
+      }
+    }).then(res => {
+
+      if(!res) return
+
+      const itemMaps = res.data.items.map((item:IDataItem) => {
+        item.shortHashAddrs = shortHah(item.extrinsicHash)
+        item.blockTimestamp = changeTime(Number(item.blockTimestamp))
+        item.balance = String((Number(item.balance) / Math.pow(10,8)).toFixed(4)) + (item.assetId === 1 ? ' sBtc' : ' DOGE')
+        return item
+      })
+
+      seTransfer(itemMaps)
+    })
+  },[])
+
+  return transfer
+}

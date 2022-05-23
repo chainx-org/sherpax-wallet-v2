@@ -13,15 +13,15 @@ const AssetsView = (props: Props) => {
     <div className="assets-view">
       <div className="balance">
         <p >Balance</p>
-        <h2 className="balance-tit" >{sbtcAssets.balance} SBTC</h2>
+        <h2 className="balance-tit" >{sbtcAssets.balance} sBTC</h2>
       </div>
       <div className="transferable">
         <p>Transferable</p>
-        <h2>{sbtcAssets.balance - sbtcAssets.reserved} SBTC</h2>
+        <h2>{sbtcAssets.balance - sbtcAssets.reserved} sBTC</h2>
       </div>
       <div className="reserved">
         <p>Withdrawal Reserved</p>
-        <h2>{sbtcAssets.reserved} SBTC</h2>
+        <h2>{sbtcAssets.reserved} sBTC</h2>
       </div>
     </div>
   )

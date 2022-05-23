@@ -36,10 +36,18 @@ export default React.memo(styled(ExplorerApp) `
   .inter-chain {
     padding: 26px;
     .table-coin {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 20px;
+      //display: flex;
+      //flex-wrap: wrap;
       margin-top: 30px;
+      .top-up-table {
+        margin-bottom: 20px;
+      }
       .top-up-table,
-      .withdrawals-table {
+      .withdrawals-table,
+      .transfer-table {
         table {
           tr {
             td {
@@ -59,13 +67,6 @@ export default React.memo(styled(ExplorerApp) `
             }
           }
         }
-      }
-      .top-up {
-        flex: 1;
-        margin-right: 20px;
-      }
-      .withdrawals {
-        flex: 1;
       }
     }
     .coin-panel {

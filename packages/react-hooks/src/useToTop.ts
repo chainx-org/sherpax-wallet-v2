@@ -37,8 +37,6 @@ export default function useToTop() {
         return item
       })
 
-      console.log(itemMaps,`totop`)
-
       setToTop(itemMaps)
     })
 

@@ -1,26 +1,22 @@
-import React, {useRef} from 'react'
+import React from 'react'
 import {ITable} from "@polkadot/react-components";
-import {useTranslation} from "@polkadot/app-explorer/translate"
-import useToTop from '@polkadot/react-hooks/useToTop'
-import {IDataItem} from "@polkadot/react-hooks/useWithdrawals";
+import {IDataItem} from "@polkadot/react-hooks/useWithdrawalsAndTransfer";
 import sBtc_svg from "@polkadot/app-explorer/svg/sBTC.svg";
 
 
-interface Props  {}
+interface Props  {
+  header:any,
+  source:IDataItem[]
+  className:string,
+  empty:string,
+}
 
-const TopUp = (props: Props) => {
-  const { t } = useTranslation();
-  const toTop = useToTop()
-
-  const header = useRef([
-    //text class colspan
-    [t('Top Up'),''],
-  ]);
+const TableData = ({header,source,className,empty}: Props) => {
 
   return (
-    <div className="top-up">
-      <ITable header={header.current} empty={'No latest cross-chain asset top up' } className="top-up-table">
-        {toTop.map((item:IDataItem) => {
+    <div className={className}>
+      <ITable header={header.current} empty={empty} className={`${className}-table`} >
+        {source.map((item:IDataItem) => {
           return (
             <tr key={item.extrinsicHash}>
               <td>
@@ -37,4 +33,4 @@ const TopUp = (props: Props) => {
   )
 }
 
-export default  TopUp
+export default  TableData
