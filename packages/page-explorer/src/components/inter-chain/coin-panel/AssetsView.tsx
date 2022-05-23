@@ -1,19 +1,22 @@
 import React, { useContext} from 'react'
 import useSbtcAssets from '@polkadot/react-hooks/useSbtcAssets'
 import {AccountContext} from "@polkadot/react-components-chainx/AccountProvider";
+import {CoinPriceContext} from "@polkadot/react-components-chainx/CoinPriceProvider";
 
 interface Props  {}
 
 const AssetsView = (props: Props) => {
   const { currentAccount } = useContext(AccountContext);
+  const {coinExchangeRate,btcDollar} = useContext(CoinPriceContext)
+  const [{price}] = coinExchangeRate.filter((item:any ) => item.coin === 'WKSX')
+
   const sbtcAssets = useSbtcAssets(currentAccount)
-  console.log(sbtcAssets)
 
   return (
     <div className="assets-view">
       <div className="balance">
         <p >Balance</p>
-        <h2 className="balance-tit" >{sbtcAssets.balance} sBTC</h2>
+        <h2 className="balance-tit" >{sbtcAssets.balance} sBTC <span className="dollar"> (≈ ${Number(price * sbtcAssets.balance ).toFixed(8)}) </span> </h2>
       </div>
       <div className="transferable">
         <p>Transferable</p>

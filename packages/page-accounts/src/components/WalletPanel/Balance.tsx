@@ -105,15 +105,22 @@ export default function Balance({lookup}: Props) {
   return (
     <div className='balance'>
       <AssetView
+        showDallar
         bold
         key={Math.random()}
-        title={t('Total Balance')}
+        title={t('KSX Balance')}
         value={allBalance}
       />
       <section className='details' key="details">
         {(
           <>
             <AssetView key={Math.random()}    title={t('Transferrable')}  value={usableBalance > 0 ? usableBalance : 0}></AssetView>
+
+            <AssetView
+              key={Math.random()}
+              title={t('Reserved')}
+              value={reserved}
+            />
 
             {lockedBreakdown && <AssetView
               key={Math.random()}
@@ -133,11 +140,6 @@ export default function Balance({lookup}: Props) {
               </p>:''}
             />}
 
-            <AssetView
-              key={Math.random()}
-              title={t('Reserved')}
-              value={reserved}
-            />
           </>
         )}
       </section>

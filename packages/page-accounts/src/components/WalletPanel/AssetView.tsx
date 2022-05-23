@@ -1,11 +1,12 @@
 import type {  DeriveBalancesAll } from '@polkadot/api-derive/types';
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from 'styled-components';
 import {useApi} from '@polkadot/react-hooks';
 import {toPrecision} from '@polkadot/app-accounts-chainx/Myview/toPrecision';
 import BigNumber from 'bignumber.js';
 import { Icon } from '@polkadot/react-components';
 import { formatBalance } from '@polkadot/util';
+import {CoinPriceContext} from "@polkadot/react-components-chainx/CoinPriceProvider";
 
 const Title = styled.h6`
   margin: 0;
@@ -92,6 +93,12 @@ const Value = styled.div`
     color: #353D41;
     line-height: 33px;
   }
+
+  .dollar {
+    padding-left: 10px;
+    font-size: 18px;
+    font-weight: normal;
+  }
 `;
 
 type Props = {
@@ -100,7 +107,7 @@ type Props = {
   help?: React.ReactNode,
   value: number,
   balancesAll?: DeriveBalancesAll;
-
+  showDallar:boolean
 }
 
 const LoadingValue = styled.div`
@@ -117,11 +124,15 @@ const LoadingValue = styled.div`
   }
 `
 
-export default function ({ bold, title, value, help }: Props): React.ReactElement<Props> {
+export default function ({ bold, title, value, help,showDallar}: Props): React.ReactElement<Props> {
   const {isApiReady} = useApi();
   const preciseValue: BigNumber = new BigNumber(toPrecision(value, 18))
   const decimalsValue = preciseValue.toNumber().toFixed(4).slice(-4)
   const intValue = preciseValue.toNumber().toFixed(8).slice(0,-8)
+  const {coinExchangeRate,btcDollar} = useContext(CoinPriceContext)
+  const [{price}] = coinExchangeRate.filter((item:any ) => item.coin === 'WKSX')
+
+
   return (
     <div>
       <Title>
@@ -133,26 +144,19 @@ export default function ({ bold, title, value, help }: Props): React.ReactElemen
         </HelpValue> : "" }
       </Title>
       <Value className={bold ? 'bold' : ''}>
-        {/* {props.value} */}
-        {isApiReady ?
-        // <FormatBalance
-        //   className='result'
-        //   value={value}
-        //   />
+        {isApiReady &&
           <LoadingValue>
-            <span className='ui--FormatBalance-value"'>{intValue}</span>
-            <span className='ui--FormatBalance-postfix'>{decimalsValue}</span>
-            <span className='ui--FormatBalance-unit'>{formatBalance.getDefaults().unit && formatBalance.getDefaults().unit !== 'Unit'? formatBalance.getDefaults().unit : 'KSX'}</span>
+            <span className='ui--FormatBalance-value"'>{Number(preciseValue.toJSON()).toFixed(4)} KSX</span>
+            {/*<span className='ui--FormatBalance-unit'>*/}
+            {/*  {formatBalance.getDefaults().unit && formatBalance.getDefaults().unit !== 'Unit'? formatBalance.getDefaults().unit : 'KSX'}*/}
+            {/*</span>*/}
+            {
+              showDallar &&
+              <span className="dollar">
+                 (≈ ${Number(Number(preciseValue.toJSON()) * price).toFixed(2)})
+              </span>
+            }
           </LoadingValue>
-          :
-          <>
-          {/*<div>{preciseValue.toNumber().toFixed(4)}</div>*/}
-          <LoadingValue>
-            <span className='ui--FormatBalance-value"'>{intValue}</span>
-            <span className='ui--FormatBalance-postfix'>{decimalsValue}</span>
-            <span className='ui--FormatBalance-unit'>{formatBalance.getDefaults().unit && formatBalance.getDefaults().unit !== 'Unit' ? formatBalance.getDefaults().unit : 'KSX'}</span>
-          </LoadingValue>
-        </>
           }
       </Value>
     </div>

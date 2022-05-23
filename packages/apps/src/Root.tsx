@@ -13,6 +13,7 @@ import Queue from '@polkadot/react-components/Status/Queue';
 import { AccountProvider } from '@polkadot/react-components-chainx/AccountProvider';
 import {TokenListProvider} from '@polkadot/react-components-chainx/TokenListProvider';
 import {KSXBalanceProvider} from '@polkadot/react-components-chainx/KSXBalanceProvider';
+import {CoinPriceProvider} from '@polkadot/react-components-chainx/CoinPriceProvider'
 import { BlockAuthors, Events } from '@polkadot/react-query';
 import { settings } from '@polkadot/ui-settings';
 
@@ -59,7 +60,9 @@ function Root ({ isElectron, store }: Props): React.ReactElement<Props> {
                       <HashRouter>
                         <WindowDimensions>
                           <KSXBalanceProvider>
-                            <Apps />
+                            <CoinPriceProvider>
+                              <Apps />
+                            </CoinPriceProvider>
                           </KSXBalanceProvider>
                         </WindowDimensions>
                       </HashRouter>
