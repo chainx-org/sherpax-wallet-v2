@@ -11,7 +11,6 @@ import uiSettings from '@polkadot/ui-settings';
 
 import { useTranslation } from '../../translate';
 import { createOption } from './util';
-import Toggle from './Toggle';
 
 interface Props {
   className?: string;
@@ -64,15 +63,17 @@ function SelectUrl ({ className, onChange }: Props): React.ReactElement<Props> {
   const [info, setInfo] = useState(getInitialState(() => ''));
   const { isCustom, isValid, url } = info;
   const translatedEndpoints = useMemo(
-    () => createWsEndpoints(t).map((option) => createOption(option, ['local'])),
+    () => createWsEndpoints(t).map((option) => createOption(option, ['local'])).filter(item => item?.value?.includes('sherpax')),
     [t]
   );
 
+
+
   useEffect((): void => {
     onChange && info.isValid && onChange(info.url);
-  // the issue here is that the onChange callback changes each and every render... so Houston, we have
-  // a desperate issue here :(
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // the issue here is that the onChange callback changes each and every render... so Houston, we have
+    // a desperate issue here :(
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [info]);
 
   const _onChangeUrl = useCallback(

@@ -40,6 +40,7 @@ export default React.memo(styled(Tips)`
     line-height: 18px;
     text-align: center;
     z-index: 999;
+
     &:after {
       position: absolute;
       z-index: 99;
