@@ -11,9 +11,9 @@ import { ThemeProvider } from 'styled-components';
 import { Api } from '@polkadot/react-api';
 import Queue from '@polkadot/react-components/Status/Queue';
 import { AccountProvider } from '@polkadot/react-components-chainx/AccountProvider';
-import { CoinPriceProvider } from '@polkadot/react-components-chainx/CoinPriceProvider';
-import { KSXBalanceProvider } from '@polkadot/react-components-chainx/KSXBalanceProvider';
-import { TokenListProvider } from '@polkadot/react-components-chainx/TokenListProvider';
+import {TokenListProvider} from '@polkadot/react-components-chainx/TokenListProvider';
+import {KSXBalanceProvider} from '@polkadot/react-components-chainx/KSXBalanceProvider';
+import {CoinPriceProvider} from '@polkadot/react-components-chainx/CoinPriceProvider'
 import { BlockAuthors, Events } from '@polkadot/react-query';
 import { settings } from '@polkadot/ui-settings';
 
@@ -42,7 +42,6 @@ function Root ({ isElectron, store }: Props): React.ReactElement<Props> {
 
   useEffect((): void => {
     settings.on('change', (settings) => setTheme(createTheme(settings)));
-    console.log(settings.apiUrl, '----------');
   }, []);
 
   return (
@@ -50,26 +49,27 @@ function Root ({ isElectron, store }: Props): React.ReactElement<Props> {
       <ThemeProvider theme={theme}>
         <TokenListProvider>
           <AccountProvider>
-            <Queue>
-              <Api
-                apiUrl={settings.apiUrl}
-                isElectron={isElectron}
-              >
-                <BlockAuthors>
-                  <Events>
-                    <HashRouter>
-                      <WindowDimensions>
-                        <KSXBalanceProvider>
-                          <CoinPriceProvider>
-                            <Apps />
-                          </CoinPriceProvider>
-                        </KSXBalanceProvider>
-                      </WindowDimensions>
-                    </HashRouter>
-                  </Events>
-                </BlockAuthors>
-              </Api>
-            </Queue>
+              <Queue>
+                <Api
+                  apiUrl={settings.apiUrl}
+                  isElectron={isElectron}
+                  store={store}
+                >
+                  <BlockAuthors>
+                    <Events>
+                      <HashRouter>
+                        <WindowDimensions>
+                          <KSXBalanceProvider>
+                            <CoinPriceProvider>
+                              <Apps />
+                            </CoinPriceProvider>
+                          </KSXBalanceProvider>
+                        </WindowDimensions>
+                      </HashRouter>
+                    </Events>
+                  </BlockAuthors>
+                </Api>
+              </Queue>
           </AccountProvider>
         </TokenListProvider>
 
