@@ -2,6 +2,8 @@ import React, {useContext} from 'react'
 import ITable from '@polkadot/react-components/ITable'
 import KSX_SVG from '../../../svg/ksx.svg'
 import {AccountContext} from "@polkadot/react-components-chainx/AccountProvider";
+import { settings } from '@polkadot/ui-settings';
+
 
 interface Props  {
   transfersData: TransferItem[]
@@ -29,7 +31,7 @@ const TransfersTable = ({transfersData}: Props) => {
             return (
               <tr key={item.extrinsicHash}>
                 <td> <img src={KSX_SVG} alt="ksx"/> {item.balance} </td>
-                <td><a href={`https://scan.sherpax.io/trade/${item.extrinsicHash}`} target="_blank">{item.transferHash}</a> </td>
+                <td><a href={`https://scan${settings.apiUrl.includes('test') ? '-pre' : ''}.sherpax.io/trade/${item.extrinsicHash}`} target="_blank">{item.transferHash}</a> </td>
                 <td> {item.from === currentAccount ? 'Out' : 'In'} </td>
                 <td> {item.blockTime} </td>
               </tr>

@@ -1,6 +1,8 @@
 import React, {useContext} from 'react'
 import ITable from '@polkadot/react-components/ITable'
 import {AccountContext} from "@polkadot/react-components-chainx/AccountProvider";
+import { settings } from '@polkadot/ui-settings';
+
 
 interface Props  {
   transfersDataCross:any
@@ -38,7 +40,7 @@ const TransfersCrossTable = ({transfersDataCross}: Props) => {
                   {item.balance}
                 </td>
                 <td>
-                  <a href={`https://scan.sherpax.io/trade/${item.extrinsicHash}`} target="_blank">
+                  <a href={`https://scan${settings.apiUrl.includes('test') ? '-pre' : ''}.sherpax.io/trade/${item.extrinsicHash}`} target="_blank">
                     {item.transferHash}
                   </a>
                 </td>
