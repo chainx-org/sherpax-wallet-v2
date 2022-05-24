@@ -12,14 +12,8 @@ interface Props {}
 const AssetsView = (props: Props) => {
   const { currentAccount } = useContext(AccountContext);
   let { btcDollar, coinExchangeRate } = useContext(CoinPriceContext);
-  if(!coinExchangeRate.length) {
-    coinExchangeRate = []
-  }
-  let [{ price }] = coinExchangeRate.filter((item: any) => item.coin === 'sBTC');
+  let [sBTCObj] = coinExchangeRate.filter((item: any) => item.coin === 'sBTC');
 
-  if(!price) {
-    price = 0
-  }
 
   const sbtcAssets = useSbtcAssets(currentAccount);
 
@@ -27,7 +21,7 @@ const AssetsView = (props: Props) => {
     <div className='assets-view'>
       <div className='balance'>
         <p>Balance</p>
-        <h2 className='balance-tit'>{sbtcAssets.balance} sBTC <span className='dollar'> (≈ ${Number(price * sbtcAssets.balance).toFixed(2)}) </span> </h2>
+        <h2 className='balance-tit'>{sbtcAssets.balance} sBTC <span className='dollar'> (≈ ${Number(sBTCObj?.price * sbtcAssets.balance).toFixed(2)}) </span> </h2>
       </div>
       <div className='transferable'>
         <p>Transferable</p>

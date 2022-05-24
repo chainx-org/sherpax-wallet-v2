@@ -134,16 +134,9 @@ export default function ({ bold, help, showDallar, title, value }: Props): React
   const preciseValue: BigNumber = new BigNumber(toPrecision(value, 18));
   const decimalsValue = preciseValue.toNumber().toFixed(4).slice(-4);
   const intValue = preciseValue.toNumber().toFixed(8).slice(0, -8);
-  let { btcDollar, coinExchangeRate } = useContext(CoinPriceContext);
-  if(!coinExchangeRate.length) {
-    coinExchangeRate = []
-  }
-  let [{ price }] = coinExchangeRate.filter((item: any) => item.coin === 'WKSX');
+  const { btcDollar, coinExchangeRate } = useContext(CoinPriceContext);
 
-  if(!price) {
-    price = 0
-  }
-
+  const [wksxObj] = coinExchangeRate.filter((item: any) => item.coin === 'WKSX');
 
   return (
     <div>
@@ -169,7 +162,7 @@ export default function ({ bold, help, showDallar, title, value }: Props): React
             {
               showDallar &&
               <span className='dollar'>
-                 (≈ ${Number(Number(preciseValue.toJSON()) * price).toFixed(2)})
+                 (≈ ${Number(Number(preciseValue.toJSON()) * wksxObj?.price).toFixed(2)})
               </span>
             }
           </LoadingValue>
