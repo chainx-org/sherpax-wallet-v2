@@ -13,7 +13,7 @@ export function useCoinPrice() {
 
 
   useEffect(() => {
-    coinInstance.get("/getCoinExchangeRate").then(res => {
+    coinInstance.get("/getCoinExchangeRate/").then(res => {
       if(!res) return
       setBtcDollar((res.data.data.filter(item => item.coin === 'BTC'))[0].price)
       setCoinExchangeRate(res.data.data)
