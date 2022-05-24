@@ -11,14 +11,14 @@ import { settings } from '@polkadot/ui-settings';
 
 export let BASE_URL = '';
 
-if (process.env.NODE_ENV === 'development') {
-  /// pre地址
-  if (settings.apiUrl.includes('test')) {
-    BASE_URL = 'https://multiscan-api-pre.coming.chat/sherpax';
-  } else {
-    BASE_URL = 'https://multiscan-api.coming.chat/sherpax';
-  }
+if (settings.apiUrl.includes('test')) {
+  BASE_URL = 'https://multiscan-api-pre.coming.chat/sherpax';
+} else {
+  BASE_URL = 'https://multiscan-api.coming.chat/sherpax';
 }
+
+console.log(11)
+console.log(BASE_URL,`BASE_URL`)
 
 export const axiosInstance = axios.create({
   baseURL: BASE_URL
