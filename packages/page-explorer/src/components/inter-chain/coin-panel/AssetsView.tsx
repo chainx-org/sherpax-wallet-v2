@@ -8,6 +8,8 @@ interface Props  {}
 const AssetsView = (props: Props) => {
   const { currentAccount } = useContext(AccountContext);
   const {coinExchangeRate,btcDollar} = useContext(CoinPriceContext)
+  if(!coinExchangeRate.length) return
+
   const [{price}] = coinExchangeRate.filter((item:any ) => item.coin === 'sBTC')
 
   const sbtcAssets = useSbtcAssets(currentAccount)
