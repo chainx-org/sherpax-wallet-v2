@@ -134,7 +134,10 @@ export default function ({ bold, help, showDallar, title, value }: Props): React
   const preciseValue: BigNumber = new BigNumber(toPrecision(value, 18));
   const decimalsValue = preciseValue.toNumber().toFixed(4).slice(-4);
   const intValue = preciseValue.toNumber().toFixed(8).slice(0, -8);
-  const { btcDollar, coinExchangeRate } = useContext(CoinPriceContext);
+  let { btcDollar, coinExchangeRate } = useContext(CoinPriceContext);
+  if(!coinExchangeRate.length) {
+    coinExchangeRate = []
+  }
   let [{ price }] = coinExchangeRate.filter((item: any) => item.coin === 'WKSX');
 
   if(!price) {
