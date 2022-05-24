@@ -15,6 +15,7 @@ if (process.env.NODE_ENV === 'development') {
   /// pre地址
   BASE_URL = 'https://multiscan-api.coming.chat/sherpax';
 } else if (process.env.NODE_ENV === 'production') {
+  console.log(settings.apiUrl,settings.apiUrl.includes('test'),'------')
   if (settings.apiUrl.includes('test')) {
     BASE_URL = 'https://multiscan-api-pre.coming.chat/sherpax';
   } else {
