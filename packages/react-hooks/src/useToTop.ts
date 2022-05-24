@@ -20,6 +20,8 @@ export default function useToTop() {
 
 
   useEffect(() => {
+    if(!currentAccount) return
+
     //sbtc币 充值 精度8
     axiosInstance.get(`/xgateway/${currentAccount}/deposits`,{
       params:{

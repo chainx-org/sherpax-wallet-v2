@@ -35,6 +35,7 @@ export function useTransfers () {
   const [transfer, setTransfer] = useState([]);
 
   useEffect(() => {
+    if(!currentAccount) return
     // 请求交易数据
     axiosInstance.get('/balanceTransfer', {
       params: {
@@ -70,6 +71,7 @@ export function useTransfersCross () {
   const [transferCross, setTransferCross] = useState([]);
 
   useEffect(() => {
+    if(!currentAccount) return
     // 请求跨链资产交易
     axiosInstance.get(`/palletAssets/${currentAccount}/transfers`, {
       params: {
