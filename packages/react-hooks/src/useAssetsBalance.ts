@@ -49,12 +49,14 @@ export let coinInstance:AxiosInstance
 let tokenListInstance:AxiosInstance
 let testInstance:AxiosInstance
 
+tokenListInstance = axios.create({baseURL:'https://raw.githubusercontent.com/chainx-org/token-list/main/'})
+
 if (process.env.NODE_ENV === "development") {
   coinInstance  = axios.create({baseURL:'/v1'})
   // testInstance = axios.create({baseURL:'http://localhost:3004'})
-  tokenListInstance = axios.create({baseURL:'https://raw.githubusercontent.com/chainx-org/token-list/main/'})
+
 }  else if (process.env.NODE_ENV === "production") {
-  axios.defaults.baseURL = "";
+  coinInstance = axios.create({baseURL:'https://coming-zero-wallet.coming.chat'})
 }
 
 
