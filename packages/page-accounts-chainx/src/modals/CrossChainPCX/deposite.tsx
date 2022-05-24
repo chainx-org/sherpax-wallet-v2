@@ -152,7 +152,7 @@ export default function ({ address, onClose }: Props) {
   //   location.href = `https://www.coming.chat/transfer?cointype=sBTC&address=${hotAddress}&opreturn=${addressHex}`
   // }
   return (
-    <Wrapper header={t("Top Up")}>
+    <Wrapper header={t("top up")}>
       <Modal.Content>
         <main className="content">
           <h2>

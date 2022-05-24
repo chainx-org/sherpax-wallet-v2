@@ -15,7 +15,7 @@ const AssetsTable = (props: Props) => {
 
   const header = useRef([
     //text class colspan
-    [t('Cross-chain Assets'),''],
+    [t('cross-chain assets'),''],
     [t('Token')],
     [t('Balance'), 'media--1500'],
     [t('Value'), 'value'],

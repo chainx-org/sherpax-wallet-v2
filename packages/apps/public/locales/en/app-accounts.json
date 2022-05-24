@@ -386,5 +386,9 @@
   "website": "website",
   "with an index of": "with an index of",
   "your current password": "your current password",
-  "your new password": "your new password"
+  "your new password": "your new password",
+  "cross-chain assets":"Cross-Chain Assets",
+  "top up":"Top Up",
+  "withdrawals":"Withdrawals",
+  "transfers":"Transfers"
 }

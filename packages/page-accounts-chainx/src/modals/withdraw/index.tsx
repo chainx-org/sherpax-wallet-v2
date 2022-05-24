@@ -188,7 +188,7 @@ function Withdraw({account, btc, onClose, setN}: Props): React.ReactElement<Prop
         <TxButton
           accountId={accountId}
           icon='sign-in-alt'
-          label={t('Withdrawals')}
+          label={t('withdrawals')}
           onStart={onClose}
           params={['1', Number(amount) / Math.pow(10, 10), withdrawAddress, memo ? memo.trim() : '']}
           tx='xGatewayCommon.withdraw'

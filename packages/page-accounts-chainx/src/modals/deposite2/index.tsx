@@ -158,7 +158,7 @@ export default function ({ address, onClose }: Props) {
   }
 
   return (
-    <Wrapper header={t("Top Up")} onClose={onClose}>
+    <Wrapper header={t("top up")} onClose={onClose}>
       <div className="center">
           <Modal.Content>
             <main className="step">
