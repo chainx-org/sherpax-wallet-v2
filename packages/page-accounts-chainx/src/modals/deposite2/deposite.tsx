@@ -20,7 +20,7 @@ interface Props {
 }
 
 const Wrapper = styled(Modal)`
- 
+
   @media screen and (min-width:540px) {
     min-width: 500px;
     max-width: 600px;
@@ -129,7 +129,7 @@ export default function ({address, onClose}: Props) {
     const addressHex = u8aToHex(
       new TextEncoder('utf-8').encode(`${address}${channel ? '@' + channel : ''}`)
     ).replace(/^0x/, '');
-  
+
     useEffect((): void => {
       async function getHotAddress() {
         if(apiUrl.includes('mainnet')) {
@@ -155,7 +155,7 @@ export default function ({address, onClose}: Props) {
     }
   return (
     <Wrapper
-        header={t('Top Up')}
+        header={t('top up')}
       >
       <Modal.Content>
       <main className='content'>
@@ -208,7 +208,7 @@ export default function ({address, onClose}: Props) {
             icon='sign-in-alt'
             label={t('Continue by COMING')}
           />
-        }  
+        }
       </Modal.Actions>
     </Wrapper>
   );

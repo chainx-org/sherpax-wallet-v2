@@ -86,7 +86,7 @@ function Withdraw({account, btc, onClose, setN}: Props): React.ReactElement<Prop
   //   }
   //   getMinWithdraw();
   // }, [isApiReady]);
-  
+
   useEffect((): void => {
     const WithdrawAmount = new BigNumber(Number(amount) / Math.pow(10, 18))
     setFinalWithdraw(WithdrawAmount.minus(minfee).toNumber())
@@ -178,7 +178,7 @@ function Withdraw({account, btc, onClose, setN}: Props): React.ReactElement<Prop
         <TxButton
           accountId={accountId}
           icon='sign-in-alt'
-          label={t('Withdrawals')}
+          label={t('withdrawals')}
           onStart={onClose}
           params={[Number(amount) / Math.pow(10, 10),{BackForeign: 2}]}
           tx='assetsBridge.teleport'

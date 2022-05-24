@@ -1,35 +1,44 @@
-import React, {useContext,useState} from 'react'
-import { Button } from '@polkadot/react-components'
-import Sbtc_svg from '../../../svg/sBTC.svg'
-import {useTranslation} from "@polkadot/app-explorer/translate";
-import Withdraw from '@polkadot/app-accounts-chainx/modals/withdraw'
-import Deposite from '@polkadot/app-accounts-chainx/modals/deposite2'
-import {isFunction} from "@polkadot/util";
-import Transfer from "@polkadot/app-assets/Balances/TransferSbtc";
-import {useApi,useToggle,useAccounts} from "@polkadot/react-hooks";
-import {AccountContext} from "@polkadot/react-components-chainx/AccountProvider";
+// [object Object]
+// SPDX-License-Identifier: Apache-2.0
+
+import React, { useContext, useState } from 'react';
+
+
+import Deposite from '@polkadot/app-accounts-chainx/modals/deposite2';
+
+import Withdraw from '@polkadot/app-accounts-chainx/modals/withdraw';
+
 import useSbtcAssets from '@polkadot/app-accounts-chainx/Myview/useSbtcAssets';
 
+import Transfer from '@polkadot/app-assets/Balances/TransferSbtc';
 
+import { useTranslation } from '@polkadot/app-explorer/translate';
+import { Button } from '@polkadot/react-components';
 
-interface Props  {}
+import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
+
+import { useAccounts, useApi, useToggle } from '@polkadot/react-hooks';
+import { isFunction } from '@polkadot/util';
+
+import Sbtc_svg from '../../../svg/sBTC.svg';
+
+interface Props {}
 
 const CardBtns = (props: Props) => {
   const { currentAccount } = useContext(AccountContext);
   const [n, setN] = useState(0);
-  const {isApiReady} = useApi();
-  const {hasAccounts, allAccounts} = useAccounts()
-  const hasCurrentName = allAccounts.find(account => account === currentAccount)
+  const { isApiReady } = useApi();
+  const { allAccounts, hasAccounts } = useAccounts();
+  const hasCurrentName = allAccounts.find((account) => account === currentAccount);
 
   const { t } = useTranslation();
   const api = useApi();
   const [isWithdraw, toggleWithdraw] = useToggle();
   const [isDepositeOpen, toggleDeposite] = useToggle();
-  const currentAccountInfo = useSbtcAssets(currentAccount, n)
-
+  const currentAccountInfo = useSbtcAssets(currentAccount, n);
 
   return (
-    <div className="card-btns">
+    <div className='card-btns'>
       {isWithdraw && (
         <Withdraw
           account={currentAccount}
@@ -46,33 +55,51 @@ const CardBtns = (props: Props) => {
         />
       )
       }
-      <div className="coin-logo">
-        <img src={Sbtc_svg} alt="sbtc-logo"/>
+      <div className='coin-logo'>
+        <img
+          alt='sbtc-logo'
+          src={Sbtc_svg}
+        />
         sBTC
       </div>
-      <div className="btns">
-        <Button className="send-button padd16" icon={'arrow-down'} label={t<string>('Top Up')}
-                isDisabled={!isApiReady || !currentAccount || !hasAccounts || !hasCurrentName}
-                onClick={toggleDeposite}
+      <div className='btns'>
+        <Button
+          className='send-button padd16'
+          icon={'arrow-down'}
+          isDisabled={!isApiReady || !currentAccount || !hasAccounts || !hasCurrentName}
+          label={t<string>('top up')}
+          onClick={toggleDeposite}
         ></Button>
-        <Button className="send-button padd16"  icon={'arrow-up'} label={t<string>('Withdrawals')}  onClick={toggleWithdraw}
+        <Button
+          className='send-button padd16'
+          icon={'arrow-up'}
+          label={t<string>('withdrawals')}
+          onClick={toggleWithdraw}
         ></Button>
         {isFunction(api.api.tx.balances?.transfer) && (
           <Transfer
-            className="send-28 padd16"
-            key='modal-transfer card-btns'
-            // onClose={toggleTransfer}
             accountId={currentAccount}
             assetId={1}
-            siFormat={[8,'SBTC']}
+            // onClose={toggleTransfer}
+            className='send-28 padd16'
+            key='modal-transfer card-btns'
+            siFormat={[8, 'SBTC']}
           />
         )}
-        <a href="https://soswap.finance" target="_blank">
-          <Button className="send-button padd16" icon={'arrow-right-arrow-left'} label={t<string>('Swap')}></Button>
+        <a
+          href='https://soswap.finance'
+          rel='noreferrer'
+          target='_blank'
+        >
+          <Button
+            className='send-button padd16'
+            icon={'arrow-right-arrow-left'}
+            label={t<string>('Swap')}
+          ></Button>
         </a>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default  CardBtns
+export default CardBtns;

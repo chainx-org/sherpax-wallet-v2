@@ -1,41 +1,62 @@
-import React,{useRef} from 'react'
-import TableData from "./TableData";
+// [object Object]
+// SPDX-License-Identifier: Apache-2.0
 
-import useToTop from '@polkadot/react-hooks/useToTop'
-import {useTranslation} from "@polkadot/app-explorer/translate";
-import useWithdrawals, {useTransfer} from "@polkadot/react-hooks/useWithdrawalsAndTransfer";
+import React, { useRef } from 'react';
 
 
-interface Props  {}
+import { useTranslation } from '@polkadot/app-explorer/translate';
+
+import useToTop from '@polkadot/react-hooks/useToTop';
+
+import useWithdrawals, { useTransfer } from '@polkadot/react-hooks/useWithdrawalsAndTransfer';
+
+
+
+import TableData from './TableData';
+
+interface Props {}
 
 const TableCoin = (props: Props) => {
   const { t } = useTranslation();
 
-  const toTop = useToTop()
+  const toTop = useToTop();
   const toTopHeader = useRef([
-    //text class colspan
-    [t('Top Up'),''],
+    // text class colspan
+    [t('top up'), '']
   ]);
 
-  const transfer = useTransfer()
+  const transfer = useTransfer();
   const transferHeader = useRef([
-    [t('Transfers'),''],
+    [t('Transfers'), '']
   ]);
 
-  const withdrawals =  useWithdrawals()
+  const withdrawals = useWithdrawals();
   const withdrawalsHeader = useRef([
-    [t('Withdrawals'),''],
+    [t('withdrawals'), '']
   ]);
-
-
 
   return (
-    <div className="table-coin">
-        <TableData source={toTop} header={toTopHeader} empty={'No latest cross-chain asset top up'} className={'top-up'} />
-        <TableData source={withdrawals} header={withdrawalsHeader} empty={'No latest cross-chain asset withdrawals'} className={'withdrawals'} />
-        <TableData source={transfer} header={transferHeader} empty={'No latest cross-chain asset transfers'} className={'transfer'} />
+    <div className='table-coin'>
+      <TableData
+        className={'top-up'}
+        empty={'No latest cross-chain asset top up'}
+        header={toTopHeader}
+        source={toTop}
+      />
+      <TableData
+        className={'withdrawals'}
+        empty={'No latest cross-chain asset withdrawals'}
+        header={withdrawalsHeader}
+        source={withdrawals}
+      />
+      <TableData
+        className={'transfer'}
+        empty={'No latest cross-chain asset transfers'}
+        header={transferHeader}
+        source={transfer}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default  TableCoin
+export default TableCoin;
