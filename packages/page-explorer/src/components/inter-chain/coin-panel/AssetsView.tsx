@@ -11,8 +11,10 @@ interface Props {}
 
 const AssetsView = (props: Props) => {
   const { currentAccount } = useContext(AccountContext);
-  const { btcDollar, coinExchangeRate } = useContext(CoinPriceContext);
-
+  let { btcDollar, coinExchangeRate } = useContext(CoinPriceContext);
+  if(!coinExchangeRate.length) {
+    coinExchangeRate = []
+  }
   let [{ price }] = coinExchangeRate.filter((item: any) => item.coin === 'sBTC');
 
   if(!price) {
