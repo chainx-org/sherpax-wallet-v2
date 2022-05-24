@@ -56,7 +56,7 @@ if (process.env.NODE_ENV === "development") {
   // testInstance = axios.create({baseURL:'http://localhost:3004'})
 
 }  else if (process.env.NODE_ENV === "production") {
-  coinInstance = axios.create({baseURL:'https://coming-zero-wallet.coming.chat'})
+  coinInstance = axios.create({baseURL:''})
 }
 
 
