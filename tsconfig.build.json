@@ -6,7 +6,10 @@
   },
   "exclude": [
     "build/**/*",
-    "**/build/**/*"
+    "**/build/**/*",
+    "node_modules",
+    "packages",
+    "packages/apps/build/*"
   ],
   "references": []
 }
