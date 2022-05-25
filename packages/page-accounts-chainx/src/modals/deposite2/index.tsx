@@ -166,7 +166,7 @@ export default function ({ address, onClose }: Props) {
                 <p className="tit"><span>Step 1: </span>  Scan the QR code via ComingChat</p>
                 <div className="step-body">
                   <div className="code">
-                    <QRCodeSVG size={142} value={`{OP_RETURN:${address},hotAddress:${hotAddress}}`}></QRCodeSVG>
+                    <QRCodeSVG size={142} value={`{"address":"${address}","opreturn":"${hotAddress}"}`}></QRCodeSVG>
                   </div>
                 </div>
               </div>
