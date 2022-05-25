@@ -103,6 +103,7 @@ const Value = styled.div`
     padding-left: 10px;
     font-size: 18px;
     font-weight: normal;
+    opacity: .8;
   }
 `;
 
