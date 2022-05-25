@@ -1,11 +1,13 @@
 // Copyright 2017-2022 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 
+import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
+import { settings } from '@polkadot/ui-settings';
+
 import Icon from '../Icon';
-import {AccountContext} from "@polkadot/react-components-chainx/AccountProvider";
 
 type HeaderDef = [React.ReactNode?, string?, number?, (() => void)?];
 
@@ -52,7 +54,19 @@ function Head ({ className = '', filter, header, isEmpty }: Props): React.ReactE
                 ? ''
                 : label
             }
-            {className === 'move' && <a href={`https://scan.sherpax.io/account/${currentAccount}`} target="_blank"> Move </a>  }
+            {className === 'move' && <>
+              <a
+                href={`https://scan${settings.apiUrl.includes('test') ? '-pre' : ''}.sherpax.io/account/${currentAccount}`}
+                rel='noreferrer'
+                target='_blank'
+              > More
+                <Icon
+                  className='highlight--color'
+                  icon='chevron-right'
+                ></Icon>
+              </a>
+
+            </> }
           </th>
         )}
       </tr>
@@ -92,21 +106,18 @@ export default React.memo(styled(Head)`
       a {
         display: inline-block;
         color: rgba(78, 78, 78, 1)!important;
-        &:after {
-          display: inline-block;
-          content: '>';
-          width: 24px;
-          height: 24px;
-          line-height: 24px;
-          margin-top: 3px;
-          margin-left: 8px;
-          text-align: center;
-          border-radius: 50%;
-          color: white;
-          background: #6098FF;
-        }
       }
-
+      svg {
+        color: white!important;
+        vertical-align:middle;
+        width:12px;
+        height:12px;
+        padding:6px;
+        background: #6098ff;
+        border-radius: 50%;
+        margin-left: 8px;
+        margin-top: -3px;
+      }
 
     }
     &:first-child {
