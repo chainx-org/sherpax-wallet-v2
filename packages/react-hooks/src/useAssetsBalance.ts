@@ -63,7 +63,7 @@ if (process.env.NODE_ENV === 'development') {
   coinInstance = axios.create({ baseURL: '/v1' });
   // testInstance = axios.create({baseURL:'http://localhost:3004'})
 } else if (process.env.NODE_ENV === 'production') {
-  coinInstance = axios.create({ baseURL: '/' });
+  coinInstance = axios.create({ baseURL: '' });
 }
 
 export default function useAssetsBalance () {
