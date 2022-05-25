@@ -6,7 +6,7 @@ metadata:
   labels:
     app: sherpax-wallet-v2
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     matchLabels:
       app: sherpax-wallet-v2
@@ -30,7 +30,7 @@ spec:
             - name: http-main
               containerPort: 80
               protocol: TCP
-          
+
           resources: {}
           livenessProbe:
             httpGet:

@@ -1,20 +1,13 @@
 // [object Object]
 // SPDX-License-Identifier: Apache-2.0
 
-
 import axios, { AxiosInstance } from 'axios';
-
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
-
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
-
 import { CoinPriceContext } from '@polkadot/react-components-chainx/CoinPriceProvider';
-
 import { KSXBalanceContext } from '@polkadot/react-components-chainx/KSXBalanceProvider';
-
 import { TokenListContext } from '@polkadot/react-components-chainx/TokenListProvider';
-
 import { useApi } from '@polkadot/react-hooks';
 
 interface ITokens {
@@ -147,7 +140,7 @@ export default function useAssetsBalance () {
       return {
         coin: `${balance.coin}`,
         dollar: balance.transBalance * item.price,
-        percent: (balance.transBalance * item.price) / Number(estimated.estimatedDollar),
+        percent: ((balance.transBalance * item.price) / Number(estimated.estimatedDollar)) ? ((balance.transBalance * item.price) / Number(estimated.estimatedDollar)) : 0,
         logo: balance.logo,
         coinNum: balance.transBalance,
         decimals: balance.decimals,
@@ -171,6 +164,8 @@ export default function useAssetsBalance () {
 
     setEstimated({ estimatedDollar: Number(estimatedDollar.toFixed(2)).toLocaleString(), estimatedBtc });
   }, [currentBalance, coinExchangeRate, estimated.estimatedDollar]);
+
+  console.log(totalBalance);
 
   return [totalBalance, estimated];
 }

@@ -17,8 +17,6 @@ if (settings.apiUrl.includes('test')) {
   BASE_URL = 'https://multiscan-api.coming.chat/sherpax';
 }
 
-console.log(11)
-console.log(BASE_URL,`BASE_URL`)
 
 export const axiosInstance = axios.create({
   baseURL: BASE_URL
