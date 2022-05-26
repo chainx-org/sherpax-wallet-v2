@@ -87,7 +87,6 @@ export default React.memo(styled(Wallet)`
         .btc-balance {
           height: 37px;
           font-size: 20px;
-          font-family: 'PingFangSC-Regular, PingFang SC,serif';
           font-weight: 400;
           color: #4E4E4E;
           line-height: 28px;

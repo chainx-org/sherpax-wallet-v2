@@ -25,7 +25,7 @@ const AccountRow = (props: Props) => {
     <div className='accountRow'>
       <Candidate address={currentAccount} withShortAddress={true} iconSize={28}
                  ShortAddressStyle={{fontSize:'16px',color:'#353D41',lineHeight: '22px'}}
-                 accountNameStyle={{fontSize:'18px',color:'#353D41',lineHeight: '25px',marginBottom:'5px','fontFamily': 'PingFangSC-Regular, PingFang SC'}}
+                 accountNameStyle={{fontSize:'18px',color:'#353D41',lineHeight: '25px',marginBottom:'5px'}}
       >
       </Candidate>
       {isTransferOpen && (

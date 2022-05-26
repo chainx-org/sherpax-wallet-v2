@@ -17,7 +17,6 @@ const Title = styled.h6`
   margin: 0;
   margin-bottom: 7px;
   font-size: 16px;
-  font-family: 'PingFangSC-Regular, PingFang SC,serif';
   font-weight: 400;
   color: #353D41;
   opacity: .8;
