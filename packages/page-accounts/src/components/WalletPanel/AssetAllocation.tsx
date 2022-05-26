@@ -14,11 +14,11 @@ const AssetAllocation = ({totalBalance}: Props) => {
   const { registerTheme } = G2;
   registerTheme('custom-theme', {
     colors10: [
-      '#6097ff',
       '#a7caf9',
-      '#f3d541',
       '#59cf95',
+      '#f3d541',
       '#f159ac',
+      '#6097ff',
       '#afb4bc',
     ],
   });

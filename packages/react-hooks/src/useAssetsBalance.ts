@@ -139,16 +139,17 @@ export default function useAssetsBalance () {
 
       return {
         coin: `${balance.coin}`,
-        dollar: balance.transBalance * item.price,
+        dollar: Number((balance.transBalance * item.price).toFixed(2)),
         percent: ((balance.transBalance * item.price) / Number(estimated.estimatedDollar)) ? ((balance.transBalance * item.price) / Number(estimated.estimatedDollar)) : 0,
         logo: balance.logo,
         coinNum: balance.transBalance,
         decimals: balance.decimals,
-        assetId: balance.assetId
+        assetId: balance.assetId,
+        price:item.price
       };
     });
 
-    const totalBalance = totalBalanceOrigin.sort((a: any, b: any) => b.dollar - a.dollar).filter(Boolean);
+    const totalBalance = totalBalanceOrigin.sort((a: any, b: any) => b.price - a.price).filter(Boolean);
 
     setTotalBalance(totalBalance);
 

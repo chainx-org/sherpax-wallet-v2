@@ -125,6 +125,10 @@ export default React.memo(styled(ExplorerApp) `
               color: #4E4E4E;
               .dollar {
                 font-size: 18px;
+                vertical-align: middle;
+                .small-px {
+                  font-size: 16px;
+                }
               }
             }
 

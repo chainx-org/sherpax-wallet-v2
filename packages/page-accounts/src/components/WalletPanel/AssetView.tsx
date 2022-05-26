@@ -84,7 +84,6 @@ const HelpValue = styled.span`
 
 const Value = styled.div`
   font-size: 16px;
-  width: 92px;
   font-family: 'PingFangSC-Medium, PingFang SC,serif';
   font-weight: 500;
   color: #353D41;
@@ -103,6 +102,9 @@ const Value = styled.div`
     font-size: 18px;
     font-weight: normal;
     opacity: .8;
+    &.small-px {
+      font-size: 14px;
+    }
   }
 `;
 
@@ -111,8 +113,8 @@ type Props = {
   bold?: any,
   help?: React.ReactNode,
   value: number,
-  balancesAll?: DeriveBalancesAll;
-  showDallar: boolean
+  balancesAll?: DeriveBalancesAll,
+  className?:string
 }
 
 const LoadingValue = styled.div`
@@ -129,9 +131,10 @@ const LoadingValue = styled.div`
   }
 `;
 
-export default function ({ bold, help, showDallar, title, value }: Props): React.ReactElement<Props> {
+export default function ({ bold, help, title, value,className }: Props): React.ReactElement<Props> {
   const { isApiReady } = useApi();
   const preciseValue: BigNumber = new BigNumber(toPrecision(value, 18));
+  const targetValue = Number(preciseValue.toJSON()).toFixed(4)
   const decimalsValue = preciseValue.toNumber().toFixed(4).slice(-4);
   const intValue = preciseValue.toNumber().toFixed(8).slice(0, -8);
   const { btcDollar, coinExchangeRate } = useContext(CoinPriceContext);
@@ -155,14 +158,14 @@ export default function ({ bold, help, showDallar, title, value }: Props): React
       <Value className={bold ? 'bold' : ''}>
         {isApiReady &&
           <LoadingValue>
-            <span className='ui--FormatBalance-value"'>{Number(preciseValue.toJSON()).toFixed(4)} KSX</span>
+            <span className='ui--FormatBalance-value"'>{targetValue} KSX   </span>
             {/* <span className='ui--FormatBalance-unit'> */}
             {/*  {formatBalance.getDefaults().unit && formatBalance.getDefaults().unit !== 'Unit'? formatBalance.getDefaults().unit : 'KSX'} */}
             {/* </span> */}
             {
-              showDallar &&
-              <span className='dollar'>
-                 (≈ ${Number(Number(preciseValue.toJSON()) * wksxObj?.price).toFixed(2)})
+
+              <span className={`dollar ${className}`}>
+                 (≈ ${Number(Number(targetValue) * wksxObj?.price).toFixed(2)})
               </span>
             }
           </LoadingValue>

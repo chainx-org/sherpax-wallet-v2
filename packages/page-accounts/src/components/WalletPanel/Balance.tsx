@@ -114,15 +114,17 @@ export default function Balance({lookup}: Props) {
       <section className='details' key="details">
         {(
           <>
-            <AssetView key={Math.random()}    title={t('Transferrable')}  value={usableBalance > 0 ? usableBalance : 0}></AssetView>
+            <AssetView className="small-px" key={Math.random()}    title={t('Transferrable')}  value={usableBalance > 0 ? usableBalance : 0}></AssetView>
 
             <AssetView
+              className="small-px"
               key={Math.random()}
               title={t('Reserved')}
               value={reserved}
             />
 
             {lockedBreakdown && <AssetView
+              className="small-px"
               key={Math.random()}
               title={t('Locked')}
               value={Math.max(feeFrozen, miscFrozen)}
