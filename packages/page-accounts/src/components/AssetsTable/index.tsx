@@ -36,7 +36,7 @@ const AssetsTable = (props: Props) => {
             item.coin !== 'KSX' && <tr key={index}>
               {/*<td> <img src={ item.coin === 'KSX' ? KSX_SVG : item.logo} alt="coin"/> <span style={{textAlign:"left",width:'20px'}}>{item.coin} </span> </td>*/}
               <td> <img src={item.logo} alt="coin"/> <span style={{textAlign:"left",width:'20px'}}>{item.coin} </span> </td>
-              <td>{item.coinNum.toFixed(4)} {item.coin} </td>
+              <td>{item.coinNum.toFixed(4)} <span className="right">{item.coin}</span> </td>
               <td>≈ $ {item.dollar.toFixed(2).toLocaleString()}</td>
               <td>
                 {isFunction(api.api.tx.balances?.transfer) && (

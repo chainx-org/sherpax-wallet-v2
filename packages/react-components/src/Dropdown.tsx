@@ -130,7 +130,15 @@ function BaseDropdown<Option> ({ allowAdd = false, children, className = '', def
 const Dropdown = React.memo(styled(BaseDropdown)`
   &:hover {
     & + .bubble {
-      display: block!important;
+      display: block;
+    }
+  }
+  .ui--LabelHelp {
+    &:hover {
+      background: red;
+     & ~ label {
+        background: red!important;
+      }
     }
   }
   .ui--Dropdown-item {

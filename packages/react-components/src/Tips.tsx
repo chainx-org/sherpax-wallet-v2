@@ -41,7 +41,7 @@ export default React.memo(styled(Tips)`
     text-align: center;
     z-index: 999;
 
-    &:after {
+    &::after {
       position: absolute;
       z-index: 99;
       bottom: -12px;
@@ -50,6 +50,18 @@ export default React.memo(styled(Tips)`
       content: '';
       border: 6px solid transparent;
       border-top-color: white;
+    }
+    &::before {
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      content: '';
+      width: 100%;
+      height: 10px;
+      background: transparent;
+    }
+    &:hover {
+      display: block;
     }
   }
 

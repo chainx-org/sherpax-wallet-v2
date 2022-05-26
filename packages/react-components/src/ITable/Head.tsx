@@ -211,13 +211,13 @@ export default React.memo(styled(Head)`
 
     &:not(.filter) {
       th {
+        box-sizing: border-box;
         font-family: 'PingFangSC-Medium, PingFang SC,serif';
-        width: 147px;
         font-size: 14px;
         font-weight: 400;
         color: rgba(78, 78, 78, .8);
         &:first-child {
-          margin-left: 8px;
+          padding-left: 8px;
         }
       }
     }

@@ -156,13 +156,16 @@ export default createGlobalStyle<Props & ThemeProps>(({ theme, uiHighlight }: Pr
   .ui--MenuItem.isActive.topLevel:hover {
     color: ${getContrast(uiHighlight)};
 
-    a {
-      background-color: ${getMenuHoverContrast(uiHighlight)};
-    }
+    // a {
+    //   background-color: ${getMenuHoverContrast(uiHighlight)};
+    // }
+  }
+  .ui--MenuItem.topLevel:hover {
+    background: #93B9FF !important;
   }
 
   .menuItems li:hover .groupHdr {
-    background: ${getMenuHoverContrast(uiHighlight)};
+    background: #93B9FF;
     color: ${getContrast(uiHighlight)};
   }
 
@@ -175,6 +178,9 @@ export default createGlobalStyle<Props & ThemeProps>(({ theme, uiHighlight }: Pr
     }
     li {
       color:  ${getContrast(uiHighlight)};
+      &:hover {
+        background: #93B9FF!important;
+      }
     }
   }
 

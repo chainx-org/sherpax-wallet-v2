@@ -117,12 +117,6 @@ export default React.memo(styled(ITable)`
       max-width: 100%;
       width: 100%;
 
-      td {
-        &:nth-child(3) {
-          padding-left: 10px;
-        }
-      }
-
       td,
       &:not(.filter) th {
         &.all {
@@ -165,12 +159,17 @@ export default React.memo(styled(ITable)`
       font-family: 'PingFangSC-Medium, PingFang SC,serif';
       flex: 1;
       text-align: left;
-      vertical-align: middle;
       height: 46px;
       font-size: 14px;
       font-weight: 500;
       color: #4E4E4E;
       line-height: 46px;
+      .right {
+        display: inline-block;
+        vertical-align: top;
+        width: 40px;
+        text-align: right;
+      }
 
       img {
         width: 26px;

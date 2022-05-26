@@ -30,7 +30,7 @@ function LabelHelp ({ className = '', help, icon = 'question-circle' }: Props): 
         tooltip={trigger}
       />
       <Tooltip
-        className={className}
+        className={`${className}`}
         text={help}
         trigger={trigger}
       />
