@@ -80,7 +80,6 @@ export default React.memo(styled(Head)`
   border: 1px solid #DCE0E2;
   z-index: 9;
   margin-bottom: 5px;
-  font-family: 'PingFangSC-Regular, PingFang SC,serif';
   width: 100%;
   background: white;
   th {
