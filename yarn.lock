@@ -19001,6 +19001,7 @@ __metadata:
     "@babel/runtime": ^7.17.9
     "@crustio/crust-pin": ^1.0.0
     "@ethersproject/providers": ^5.6.6
+    "@fortawesome/react-fontawesome": ^0.1.18
     "@pinata/sdk": ^1.1.23
     "@polkadot/dev": ^0.66.3
     "@types/chart.js": ^2.9.35

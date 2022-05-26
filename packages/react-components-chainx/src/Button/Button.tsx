@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import Icon from '@polkadot/react-components/Icon';
 import Spinner from '@polkadot/react-components/Spinner';
 
-function Button ({ children, className = '', color, icon, isBasic, isBusy, isCircular, isDisabled, isFull, isIcon, isSelected, isToplevel, label, onClick, onMouseEnter, onMouseLeave, tabIndex, withoutLink }: ButtonProps): React.ReactElement<ButtonProps> {
+function Button ({ children,isReadOnly = false, className = '', color, icon, isBasic, isBusy, isCircular, isDisabled, isFull, isIcon, isSelected, isToplevel, label, onClick, onMouseEnter, onMouseLeave, tabIndex, withoutLink }: ButtonProps): React.ReactElement<ButtonProps> {
   const _onClick = useCallback(
     () => !(isBusy || isDisabled) && onClick && onClick(),
     [isBusy, isDisabled, onClick]
@@ -18,7 +18,7 @@ function Button ({ children, className = '', color, icon, isBasic, isBusy, isCir
 
   return (
     <button
-      className={`ui--Button${label ? ' hasLabel' : ''}${isBasic ? ' isBasic' : ''}${isCircular ? ' isCircular' : ''}${isFull ? ' isFull' : ''}${isIcon ? ' isIcon' : ''}${(isBusy || isDisabled) ? ' isDisabled' : ''}${isBusy ? ' isBusy' : ''}${!onClick ? ' isReadOnly' : ''}${isSelected ? ' isSelected' : ''}${isToplevel ? ' isToplevel' : ''}${withoutLink ? ' withoutLink' : ''} ${className}`}
+      className={`ui--Button${label ? ' hasLabel' : ''}${isBasic ? ' isBasic' : ''}${isCircular ? ' isCircular' : ''}${isFull ? ' isFull' : ''}${isIcon ? ' isIcon' : ''}${(isBusy || isDisabled) ? ' isDisabled' : ''}${isBusy ? ' isBusy' : ''}${isReadOnly ? '' : !onClick ? ' isReadOnly' : '' }${isSelected ? ' isSelected' : ''}${isToplevel ? ' isToplevel' : ''}${withoutLink ? ' withoutLink' : ''} ${className}`}
       onClick={_onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}

@@ -17,7 +17,7 @@ const AssetsTable = (props: Props) => {
     //text class colspan
     [t('cross-chain assets'),''],
     [t('Token')],
-    [t('Balance'), 'media--1500'],
+    [t('Balance'), ''],
     [t('Value'), 'value'],
     [t('')],
   ]);
@@ -50,7 +50,8 @@ const AssetsTable = (props: Props) => {
                 )}
                 <a href="https://soswap.finance" target="_blank" style={{color:'rgba(78, 78, 78, 1)'}} >
                   <Button
-                    className='send-button send-24 padd16'
+                    isReadOnly
+                    className='send-button  padd16'
                     icon='arrow-right-arrow-left'
                     label={t<string>('Swap')}
                   />

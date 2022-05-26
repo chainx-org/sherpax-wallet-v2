@@ -21,6 +21,8 @@ import { useAccounts, useApi, useToggle } from '@polkadot/react-hooks';
 import { isFunction } from '@polkadot/util';
 
 import Sbtc_svg from '../../../svg/sBTC.svg';
+import Top_up_svg from '../../../svg/TopUp-svg.svg'
+import Withdrawals_svg from '../../../svg/withdrawals-svg.svg'
 
 interface Props {}
 
@@ -64,15 +66,15 @@ const CardBtns = (props: Props) => {
       </div>
       <div className='btns'>
         <Button
-          className='send-button padd16'
-          icon={'arrow-down'}
+          className='send-button padd10'
+          iconUrl={Top_up_svg}
           isDisabled={!isApiReady || !currentAccount || !hasAccounts || !hasCurrentName}
           label={t<string>('top up')}
           onClick={toggleDeposite}
         ></Button>
         <Button
-          className='send-button padd16'
-          icon={'arrow-up'}
+          className='send-button padd10'
+          iconUrl={Withdrawals_svg}
           label={t<string>('withdrawals')}
           onClick={toggleWithdraw}
         ></Button>
@@ -92,6 +94,7 @@ const CardBtns = (props: Props) => {
           target='_blank'
         >
           <Button
+            isReadOnly
             className='send-button padd16'
             icon={'arrow-right-arrow-left'}
             label={t<string>('Swap')}
