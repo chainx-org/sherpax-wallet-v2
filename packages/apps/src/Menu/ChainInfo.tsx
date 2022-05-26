@@ -141,6 +141,7 @@ export default React.memo(styled(ChainInfo)`
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        opacity: .64;
       }
 
       .chain, .bestNumber {
