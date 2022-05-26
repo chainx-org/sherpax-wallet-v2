@@ -29,7 +29,7 @@ function Transfer ({ accountId, assetId, className, minBalance, siFormat: [siDec
   return (
     <>
       <Button
-        className={`send-24 send-button padd16 ${className}`}
+        className={` send-button padd16 ${className}`}
         icon='paper-plane'
         label={t<string>('Send')}
         onClick={toggleOpen}

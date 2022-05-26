@@ -10,8 +10,8 @@ import Icon from '../Icon';
 import Spinner from '../Spinner';
 
 function Button ({ activeOnEnter, children, className = '', dataTestId = '', icon, isBasic, isBusy, isCircular,
-                   isDisabled, isFull, isIcon, isSelected, isToplevel, label, onClick, isReadOnly = !onClick,
-                   onMouseEnter, onMouseLeave, tabIndex, withoutLink }: ButtonProps): React.ReactElement<ButtonProps> {
+                   isDisabled, isFull, isIcon, isSelected, isToplevel, label, onClick, isReadOnly = false,
+                   onMouseEnter, onMouseLeave, tabIndex, withoutLink,iconUrl }: ButtonProps): React.ReactElement<ButtonProps> {
   const _onClick = useCallback(
     (): void => {
       !(isBusy || isDisabled) && onClick && onClick();
@@ -47,7 +47,7 @@ function Button ({ activeOnEnter, children, className = '', dataTestId = '', ico
 
   return (
     <button
-      className={`ui--Button${label ? ' hasLabel' : ''}${isBasic ? ' isBasic' : ''}${isCircular ? ' isCircular' : ''}${isFull ? ' isFull' : ''}${isIcon ? ' isIcon' : ''}${(isBusy || isDisabled) ? ' isDisabled' : ''}${isBusy ? ' isBusy' : ''}${isReadOnly ? ' isReadOnly' : ''}${isSelected ? ' isSelected' : ''}${isToplevel ? ' isToplevel' : ''}${withoutLink ? ' withoutLink' : ''} ${className}`}
+      className={`ui--Button${label ? ' hasLabel' : ''}${isBasic ? ' isBasic' : ''}${isCircular ? ' isCircular' : ''}${isFull ? ' isFull' : ''}${isIcon ? ' isIcon' : ''}${(isBusy || isDisabled) ? ' isDisabled' : ''}${isBusy ? ' isBusy' : ''}${isReadOnly ? '' : !onClick ? 'isReadOnly' : ''}${isSelected ? ' isSelected' : ''}${isToplevel ? ' isToplevel' : ''}${withoutLink ? ' withoutLink' : ''} ${className}`}
       data-testid={dataTestId}
       onClick={_onClick}
       onMouseEnter={_onMouseEnter}
@@ -55,6 +55,7 @@ function Button ({ activeOnEnter, children, className = '', dataTestId = '', ico
       tabIndex={tabIndex}
     >
       {icon && <Icon icon={icon}  />}
+      {iconUrl && <span className="icon-box"><img src={iconUrl} alt="icon"/></span>}
       {label}
       {children}
       <Spinner
@@ -75,11 +76,25 @@ export default React.memo(styled(Button)`
   margin: 0;
   outline: none;
   position: relative;
-  vertical-align: middle;
+  //vertical-align: middle;
   text-align: center;
   color:  #4E4E4E;
   svg {
     color: white!important;
+  }
+  .icon-box {
+    display: inline-block;
+    background: #6098FF;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    line-height: 28px;
+    text-align: center;
+    margin-right: 0.425rem !important;
+    img {
+      vertical-align: middle;
+      margin-top: -3px;
+    }
   }
 
   &:hover {
@@ -103,11 +118,13 @@ export default React.memo(styled(Button)`
     &.padd16 {
       padding: 0.7rem 16px!important;
     }
+    &.padd10 {
+      padding: 5px 16px;
+    }
     text-transform: capitalize;
     svg {
       color: white!important;
       background: rgb(96, 152, 255)!important;
-      vertical-align: middle;
     }
 
     &:hover {
@@ -131,8 +148,8 @@ export default React.memo(styled(Button)`
   }
 
   &.send-28 {
-    margin-top: -4px;
-    vertical-align: bottom;
+    margin-top: 0;
+    vertical-align: middle;
     svg {
       width: 14px;
       height: 14px;

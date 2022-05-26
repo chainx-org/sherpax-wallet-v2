@@ -92,6 +92,8 @@ export default React.memo(styled(ExplorerApp) `
               margin-right: 8px;
             }
           }
+          .btns {
+          }
           a {
             color: #4E4E4E;
           }
