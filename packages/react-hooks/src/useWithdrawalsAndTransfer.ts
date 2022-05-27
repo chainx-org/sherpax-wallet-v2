@@ -43,7 +43,7 @@ export default function useWithdrawals () {
       const itemMaps = res.data.items.map((item: IDataItem) => {
         item.shortHashAddrs = shortHah(item.extrinsicHash);
         item.blockTimestamp = changeTime(Number(item.blockTimestamp));
-        item.balance = String((Number(item.balance) / Math.pow(10, 8)).toFixed(4)) + (item.assetId === 1 ? ' sBtc' : ' DOGE');
+        item.balance = String((Number(item.balance) / Math.pow(10, 8)).toFixed(4)) + (item.assetId === 1 ? ' sBTC' : ' DOGE');
 
         return item;
       });
@@ -80,7 +80,7 @@ export function useTransfer () {
       const itemMaps = res.data.items.map((item: IDataItem) => {
         item.shortHashAddrs = shortHah(item.extrinsicHash);
         item.blockTimestamp = changeTime(Number(item.blockTimestamp));
-        item.balance = String((Number(item.balance) / Math.pow(10, 8)).toFixed(4)) + (item.assetId === 1 ? ' sBtc' : ' DOGE');
+        item.balance = String((Number(item.balance) / Math.pow(10, 8)).toFixed(4)) + (item.assetId === 1 ? ' sBTC' : ' DOGE');
 
         return item;
       });

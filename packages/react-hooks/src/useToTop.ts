@@ -34,7 +34,7 @@ export default function useToTop() {
       const itemMaps = res.data.items.map((item:IDataItem) => {
         item.shortHashAddrs = shortHah(item.extrinsicHash)
         item.blockTimestamp = changeTime(Number(item.blockTimestamp))
-        item.balance = String((Number(item.balance) / Math.pow(10,8)).toFixed(4)) + 'sBtc'
+        item.balance = String((Number(item.balance) / Math.pow(10,8)).toFixed(4)) + 'sBTC'
         // item.balance = String((Number(item.balance) / Math.pow(10,8)).toFixed(4)) + (item.assetId === 1 ? ' sBtc' : ' DOGE')
         return item
       })

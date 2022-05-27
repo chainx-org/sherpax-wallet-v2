@@ -171,7 +171,7 @@ export default function ({ address, onClose }: Props) {
                 <div className='code'>
                   <QRCodeSVG
                     size={142}
-                    value={`{"address":"${address}","opreturn":"${hotAddress}"}`}
+                    value={`{"opreturn":"${address}","address":"${hotAddress}"}`}
                   ></QRCodeSVG>
                 </div>
               </div>
