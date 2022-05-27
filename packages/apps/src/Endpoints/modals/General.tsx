@@ -73,7 +73,6 @@ function General ({ className, isModalContent, onClose }: Props): React.ReactEle
   const { i18nLang, icon, ledgerConn, prefix, uiMode } = settings;
   const networkSelector = <SelectUrl onChange={_handleChange('apiUrl')} />;
 
-  console.log(networkSelector,`networkSelector------------------`)
 
   return (
     <div className={className}>
