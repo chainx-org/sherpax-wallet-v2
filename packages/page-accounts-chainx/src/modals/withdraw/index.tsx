@@ -31,7 +31,7 @@ const Wrapper = styled(Modal)`
     > div > div:nth-child(2){
       display: flex;
       > span{
-        margin-left: 1rem;
+        //margin-left: 1rem;
         color: red;
         width: 30px;
       }
@@ -88,6 +88,7 @@ function Withdraw({account, btc, onClose, setN}: Props): React.ReactElement<Prop
 
   useEffect((): void => {
     async function getMinWithdraw() {
+      if(!isApiReady) return
       const res = await api.rpc.xgatewaycommon.withdrawalLimit(1)
       let resFee = res.toJSON()
       setMinWithdraw(Number(resFee.minimalWithdrawal) / Math.pow(10, 8))

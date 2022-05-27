@@ -47,6 +47,7 @@ function Tooltip ({ className = '', clickable = false, effect = 'solid', offset,
 
   return ReactDOM.createPortal(
     <ReactTooltip
+
       className={`ui--Tooltip ${className}`}
       clickable={clickable}
       effect={effect}

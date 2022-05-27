@@ -139,7 +139,7 @@ export default function useAssetsBalance () {
 
       return {
         coin: `${balance.coin}`,
-        dollar: Number((balance.transBalance * item.price).toFixed(2)),
+        dollar: Number((balance.transBalance * item.price).toFixed(6)),
         percent: ((balance.transBalance * item.price) / Number(estimated.estimatedDollar)) ? ((balance.transBalance * item.price) / Number(estimated.estimatedDollar)) : 0,
         logo: balance.logo,
         coinNum: balance.transBalance,
@@ -149,7 +149,7 @@ export default function useAssetsBalance () {
       };
     });
 
-    const totalBalance = totalBalanceOrigin.sort((a: any, b: any) => b.price - a.price).filter(Boolean);
+    const totalBalance = totalBalanceOrigin.sort((a: any, b: any) => b.percent - a.percent).filter(Boolean);
 
     setTotalBalance(totalBalance);
 

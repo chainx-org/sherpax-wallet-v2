@@ -104,6 +104,10 @@ export default React.memo(styled(ExplorerApp) `
         display: flex;
         justify-content: start;
         align-items: end;
+        .small-px {
+          font-size: 14px!important;
+          color: rgba(78,78,78,.8)!important;
+        }
         > div {
           margin-right: 80px;
           &:nth-child(2) {
@@ -126,9 +130,8 @@ export default React.memo(styled(ExplorerApp) `
               .dollar {
                 font-size: 18px;
                 vertical-align: middle;
-                .small-px {
-                  font-size: 16px;
-                }
+                font-weight: 400;
+                color: rgba(78, 78, 78, .8);
               }
             }
 

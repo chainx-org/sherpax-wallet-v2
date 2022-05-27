@@ -3,7 +3,7 @@
 // of the Apache-2.0 license. See the LICENSE file for details.
 
 import React from 'react';
-import {  Modal2 as Modal } from '@polkadot/react-components';
+import {   Modal } from '@polkadot/react-components';
 import General from './General';
 
 import { useTranslation } from '../../translate';

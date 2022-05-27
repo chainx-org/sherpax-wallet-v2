@@ -14,6 +14,7 @@ import { AccountProvider } from '@polkadot/react-components-chainx/AccountProvid
 import {TokenListProvider} from '@polkadot/react-components-chainx/TokenListProvider';
 import {KSXBalanceProvider} from '@polkadot/react-components-chainx/KSXBalanceProvider';
 import {CoinPriceProvider} from '@polkadot/react-components-chainx/CoinPriceProvider'
+import {BubbleProvider} from '@polkadot/react-components-chainx/BubbleProvider'
 import { BlockAuthors, Events } from '@polkadot/react-query';
 import { settings } from '@polkadot/ui-settings';
 
@@ -61,7 +62,9 @@ function Root ({ isElectron, store }: Props): React.ReactElement<Props> {
                         <WindowDimensions>
                           <KSXBalanceProvider>
                             <CoinPriceProvider>
-                              <Apps />
+                              <BubbleProvider>
+                                <Apps />
+                              </BubbleProvider>
                             </CoinPriceProvider>
                           </KSXBalanceProvider>
                         </WindowDimensions>
