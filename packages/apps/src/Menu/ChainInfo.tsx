@@ -77,7 +77,6 @@ export default React.memo(styled(ChainInfo)`
     justify-content: space-between;
     align-items: center;
     .select-net {
-      border: 1px solid #353D41;
       border-radius: 2px;
       display: flex;
       padding: 2px 5px;
