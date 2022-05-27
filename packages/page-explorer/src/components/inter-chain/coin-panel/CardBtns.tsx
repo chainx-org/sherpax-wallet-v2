@@ -73,6 +73,7 @@ const CardBtns = (props: Props) => {
           onClick={toggleDeposite}
         ></Button>
         <Button
+          isDisabled={!isApiReady || !currentAccount || !hasAccounts || !hasCurrentName}
           className='send-button padd10'
           iconUrl={Withdrawals_svg}
           label={t<string>('withdrawals')}

@@ -166,7 +166,6 @@ export default function useAssetsBalance () {
     setEstimated({ estimatedDollar: Number(estimatedDollar.toFixed(2)).toLocaleString(), estimatedBtc });
   }, [currentBalance, coinExchangeRate, estimated.estimatedDollar]);
 
-  console.log(totalBalance);
 
   return [totalBalance, estimated];
 }
