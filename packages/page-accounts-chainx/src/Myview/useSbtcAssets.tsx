@@ -30,10 +30,10 @@ function useSbtcAssets(account: string, n = 0): SbtcAssetsInfo {
           const assetLock = await api.query.xGatewayRecords.locks(account, 1)
           // setValue(asset)
           let current = {
-            balance: asset.balance,
-            extra: asset.extra,
-            isFrozen: asset.isFrozen,
-            sufficient: asset.sufficient,
+            balance: asset?.balance,
+            extra: asset?.extra,
+            isFrozen: asset?.isFrozen,
+            sufficient: asset?.sufficient,
             locked: assetLock.toJSON() !== null ? assetLock.toJSON() : 0
           } as SbtcAssetsInfo;
           current = Object.assign(current, {
