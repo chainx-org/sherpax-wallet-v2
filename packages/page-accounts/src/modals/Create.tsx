@@ -4,11 +4,25 @@
 import type { ActionStatus } from '@polkadot/react-components/Status/types';
 import type { AddressState, CreateOptions, CreateProps, DeriveValidationOutput, PairType, SeedType } from '../types';
 
-import React, { useCallback, useRef, useState } from 'react';
+import React, {useCallback, useContext, useRef, useState} from 'react';
 import styled from 'styled-components';
 
 import { DEV_PHRASE } from '@polkadot/keyring/defaults';
-import { AddressRow, Button, Checkbox, CopyButton, Dropdown, Expander, Input, MarkError, MarkWarning, Modal, TextArea,Tips} from '@polkadot/react-components';
+import {
+  AddressRow,
+  Button,
+  Checkbox,
+  CopyButton,
+  Dropdown,
+  Expander,
+  Input,
+  MarkError,
+  MarkWarning,
+  Modal,
+  StatusContext,
+  TextArea,
+  Tips
+} from '@polkadot/react-components';
 import { useApi, useLedger, useStepper } from '@polkadot/react-hooks';
 import { keyring } from '@polkadot/ui-keyring';
 import { settings } from '@polkadot/ui-settings';
@@ -22,6 +36,8 @@ import CreateConfirmation from './CreateConfirmation';
 import CreateEthDerivationPath, { ETH_DEFAULT_PATH } from './CreateEthDerivationPath';
 import CreateSuriLedger from './CreateSuriLedger';
 import ExternalWarning from './ExternalWarning';
+import Close_svg from '../svg/close.svg'
+import ClipBoard from "@polkadot/app-accounts-chainx/modals/deposite/ClipBoard";
 
 const DEFAULT_PAIR_TYPE = 'sr25519';
 const STEPS_COUNT = 3;
@@ -155,11 +171,12 @@ function Create ({ className = '', onClose, onStatusChange, seed: propsSeed, typ
   const { t } = useTranslation();
   const { api, isDevelopment, isEthereum } = useApi();
   const { isLedgerEnabled } = useLedger();
-  const [{ address, derivePath, deriveValidation, isSeedValid, pairType, seed, seedType }, setAddress] = useState<AddressState>(() => generateSeed(
+  let [{ address, derivePath, deriveValidation, isSeedValid, pairType, seed : seedOrigin, seedType }, setAddress] = useState<AddressState>(() => generateSeed(
     propsSeed,
     isEthereum ? ETH_DEFAULT_PATH : '',
     propsSeed ? 'raw' : 'bip', isEthereum ? 'ethereum' : propsType
   ));
+  const [seed,setSeed] = useState(seedOrigin)
   const [isMnemonicSaved, setIsMnemonicSaved] = useState<boolean>(false);
   const [step, nextStep, prevStep] = useStepper();
   const [isBusy, setIsBusy] = useState(false);
@@ -168,6 +185,8 @@ function Create ({ className = '', onClose, onStatusChange, seed: propsSeed, typ
   const isFirstStepValid = !!address && isMnemonicSaved && !deriveValidation?.error && isSeedValid;
   const isSecondStepValid = isNameValid && isPasswordValid;
   const isValid = isFirstStepValid && isSecondStepValid;
+  const { queueAction } = useContext(StatusContext);
+
 
   const errorIndex = useRef<Record<string, string>>({
     INVALID_DERIVATION_PATH: t<string>('This is an invalid derivation path.'),
@@ -195,9 +214,12 @@ function Create ({ className = '', onClose, onStatusChange, seed: propsSeed, typ
   );
 
   const _onChangeSeed = useCallback(
-    (newSeed: string) => setAddress(
-      updateAddress(newSeed, derivePath, seedType, pairType)
-    ),
+    (newSeed: string) => {
+      setSeed(newSeed)
+      return setAddress(
+        updateAddress(newSeed, derivePath, seedType, pairType)
+      )
+    },
     [derivePath, pairType, seedType]
   );
 
@@ -241,6 +263,14 @@ function Create ({ className = '', onClose, onStatusChange, seed: propsSeed, typ
     [api, derivePath, isDevelopment, isValid, name, onClose, onStatusChange, pairType, password, seed, t]
   );
 
+  function _onCopy() {
+    queueAction({
+      action: t('clipboard'),
+      message: t('copied'),
+      status: 'queued'
+    })
+  }
+
   return (
     <Modal
       className={className}
@@ -280,11 +310,16 @@ function Create ({ className = '', onClose, onStatusChange, seed: propsSeed, typ
               seed={seed}
               withLabel
             >
-              <CopyButton
-                className='copyMoved'
-                type={seedType === 'bip' ? t<string>('mnemonic') : seedType === 'raw' ? isEthereum ? t<string>('private key') : 'seed' : t<string>('raw seed')}
-                value={seed}
-              />
+              <div className="close" onClick={() => setSeed('')}>
+                <img src={Close_svg} alt="close"/>
+              </div>
+              {/*<ClipBoard className={'hash'} id='' onClick={_onCopy}>{seed}</ClipBoard>*/}
+
+              {/*<CopyButton*/}
+              {/*  className='copyMoved'*/}
+              {/*  type={seedType === 'bip' ? t<string>('mnemonic') : seedType === 'raw' ? isEthereum ? t<string>('private key') : 'seed' : t<string>('raw seed')}*/}
+              {/*  value={seed}*/}
+              {/*/>*/}
               <Dropdown
                 defaultValue={seedType}
                 isButton
@@ -455,6 +490,28 @@ export default React.memo(styled(Create)`
     margin-top: 1rem;
     overflow: visible;
   }
+  .hash {
+    color: #fff;
+    font-size: 0;
+    & + .clipboard {
+      position: absolute;
+      z-index: 99;
+      left: 156px;
+      top: 41px;
+      img {
+        font-size: 14px;
+      }
+    }
+  }
+  .close {
+    position: absolute;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    right: 141px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
   .ui--CopyButton.copyMoved {
     position: absolute;
@@ -463,6 +520,8 @@ export default React.memo(styled(Create)`
   }
 
   && .TextAreaWithDropdown {
+    position: relative;
+    background: white;
     textarea {
       width: 80%;
     }

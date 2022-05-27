@@ -28,7 +28,7 @@ export interface ButtonProps {
   tabIndex?: number;
   tooltip?: React.ReactNode;
   withoutLink?: boolean;
-  iconUrl:any;
+  iconUrl?:any;
 }
 
 export type DividerProps = BareProps;
