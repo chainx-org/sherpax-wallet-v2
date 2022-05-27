@@ -1,8 +1,9 @@
 // Copyright 2017-2022 @polkadot/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, {} from 'react';
+import React, {useContext} from 'react';
 import styled from "styled-components";
+import {BubbleContext} from "@polkadot/react-components-chainx/BubbleProvider";
 
 interface Props {
   text:string
@@ -11,11 +12,13 @@ interface Props {
 }
 
 function Tips ({ text,className,children }: Props): React.ReactElement<Props> {
+  const { bubble } = useContext(BubbleContext);
+
   return (
    <div className={`tips ${className}`}>
      <div style={{position:"relative"}}>
        {children}
-       <div className="bubble">{text}</div>
+       <div className={`bubble ${bubble ? 'hide' : ''}`}>{text}</div>
      </div>
    </div>
   )
@@ -24,6 +27,9 @@ function Tips ({ text,className,children }: Props): React.ReactElement<Props> {
 export default React.memo(styled(Tips)`
   position: relative;
   .bubble {
+    &.hide {
+      display: none!important;
+    }
     display: none;
     width: 50%;
     position: absolute;

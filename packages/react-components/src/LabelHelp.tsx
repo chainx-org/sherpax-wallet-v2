@@ -26,6 +26,7 @@ function LabelHelp ({ className = '', help, icon = 'question-circle' }: Props): 
       tabIndex={-1}
     >
       <Icon
+        isHide
         icon={icon}
         tooltip={trigger}
       />

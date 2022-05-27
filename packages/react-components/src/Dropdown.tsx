@@ -10,7 +10,6 @@ import styled from 'styled-components';
 import { isUndefined } from '@polkadot/util';
 
 import Labelled from './Labelled';
-import {BubbleContext} from "@polkadot/react-components-chainx/BubbleProvider";
 
 interface Props<Option> {
   allowAdd?: boolean;
@@ -49,7 +48,6 @@ export type IDropdown<Option> = React.ComponentType<Props<Option>> & {
 function BaseDropdown<Option> ({ allowAdd = false, children, className = '', defaultValue, dropdownClassName, help, isButton, isDisabled, isError, isFull, isMultiple, label, labelExtra, onAdd, onBlur, onChange, onClose, onSearch, options, placeholder, renderLabel, searchInput, tabIndex, transform, value, withEllipsis, withLabel }: Props<Option>): React.ReactElement<Props<Option>> {
   const lastUpdate = useRef<string>('');
   const [stored, setStored] = useState<string | undefined>();
-  const { bubble,setBubble } = useContext(BubbleContext);
 
   const _setStored = useCallback(
     (value: string): void => {
@@ -115,7 +113,6 @@ function BaseDropdown<Option> ({ allowAdd = false, children, className = '', def
     ? <SUIButton.Group>{dropdown}{children}</SUIButton.Group>
     : (
       <Labelled
-
         className={`ui--Dropdown ${className}`}
         help={help}
         isFull={isFull}

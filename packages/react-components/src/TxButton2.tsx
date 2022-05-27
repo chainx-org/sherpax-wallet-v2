@@ -184,7 +184,6 @@ function TxButton ({ accountId, className = '', extrinsic: propsExtrinsic, icon,
     [_onFailed, _onStart, _onSuccess, accountId, api.tx, isUnsigned, onClick, onFailed, onSuccess, onUpdate, params, propsExtrinsic, queueExtrinsic, setIsSending, tx, withSpinner, mountedRef]
   );
 
-  console.log(needsAccount)
 
   if (onSendRef) {
     onSendRef.current = _onSend;

@@ -4,9 +4,11 @@
 import type { IconName } from '@fortawesome/fontawesome-svg-core';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import React from 'react';
+import {BubbleContext} from "@polkadot/react-components-chainx/BubbleProvider";
+import React,{useContext} from 'react';
 import styled from 'styled-components';
 
 interface Props {
@@ -17,18 +19,33 @@ interface Props {
   onClick?: () => void;
   size?: '1x' | '2x';
   tooltip?: string;
+  isHide:boolean
 }
 
 // one-time init of FA libraries
 library.add(fas);
 
-function Icon ({ className = '', color = 'normal', icon, isSpinning, onClick, size = '1x', tooltip }: Props): React.ReactElement<Props> {
+function Icon ({ className = '', color = 'normal', icon, isSpinning, onClick, size = '1x', tooltip,isHide=false }: Props): React.ReactElement<Props> {
   const extraProps = tooltip
     ? { 'data-for': tooltip, 'data-tip': true }
     : {};
 
+  const { setBubble } = useContext(BubbleContext);
+
   return (
     <FontAwesomeIcon
+      onMouseEnter={() => {
+        if(!isHide) return
+        if(icon === 'question-circle') {
+          setBubble(true)
+        }
+      } }
+      onMouseLeave={() => {
+        if(!isHide) return
+        if(icon === 'question-circle') {
+          setBubble(false)
+        }
+      }}
       {...extraProps}
       className={`ui--Icon ${color}Color${onClick ? ' isClickable' : ''} ${className}`}
       icon={icon}
