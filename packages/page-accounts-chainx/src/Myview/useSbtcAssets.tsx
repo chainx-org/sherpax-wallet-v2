@@ -25,7 +25,8 @@ function useSbtcAssets(account: string, n = 0): SbtcAssetsInfo {
     async function getAssets(account: string): Promise<any> {
       if(isApiReady) {
         if(api.query.assets) {
-          const asset = await api.query.assets.account(1, account)
+          let asset = await api.query.assets.account(1, account)
+          asset = asset.toJSON()
           const assetLock = await api.query.xGatewayRecords.locks(account, 1)
           // setValue(asset)
           let current = {

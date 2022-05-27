@@ -28,7 +28,7 @@ interface Props {}
 
 const CardBtns = (props: Props) => {
   const { currentAccount } = useContext(AccountContext);
-  const [n, setN] = useState(0);
+  const [n, setN] = useState(1);
   const { isApiReady } = useApi();
   const { allAccounts, hasAccounts } = useAccounts();
   const hasCurrentName = allAccounts.find((account) => account === currentAccount);
