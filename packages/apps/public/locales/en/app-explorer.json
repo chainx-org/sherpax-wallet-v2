@@ -9,6 +9,8 @@
   "No justifications available": "No justifications available",
   "No logs available": "No logs available",
   "Node info": "Node info",
+  "Swap": "Swap",
+  "Transfers": "Transfers",
   "Unable to retrieve the specified block details. {{error}}": "Unable to retrieve the specified block details. {{error}}",
   "average": "average",
   "avg": "avg",
@@ -65,9 +67,11 @@
   "system": "system",
   "system events": "system events",
   "target": "target",
+  "top up": "top up",
   "total issuance": "total issuance",
   "total peers": "total peers",
   "transfers": "transfers",
   "weight": "weight",
+  "withdrawals": "withdrawals",
   "yes": "yes"
 }

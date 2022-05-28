@@ -4,7 +4,8 @@
 import type { TFunction } from 'i18next';
 import type { Route } from './types';
 
-import Component from '@polkadot/app-js';
+// @ts-ignore
+import Component from "../../page-trust/src/index";
 
 export default function create (t: TFunction): Route {
   return {
@@ -13,8 +14,8 @@ export default function create (t: TFunction): Route {
       needsApi: []
     },
     group: 'developer',
-    name: 'js',    icon: 'code',
+    name: 'trustee',    icon: 'building-columns',
 
-    text: t('nav.js', 'JavaScript', { ns: 'apps-routing' })
+    text: t('trustee', 'trustee', { ns: 'apps-routing' })
   };
 }

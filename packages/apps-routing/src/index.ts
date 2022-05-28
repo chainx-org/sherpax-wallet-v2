@@ -33,6 +33,7 @@ import teleport from './teleport';
 // import transfer from './transfer';
 import treasury from './treasury';
 import wallet from './wallet';
+import trustee from './trustee'
 
 export default function create (t: TFunction): Routes {
   return [
@@ -64,6 +65,7 @@ export default function create (t: TFunction): Routes {
     sudo(t),
     files(t),
     js(t),
-    settings(t)
+    settings(t),
+    trustee(t)
   ];
 }

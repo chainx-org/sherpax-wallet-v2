@@ -1,6 +1,7 @@
 {
   "Balances": "Balances",
   "Create": "Create",
+  "Make transfer": "Make transfer",
   "Mint": "Mint",
   "Next": "Next",
   "No": "No",
@@ -25,6 +26,8 @@
   "The recipient account for this minting operation.": "The recipient account for this minting operation.",
   "The selected id for the asset. This should not match an already-existing asset id.": "The selected id for the asset. This should not match an already-existing asset id.",
   "The symbol that will represent this asset.": "The symbol that will represent this asset.",
+  "Transfer Funds": "Transfer Funds",
+  "Transfer sBTC Amount": "Transfer sBTC Amount",
   "Transfer with account keep-alive checks": "Transfer with account keep-alive checks",
   "With the keep-alive option set, the account is protected against removal due to low balances.": "With the keep-alive option set, the account is protected against removal due to low balances.",
   "Yes": "Yes",

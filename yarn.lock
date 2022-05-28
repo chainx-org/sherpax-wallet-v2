@@ -4488,6 +4488,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@polkadot/app-trust@workspace:packages/page-trust":
+  version: 0.0.0-use.local
+  resolution: "@polkadot/app-trust@workspace:packages/page-trust"
+  dependencies:
+    "@babel/runtime": ^7.16.3
+  languageName: unknown
+  linkType: soft
+
 "@polkadot/apps-config@^0.112.2-14, @polkadot/apps-config@workspace:packages/apps-config":
   version: 0.0.0-use.local
   resolution: "@polkadot/apps-config@workspace:packages/apps-config"

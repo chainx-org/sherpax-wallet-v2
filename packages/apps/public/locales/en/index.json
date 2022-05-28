@@ -1,4 +1,5 @@
 [
+  "app-accounts-chainx.json",
   "app-accounts.json",
   "app-addresses.json",
   "app-assets.json",
@@ -28,6 +29,7 @@
   "apps-config.json",
   "apps-routing.json",
   "apps.json",
+  "react-components-chainx.json",
   "react-components.json",
   "react-params.json",
   "react-query.json",

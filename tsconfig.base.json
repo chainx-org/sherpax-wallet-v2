@@ -40,6 +40,8 @@
       "@polkadot/app-i18n/*": ["page-i18n/src/*"],
       "@polkadot/app-js": ["page-js/src"],
       "@polkadot/app-js/*": ["page-js/src/*"],
+      "@polkadot/app-trust": ["page-trust/src"],
+      "@polkadot/app-demo": ["page-demo/src"],
       "@polkadot/app-membership": ["page-membership/src"],
       "@polkadot/app-membership/*": ["page-membership/src/*"],
       "@polkadot/app-nfts": ["page-nfts/src"],

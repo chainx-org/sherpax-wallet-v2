@@ -1,19 +1,19 @@
-// Copyright 2017-2022 @polkadot/app-staking authors & contributors
+// Copyright 2017-2020 @polkadot/app-staking authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { AccountId, AccountIndex, Address } from '@polkadot/types/interfaces';
 import type { KeyringItemType } from '@polkadot/ui-keyring/types';
-import type { BN } from '@polkadot/util';
+import type { AccountId, AccountIndex, Address } from '@polkadot/types/interfaces';
 
+import BN from 'bn.js';
 import React from 'react';
 import styled from 'styled-components';
 
+import { classes, toShortAddress } from './util';
 import AccountName from './AccountName';
 import BalanceDisplay from './Balance';
 import BondedDisplay from './Bonded';
 import IdentityIcon from './IdentityIcon';
 import LockedVote from './LockedVote';
-import { toShortAddress } from './util';
 
 interface Props {
   balance?: BN | BN[];
@@ -26,8 +26,6 @@ interface Props {
   isShort?: boolean;
   label?: React.ReactNode;
   labelBalance?: React.ReactNode;
-  nameExtra?: React.ReactNode;
-  onNameClick?: () => void;
   summary?: React.ReactNode;
   type?: KeyringItemType;
   value?: AccountId | AccountIndex | Address | string | null | Uint8Array;
@@ -40,38 +38,33 @@ interface Props {
   withShrink?: boolean;
 }
 
-function AddressMini ({ balance, bonded, children, className = '', iconInfo, isHighlight, isPadded = true, label, labelBalance, nameExtra, onNameClick, summary, value, withAddress = true, withBalance = false, withBonded = false, withLockedVote = false, withName = true, withShrink = false, withSidebar = true }: Props): React.ReactElement<Props> | null {
-  if (!value) {
-    return null;
-  }
+function AddressMini ({ balance, bonded, children, className = '', iconInfo, isHighlight, isPadded = true, label, labelBalance, summary, value, withAddress = true, withBalance = false, withBonded = false, withLockedVote = false, withName = true, withShrink = false, withSidebar = true }: Props): React.ReactElement<Props> | null {
+  // if (!value) {
+  //   return null;
+  // }
 
   return (
-    <div className={`ui--AddressMini${isHighlight ? ' isHighlight' : ''}${isPadded ? ' padded' : ''}${withShrink ? ' withShrink' : ''} ${className}`}>
+    <div className={classes('ui--AddressMini', isHighlight ? 'isHighlight' : '', isPadded ? 'padded' : '', withShrink ? 'withShrink' : '', className)}>
       {label && (
         <label className='ui--AddressMini-label'>{label}</label>
       )}
-      <div className='ui--AddressMini-icon'>
-        <IdentityIcon value={value} />
+      {value &&   <div className='ui--AddressMini-icon'>
+        <IdentityIcon value={value as Uint8Array} />
         {iconInfo && (
           <div className='ui--AddressMini-icon-info'>
             {iconInfo}
           </div>
         )}
-      </div>
+      </div>}
       <div className='ui--AddressMini-info'>
         {withAddress && (
-          <div
-            className='ui--AddressMini-address'
-            onClick={onNameClick}
-          >
+          <div className='ui--AddressMini-address'>
             {withName
               ? (
                 <AccountName
                   value={value}
                   withSidebar={withSidebar}
-                >
-                  {nameExtra}
-                </AccountName>
+                />
               )
               : toShortAddress(value)
             }
