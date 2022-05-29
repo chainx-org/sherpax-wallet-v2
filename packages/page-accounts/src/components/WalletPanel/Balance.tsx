@@ -22,6 +22,7 @@ export default function Balance({lookup}: Props) {
   const [miscFrozen, setMiscFrozen] = useState<number>(0)
   const pcxFree = usePcxfree(currentAccount, n);
   const lockedBreakdown: any = useLockedBreakdown(currentAccount, n);
+  const [downState,setDownState] = useState(false)
 
 
   const { isApiReady } = useApi();
@@ -123,28 +124,31 @@ export default function Balance({lookup}: Props) {
               value={reserved}
             />
 
-            {lockedBreakdown && <AssetView
-              className="small-px"
-              key={Math.random()}
-              title={t('Locked')}
-              value={Math.max(feeFrozen, miscFrozen)}
-              help={Math.max(feeFrozen, miscFrozen)?<p>
-                {lockedBreakdown.map(({ amount, id, reasons }, index) => {
-                  return (
-                    <div key={index}>
-                      {amount?.isMax()
-                        ? t<string>('everything')
-                        : formatBalance(amount, { forceUnit: '-' })
-                      }{id && <span style={{ color: 'rgba(0,0,0,0.56)' }}> {lookupLock(lookup, id)}</span>}<span style={{ color: 'rgba(0,0,0,0.56)' }}>{reasons.toString()}</span>
-                    </div>
-                  )
-                })}
-              </p>:''}
-            />}
+            {lockedBreakdown && <>
+              <AssetView
+                className="small-px"
+                key={Math.random()}
+                title={t('Locked')}
+                value={Math.max(feeFrozen, miscFrozen)}
+                help={Math.max(feeFrozen, miscFrozen)?<p>
+                  {lockedBreakdown.map(({ amount, id, reasons }, index) => {
+                    return (
+                      <div key={index}>
+                        {amount?.isMax()
+                          ? t<string>('everything')
+                          : formatBalance(amount, { forceUnit: '-' })
+                        }{id && <span style={{ color: 'white' }}> {lookupLock(lookup, id)}</span>}<span style={{ color: 'white' }}>{reasons.toString()}</span>
+                      </div>
+                    )
+                  })}
+                </p>:''}
+              />
+            </>}
 
           </>
         )}
       </section>
+
     </div>
   )
 }

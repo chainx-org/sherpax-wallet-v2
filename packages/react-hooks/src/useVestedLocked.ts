@@ -32,6 +32,14 @@ export function useVestedLocked(address = '', n = 0) {
       const vestedBalance = res.vestedBalance
       setVested(vestedBalance);
       setVestedValue(vestedBalance)
+
+      const res2 =  await api.query.democracy.votingOf(address)
+      const res3 =  await api.query.elections.voting(address)
+
+      console.log(res2.toString(),`res2`,address)
+      console.log(res3.toJSON(),`res3`,address)
+
+
     }
   }
 

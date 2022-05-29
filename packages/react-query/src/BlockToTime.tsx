@@ -1,38 +1,33 @@
-// Copyright 2017-2022 @polkadot/react-query authors & contributors
+// Copyright 2017-2020 @polkadot/react-query authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { ApiPromise } from '@polkadot/api';
-import type { BN } from '@polkadot/util';
-
+import BN from 'bn.js';
 import React from 'react';
 import styled from 'styled-components';
-
 import { useBlockTime } from '@polkadot/react-hooks';
 
 interface Props {
-  api?: ApiPromise;
+  blocks?: BN;
   children?: React.ReactNode;
   className?: string;
   isInline?: boolean;
   label?: React.ReactNode;
-  value?: BN;
 }
 
-function BlockToTime ({ api, children, className = '', isInline, label, value }: Props): React.ReactElement<Props> | null {
-  const [, text] = useBlockTime(value, api);
-
-  if (!value || value.isZero()) {
+function BlockToTime ({ blocks, children, className = '', isInline, label }: Props): React.ReactElement<Props> | null {
+  const [, text] = useBlockTime(blocks);
+  if (blocks?.ltn(0)) {
     return null;
   }
 
   return (
     <div className={`${className}${isInline ? ' isInline' : ''}`}>
       {label || ''}{text.split(' ').map((v, index) =>
-        <span
-          className={index % 2 ? 'timeUnits' : undefined}
-          key={index}
-        >{v}</span>
-      )}{children}
+      <span
+        className={index % 2 ? 'timeUnits' : undefined}
+        key={index}
+      >{v}</span>
+    )}{children}
     </div>
   );
 }

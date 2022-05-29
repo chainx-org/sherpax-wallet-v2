@@ -45,7 +45,7 @@ const AccountRow = (props: Props) => {
             onClick={toggleTransfer}
           />
         )}
-        <div style={{marginLeft:"20px"}}>
+        <div className="point" style={{marginLeft:"20px"}}>
           <AccountActions account={accountActionData}></AccountActions>
         </div>
       </div>

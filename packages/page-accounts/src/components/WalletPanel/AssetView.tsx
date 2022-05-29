@@ -12,21 +12,29 @@ import { Icon } from '@polkadot/react-components';
 import { CoinPriceContext } from '@polkadot/react-components-chainx/CoinPriceProvider';
 import { useApi } from '@polkadot/react-hooks';
 import { formatBalance } from '@polkadot/util';
+import {  TxButton2 as TxButton } from '@polkadot/react-components';
+import {useTranslation} from "@polkadot/app-accounts/translate";
+import {AccountContext} from "@polkadot/react-components-chainx/AccountProvider";
+
 
 const Title = styled.h6`
+  position: relative;
   margin: 0;
   margin-bottom: 7px;
   font-size: 16px;
   font-weight: 400;
-  color: #353D41;
+  color: rgba(53, 61, 65, .8);
   opacity: .8;
+  svg {
+    color: rgba(53, 61, 65, .8);
+  }
   line-height: 22px;
 `;
 
 const HelpValue = styled.span`
   margin-left: 4px;
   cursor: pointer;
-  position: relative;
+  //position: relative;
   z-index: 99;
   .helpCon::-webkit-scrollbar {
     // display: none;
@@ -35,23 +43,37 @@ const HelpValue = styled.span`
     border-radius: 40px;
   }
   .helpCon {
+    p {
+      margin-bottom: 0;
+    }
+    &::before {
+      content: '';
+      position: absolute;
+      border: 6px solid transparent;
+      border-top-color: rgba(0, 0, 0, 0.76);
+      bottom: -11px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    &.left22-5 {
+      left: -22.5%;
+    }
     max-height:174px;
-    overflow-y:auto;
-    overflow-x:hidden;
+    //overflow-y:auto;
+    //overflow-x:hidden;
     display: none;
     width: 247px;
     font-size: 12px;
-    color: #000000;
     padding: 11px 12px;
     position: absolute;
-    bottom: 21px;
+    bottom: 30px;
     line-height:18px;
-    right: -113px;
-    background: rgba(255,255,255,1);
-    border: 1px solid #EFEFEF;
-    color: rgba(0,0,0);
-    box-shadow: 0 4px 12px 0 rgba(0,0,0,0.12);
+    left: -35.5%;
+    background: rgba(0, 0, 0, 0.76);
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.16), 0 0 8px 0 rgba(0, 0, 0, 0.08);
+    color: white;
     border-radius: 10px;
+    z-index: 999999;
     @media screen and (min-width:376px) and (max-width: 414px){
       bottom: 26px;
       left: -120px;
@@ -106,6 +128,11 @@ const Value = styled.div`
       font-size: 14px;
     }
   }
+  img.down {
+    cursor: pointer;
+    vertical-align: middle;
+    padding-left: 10px;
+  }
 `;
 
 type Props = {
@@ -114,10 +141,13 @@ type Props = {
   help?: React.ReactNode,
   value: number,
   balancesAll?: DeriveBalancesAll,
-  className?:string
+  className?:string,
+  unLock?:boolean,
+  vesting?:any
 }
 
 const LoadingValue = styled.div`
+
   display: inline-block;
   vertical-align: baseline;
   white-space: nowrap;
@@ -129,15 +159,37 @@ const LoadingValue = styled.div`
     text-align: right;
     margin-left: 8px;
   }
+  .ClaimBtn {
+    &.isDisabled {
+      cursor: not-allowed;
+    }
+    display: inline-block;
+    padding: 0;
+    cursor: pointer;
+    text-align: center;
+    font-size: 13px;
+    width: 63px;
+    height: 24px;
+    background: #FFFFFF;
+    color: #6098FF;
+    line-height: 24px;
+    border-radius: 2px;
+    vertical-align: middle;
+    margin-left: 12px;
+  }
 `;
 
-export default function ({ bold, help, title, value,className }: Props): React.ReactElement<Props> {
+export default function ({ bold, help, title, value,className,unLock,vesting}: Props): React.ReactElement<Props> {
   const { isApiReady } = useApi();
   const preciseValue: BigNumber = new BigNumber(toPrecision(value, 18));
   const targetValue = Number(preciseValue.toJSON()).toFixed(4)
   const decimalsValue = preciseValue.toNumber().toFixed(4).slice(-4);
   const intValue = preciseValue.toNumber().toFixed(8).slice(0, -8);
   const { btcDollar, coinExchangeRate } = useContext(CoinPriceContext);
+  const {t} = useTranslation()
+  const { currentAccount } = useContext(AccountContext);
+
+
 
   const [wksxObj] = coinExchangeRate.filter((item: any) => item.coin === 'WKSX');
 
@@ -151,7 +203,7 @@ export default function ({ bold, help, title, value,className }: Props): React.R
               icon='question-circle'
               size='1x'
             />
-            <div className='helpCon'>{help}</div>
+            <div className={`helpCon ${className}`}>{help}</div>
           </HelpValue>
           : '' }
       </Title>
@@ -162,12 +214,24 @@ export default function ({ bold, help, title, value,className }: Props): React.R
             {/* <span className='ui--FormatBalance-unit'> */}
             {/*  {formatBalance.getDefaults().unit && formatBalance.getDefaults().unit !== 'Unit'? formatBalance.getDefaults().unit : 'KSX'} */}
             {/* </span> */}
-            {
-
-              <span className={`dollar ${className}`}>
-                 (≈ ${Number(Number(targetValue) * wksxObj?.price).toFixed(2)})
-              </span>
-            }
+              <>
+                <span className={`dollar ${className}`}>
+                  (≈ ${Number(Number(targetValue) * wksxObj?.price).toFixed(2)})
+                </span>
+                {vesting && isApiReady && (<TxButton
+                    accountId={currentAccount}
+                    className="ClaimBtn"
+                    label={t('Unlock')}
+                    icon={1111}
+                    params={[]}
+                    isDisabled={Math.max(vesting.feeFrozen, vesting.miscFrozen) > 0 ? false : true}
+                    tx='vesting.vest'
+                    onSuccess={() => {
+                      vesting.setN(Math.random());
+                    }}
+                  />
+                )}
+              </>
           </LoadingValue>
         }
       </Value>

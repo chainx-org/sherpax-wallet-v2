@@ -32,36 +32,84 @@ export default React.memo(styled(Wallet)`
 
     .left {
       position: relative;
-      box-sizing:border-box;
-      padding:30px 33px ;
       flex:1;
-      height: 290px;
-      margin-right:20px ;
-      background: linear-gradient(135deg, #CBE5FF 0%, #83AFFF 100%);
-      border: 1px solid #DCE0E2;
-      border-radius: 4px;
-      > img {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-      }
-      .accountRow {
-        display: flex;
-        width: 100%;
-        justify-content:space-between;
-        margin-bottom: 36px;
-        .send {
-          display: flex;
-          align-items: center;
+      margin-right:20px;
+      border-radius: 6px;
+      //overflow: hidden;
+      .point {
+        padding: 8px;
+        &:hover {
+          background: #6098ff;
+          color: white;
         }
       }
-      .balance {
-        .details {
+      .details {
+        >div:last-child {
+          padding-right: 40px;
+        }
+      }
+
+      .left-wrapper {
+        position: relative;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        box-sizing:border-box;
+        padding:30px 33px ;
+        height: 290px;
+        background: linear-gradient(135deg, #CBE5FF 0%, #83AFFF 100%);
+        border: 1px solid #DCE0E2;
+        > img {
+          position: absolute;
+          right: 0;
+          bottom: 0;
+        }
+        img.down {
+          cursor: pointer;
+          z-index: 9;
+          right: 40px;
+          bottom: 30px;
+        }
+
+        .accountRow {
           display: flex;
+          width: 100%;
+          justify-content:space-between;
+          margin-bottom: 36px;
+          .send {
+            display: flex;
+            align-items: center;
+          }
+        }
+        .balance {
+          .details {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-top: 31px;
+            z-index: 1;
+          }
+        }
+      }
+      .down-lock {
+        display: none;
+        border: 2px solid;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        border-image: linear-gradient(270deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3)) 2 2;
+        width: 100%;
+        height: 88px;
+        background: linear-gradient(135deg, #8fbcff 0%, #6a9fff 100%);
+        backdrop-filter: blur(10px);
+        &.show-down {
+          display: block;
+        }
+        .flex {
+          display: flex;
+          box-sizing: border-box;
+          height: 100%;
+          padding: 0 33px;
           justify-content: space-between;
-          position: relative;
-          margin-top: 31px;
-          z-index: 1;
+          align-items: center;
         }
       }
     }
@@ -125,7 +173,6 @@ export default React.memo(styled(Wallet)`
       }
       .transfersCrossTable {
         flex: 1;
-
       }
     }
   }

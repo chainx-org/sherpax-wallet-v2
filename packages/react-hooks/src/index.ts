@@ -73,3 +73,4 @@ export { useVestedLocked } from './useVestedLocked';
 export {useLockedBreakdown} from './useLockedBreakdown'
 export {useTokenList} from './useTokenList'
 export {useCoinPrice} from './useCoinPrice'
+export {useVestClaim} from './useVestClaim'

@@ -17,7 +17,7 @@ function PopupWindow ({ children, className = '', position, triggerRef, windowRe
       className={`${className}${verticalPosition === 'top' ? ' pointerTop' : ' pointerBottom'}`}
       data-testid='popup-window'
       ref={windowRef}
-      style={renderWindowPosition && { transform: `translate3d(${renderWindowPosition.x}px, ${renderWindowPosition.y}px, 0)`, zIndex: 1000 }}
+      style={renderWindowPosition && { transform: `translate3d(${renderWindowPosition.x}px, ${renderWindowPosition.y}px, 0)`, zIndex: 10 }}
     >
       {children}
     </div>,
