@@ -13,10 +13,15 @@ export {
   ApiContext,
   DEFAULT_DECIMALS,
   DEFAULT_SS58,
+  registry,
   withApi,
   withCalls,
   withCallDiv,
   withMulti,
   withObservable,
-  clearLedger, getLedger, isLedger, isLedgerCapable, registry
+  clearLedger,
+  getLedger,
+  isLedger,
+  isLedgerCapable
+
 };

@@ -3,7 +3,7 @@
 
 // import BN from 'bn.js';
 import React, {Dispatch, useEffect, useState} from 'react';
-import {Input, InputAddress, Modal2 as Modal, TxButton2 as TxButton} from '@polkadot/react-components';
+import {Input, IInputAddress as InputAddress, Modal2 as Modal, TxButton2 as TxButton} from '@polkadot/react-components';
 import InputSBTCBalance from '@polkadot/react-components-chainx/InputSBTCBalance';
 import {useApi} from "@polkadot/react-hooks";
 import {useTranslation} from '../../translate';
@@ -20,6 +20,12 @@ interface Props {
 const Wrapper = styled(Modal)`
   > .header {
     border: 0!important;
+  }
+  .white {
+    //svg {
+    //  background: rgb();
+    //  color: white!important;
+    //}
   }
   > .actions {
     border: 0!important;
@@ -86,6 +92,7 @@ function Withdraw({account, btc, onClose, setN}: Props): React.ReactElement<Prop
     }
   }, [withdrawAddress]);
 
+
   useEffect((): void => {
     async function getMinWithdraw() {
       if(!isApiReady) return
@@ -101,6 +108,8 @@ function Withdraw({account, btc, onClose, setN}: Props): React.ReactElement<Prop
     const WithdrawAmount = new BigNumber(Number(amount) / Math.pow(10, 18))
     setFinalWithdraw(WithdrawAmount.minus(minfee).toNumber())
   }, [amount,minfee]);
+
+
   return (
     <Wrapper
       header={t('sBTC Withdrawals')}
@@ -185,14 +194,17 @@ function Withdraw({account, btc, onClose, setN}: Props): React.ReactElement<Prop
 
       </Modal.Content>
 
+
+      {/*这里有问题*/}
       <Modal.Actions onCancel={onClose}>
         <TxButton
+          className="white"
           accountId={accountId}
           icon='sign-in-alt'
           label={t('withdrawals')}
           onStart={onClose}
           params={['1', Number(amount) / Math.pow(10, 10), withdrawAddress, memo ? memo.trim() : '']}
-          // tx='xGatewayCommon.withdraw'
+          tx='xGatewayCommon.withdraw'
           isDisabled={disabled}
           onSuccess={() => {
             setN(Math.random());
