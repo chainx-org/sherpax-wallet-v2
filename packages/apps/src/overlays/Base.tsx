@@ -112,5 +112,18 @@ export default React.memo(styled(BaseOverlay)`
     position: absolute;
     right: 0em;
     top: 0.75rem;
+    box-shadow:none!important;
+    &:hover {
+      background:transparent!important;
+    }
+    svg {
+      color:rgb(241, 145, 53)!important;
+      background:white!important;
+      border:1px solid rgb(241, 145, 53)!important;
+      &:hover {
+        background:rgb(241, 145, 53)!important;
+        color:white!important;
+      }
+    }
   }
 `);

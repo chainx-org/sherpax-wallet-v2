@@ -29,7 +29,6 @@ function NodeInfo ({ className = '' }: Props): React.ReactElement<Props> {
 
   const { isIpfs } = useIpfs();
 
-  console.log(setValue)
 
   return (
     <div

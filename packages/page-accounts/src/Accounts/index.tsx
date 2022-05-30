@@ -65,7 +65,7 @@ export default React.memo(styled(Wallet)`
         }
         img.down {
           cursor: pointer;
-          z-index: 9;
+          z-index: 1;
           right: 40px;
           bottom: 30px;
         }
@@ -92,6 +92,8 @@ export default React.memo(styled(Wallet)`
       }
       .down-lock {
         display: none;
+        position: relative;
+        z-index: 9;
         border: 2px solid;
         border-bottom-left-radius: 6px;
         border-bottom-right-radius: 6px;

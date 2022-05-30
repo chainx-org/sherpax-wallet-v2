@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import { toPrecision } from '@polkadot/app-accounts-chainx/Myview/toPrecision';
 import { Icon } from '@polkadot/react-components';
 import { CoinPriceContext } from '@polkadot/react-components-chainx/CoinPriceProvider';
-import { useApi } from '@polkadot/react-hooks';
+import { useApi,useLocked } from '@polkadot/react-hooks';
 import { formatBalance } from '@polkadot/util';
 import {  TxButton2 as TxButton } from '@polkadot/react-components';
 import {useTranslation} from "@polkadot/app-accounts/translate";
@@ -25,6 +25,9 @@ const Title = styled.h6`
   font-weight: 400;
   color: rgba(53, 61, 65, .8);
   opacity: .8;
+  &.fonts-14 {
+    font-size: 14px;
+  }
   svg {
     color: rgba(53, 61, 65, .8);
   }
@@ -55,6 +58,9 @@ const HelpValue = styled.span`
       left: 50%;
       transform: translateX(-50%);
     }
+    &.left21-5 {
+      left: -21.5%;
+    }
     &.left22-5 {
       left: -22.5%;
     }
@@ -68,7 +74,7 @@ const HelpValue = styled.span`
     position: absolute;
     bottom: 30px;
     line-height:18px;
-    left: -35.5%;
+    left: -40.5%;
     background: rgba(0, 0, 0, 0.76);
     box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.16), 0 0 8px 0 rgba(0, 0, 0, 0.08);
     color: white;
@@ -119,6 +125,7 @@ const Value = styled.div`
     line-height: 33px;
   }
 
+
   .dollar {
     padding-left: 10px;
     font-size: 18px;
@@ -143,7 +150,8 @@ type Props = {
   balancesAll?: DeriveBalancesAll,
   className?:string,
   unLock?:boolean,
-  vesting?:any
+  vesting?:any,
+  event?:string
 }
 
 const LoadingValue = styled.div`
@@ -179,7 +187,7 @@ const LoadingValue = styled.div`
   }
 `;
 
-export default function ({ bold, help, title, value,className,unLock,vesting}: Props): React.ReactElement<Props> {
+export default function ({ bold, help, title, value,className,unLock,vesting,event}: Props): React.ReactElement<Props> {
   const { isApiReady } = useApi();
   const preciseValue: BigNumber = new BigNumber(toPrecision(value, 18));
   const targetValue = Number(preciseValue.toJSON()).toFixed(4)
@@ -189,13 +197,11 @@ export default function ({ bold, help, title, value,className,unLock,vesting}: P
   const {t} = useTranslation()
   const { currentAccount } = useContext(AccountContext);
 
-
-
   const [wksxObj] = coinExchangeRate.filter((item: any) => item.coin === 'WKSX');
 
   return (
     <div>
-      <Title>
+      <Title className="fonts-14">
         {title}
         { help
           ? <HelpValue className='helpmsg'>
@@ -210,22 +216,22 @@ export default function ({ bold, help, title, value,className,unLock,vesting}: P
       <Value className={bold ? 'bold' : ''}>
         {isApiReady &&
           <LoadingValue>
-            <span className='ui--FormatBalance-value"'>{targetValue} KSX   </span>
+            <span className='ui--FormatBalance-value"'>{targetValue !== 'NaN' ? targetValue : '0.0000'} KSX   </span>
             {/* <span className='ui--FormatBalance-unit'> */}
             {/*  {formatBalance.getDefaults().unit && formatBalance.getDefaults().unit !== 'Unit'? formatBalance.getDefaults().unit : 'KSX'} */}
             {/* </span> */}
               <>
                 <span className={`dollar ${className}`}>
-                  (≈ ${Number(Number(targetValue) * wksxObj?.price).toFixed(2)})
+                  (≈ ${(Number(Number(targetValue) * wksxObj?.price).toFixed(2)) !== 'NaN' ? Number(Number(targetValue) * wksxObj?.price).toFixed(2) : '0.0000'})
                 </span>
                 {vesting && isApiReady && (<TxButton
                     accountId={currentAccount}
                     className="ClaimBtn"
                     label={t('Unlock')}
-                    icon={1111}
+                    icon={"none-icon"}
                     params={[]}
                     isDisabled={Math.max(vesting.feeFrozen, vesting.miscFrozen) > 0 ? false : true}
-                    tx='vesting.vest'
+                    tx={event}
                     onSuccess={() => {
                       vesting.setN(Math.random());
                     }}

@@ -58,5 +58,20 @@ export default React.memo(styled(Sidebar)(({ offset = 0, position }: Props) => `
     position: absolute;
     right: 0.5rem;
     top: 0.5rem;
+    Button {
+      box-shadow:none!important;
+      &:hover {
+        background:transparent!important;
+      }
+      svg {
+        color:rgb(96, 152, 255)!important;
+        background:white!important;
+        border:1px solid rgb(96, 152, 255)!important;
+        &:hover {
+         background:rgb(96, 152, 255)!important;
+         color:white!important;
+        }
+      }
+    }
   }
 `));
