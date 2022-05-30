@@ -216,7 +216,7 @@ export default function ({ bold, help, title, value,className,unLock,vesting,eve
       <Value className={bold ? 'bold' : ''}>
         {isApiReady &&
           <LoadingValue>
-            <span className='ui--FormatBalance-value"'>{targetValue !== 'NaN' ? targetValue : '0.0000'} KSX   </span>
+            <span className='ui--FormatBalance-value"'>{targetValue !== 'NaN' ? targetValue : '0.00'} KSX   </span>
             {/* <span className='ui--FormatBalance-unit'> */}
             {/*  {formatBalance.getDefaults().unit && formatBalance.getDefaults().unit !== 'Unit'? formatBalance.getDefaults().unit : 'KSX'} */}
             {/* </span> */}
