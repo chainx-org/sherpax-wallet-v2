@@ -57,6 +57,7 @@ function Backup ({ address, onClose }: Props): React.ReactElement<Props> {
     <Modal
       className='app--accounts-Modal'
       header={t<string>('Backup account')}
+      onClose={onClose}
     >
       <Modal.Content>
         <AddressRow

@@ -180,6 +180,7 @@ function Derive ({ className = '', from, onClose }: Props): React.ReactElement {
     <Modal
       className={className}
       header={t<string>('Derive account from pair')}
+      onClose={onClose}
     >
       {address && isConfirmationOpen
         ? (
