@@ -27,7 +27,7 @@ export default function Index ({lookup = ''}: PcxCardProps) {
           <AccountRow />
           <Balance lookup={lookup} />
           <img className="sherpax_logo" src={XZ_SVG} alt="sherpax_logo"/>
-          <img className="down" src={Down_SVG} onClick={() => setDownState(!downState)} alt="down"/>
+          <img className={`down ${downState ? 'click' : ''}`} src={Down_SVG} onClick={() => setDownState(!downState)} alt="down"/>
 
         </div>
         <DownLock className={`down-lock ${downState ? 'show-down' : '' }`}>

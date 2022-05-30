@@ -116,7 +116,7 @@ export default function DownLock ({className}: Props) {
           unLock
           event="vesting.vest"
           help={Math.max(feeFrozen, miscFrozen) ? <div className="left22-5">
-            <p style={{ fontSize: '15px',marginBottom:"10px" }}> {formatBalance(vestClaim, { forceUnit: '-' })}<span style={{ color: 'white' }}> available to be unlocked</span></p>
+            <p style={{ lineHeight:"25px" }}> {formatBalance(vestClaim, { forceUnit: '-' })}<span style={{ color: 'white' }}> available to be unlocked</span></p>
             {balancesAll && balancesAll.map(({ endBlock, locked, perBlock, vested }, index) => {
               return (
                 <div

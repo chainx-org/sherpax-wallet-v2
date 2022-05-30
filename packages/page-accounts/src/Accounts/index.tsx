@@ -60,10 +60,14 @@ export default React.memo(styled(Wallet)`
         border: 1px solid #DCE0E2;
         > img {
           position: absolute;
+          transition: all .5s;
           right: 0;
           bottom: 0;
         }
         img.down {
+          &.click {
+            transform: rotate(180deg);
+          }
           cursor: pointer;
           z-index: 1;
           right: 40px;
@@ -104,6 +108,7 @@ export default React.memo(styled(Wallet)`
         backdrop-filter: blur(10px);
         &.show-down {
           display: block;
+          //transform: rotate(180deg);
         }
         .flex {
           display: flex;
