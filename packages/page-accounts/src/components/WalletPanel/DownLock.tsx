@@ -23,12 +23,14 @@ import usePcxFree from '@polkadot/react-hooks-chainx/usePcxFree';
 
 
 type Props = {
-  className:any
+  className:any,
+  dataState?:any
 }
 
-export default function DownLock ({className}: Props) {
+export default function DownLock ({className,dataState}: Props) {
+  const {n,stateN} = dataState
   const {t} = useTranslation()
-  const [n, setN] = useState(0);
+  // const [n, setN] = useState(0);
   const [vest,setVest]=useState<number>(0)
   const [feeFrozen, setFeeFrozen] = useState<number>(0)
   const [miscFrozen, setMiscFrozen] = useState<number>(0)
@@ -39,7 +41,7 @@ export default function DownLock ({className}: Props) {
   const balancesAll = useBalancesAll(currentAccount, n);
   const pcxFree = usePcxFree(currentAccount, n);
   const { isApiReady } = useApi();
-  const lockedBreakdown = useLockedBreakdown(currentAccount, n);
+  // const lockedBreakdown = useLockedBreakdown(currentAccount, n);
 
   const locked = useLocked(currentAccount,n)
   const democracyData:any = locked.filter((item:any) => item.id === 'democrac')
@@ -108,7 +110,8 @@ export default function DownLock ({className}: Props) {
     <div className={className}>
       <div className="flex">
         <AssetView
-          vesting={{currentAccount,feeFrozen,miscFrozen,setN}}
+          stateN={stateN}
+          vesting={{currentAccount,feeFrozen,miscFrozen}}
           className="small-px left22-5"
           key={Math.random()}
           title={t('Vested')}
@@ -133,8 +136,8 @@ export default function DownLock ({className}: Props) {
             })}
           </div> : ''}
         />
-        <AssetView unLock event="elections.removeVoter" vesting={{currentAccount,feeFrozen,miscFrozen,setN}} className="small-px fonts-14"  key={Math.random()}  title={t('Elections')}  value={ksxPhreData[0]?.amount} ></AssetView>
-        <AssetView className="small-px fonts-14 left21-5"  key={Math.random()}  title={t('Democracy')}  value={democracyData[0]?.amount}  help={<div>Call democracy.removeVote() to cancel the referendum vote, then call democracy.unlock() to unlock it.</div>}></AssetView>
+        <AssetView stateN={stateN}  unLock event="elections.removeVoter" vesting={{currentAccount,feeFrozen,miscFrozen}} className="small-px fonts-14"  key={Math.random()}  title={t('Elections')}  value={ksxPhreData[0]?.amount} ></AssetView>
+        <AssetView stateN={stateN} className="small-px fonts-14 left21-5"  key={Math.random()}  title={t('Democracy')}  value={democracyData[0]?.amount}  help={<div>Call democracy.removeVote() to cancel the referendum vote, then call democracy.unlock() to unlock it.</div>}></AssetView>
       </div>
     </div>
   );

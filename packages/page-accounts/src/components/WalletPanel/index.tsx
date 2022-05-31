@@ -19,18 +19,19 @@ interface PcxCardProps {
 
 export default function Index ({lookup = ''}: PcxCardProps) {
   const [downState,setDownState] = useState(false)
+  const [n,stateN] = useState(0)
 
   return (
     <div className='walletPanel'>
       <div className='left'>
         <div className="left-wrapper">
-          <AccountRow />
-          <Balance lookup={lookup} />
+          <AccountRow dataState={{n,stateN}} />
+          <Balance dataState={{n,stateN}} lookup={lookup} />
           <img className="sherpax_logo" src={XZ_SVG} alt="sherpax_logo"/>
           <img className={`down ${downState ? 'click' : ''}`} src={Down_SVG} onClick={() => setDownState(!downState)} alt="down"/>
 
         </div>
-        <DownLock className={`down-lock ${downState ? 'show-down' : '' }`}>
+        <DownLock dataState={{n,stateN}} className={`down-lock ${downState ? 'show-down' : '' }`}>
 
         </DownLock>
 

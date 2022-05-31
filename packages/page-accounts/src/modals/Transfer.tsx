@@ -21,6 +21,7 @@ interface Props {
   onClose: () => void;
   recipientId?: string;
   senderId?: string;
+  successCB?:any
 }
 
 function isRefcount (accountInfo: AccountInfoWithProviders | AccountInfoWithRefCount): accountInfo is AccountInfoWithRefCount {
@@ -40,7 +41,7 @@ async function checkPhishing (_senderId: string | null, recipientId: string | nu
   ];
 }
 
-function Transfer ({ className = '', onClose, recipientId: propRecipientId, senderId: propSenderId }: Props): React.ReactElement<Props> {
+function Transfer ({ className = '', onClose, recipientId: propRecipientId, senderId: propSenderId,successCB }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();
   const [amount, setAmount] = useState<BN | undefined>(BN_ZERO);
@@ -177,7 +178,8 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
         </div>
       </Modal.Content>
       <Modal.Actions>
-        <TxButton
+        {successCB &&  <TxButton
+          onSuccess={successCB}
           accountId={propSenderId || senderId}
           icon='paper-plane'
           isDisabled={!hasAvailable || !(propRecipientId || recipientId) || !amount || !!recipientPhish}
@@ -197,7 +199,7 @@ function Transfer ({ className = '', onClose, recipientId: propRecipientId, send
                 ? api.tx.balances?.transferKeepAlive
                 : api.tx.balances?.transfer
           }
-        />
+        />}
       </Modal.Actions>
     </Modal>
   );

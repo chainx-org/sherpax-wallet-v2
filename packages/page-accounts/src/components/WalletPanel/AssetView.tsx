@@ -152,6 +152,7 @@ type Props = {
   unLock?:boolean,
   vesting?:any,
   event?:string
+  stateN?:any
 }
 
 const LoadingValue = styled.div`
@@ -187,7 +188,7 @@ const LoadingValue = styled.div`
   }
 `;
 
-export default function ({ bold, help, title, value,className,unLock,vesting,event}: Props): React.ReactElement<Props> {
+export default function ({ bold, help, title, value,className,unLock,vesting,event,stateN}: Props): React.ReactElement<Props> {
   const { isApiReady } = useApi();
   const preciseValue: BigNumber = new BigNumber(toPrecision(value, 18));
   const targetValue = Number(preciseValue.toJSON()).toFixed(4)
@@ -224,7 +225,7 @@ export default function ({ bold, help, title, value,className,unLock,vesting,eve
                 <span className={`dollar ${className}`}>
                   (≈ ${(Number(Number(targetValue) * wksxObj?.price).toFixed(2)) !== 'NaN' ? Number(Number(targetValue) * wksxObj?.price).toFixed(2) : '0.0000'})
                 </span>
-                {vesting && isApiReady && (<TxButton
+                {vesting && isApiReady &&  stateN && (<TxButton
                     accountId={currentAccount}
                     className="ClaimBtn"
                     label={t('Unlock')}
@@ -233,7 +234,8 @@ export default function ({ bold, help, title, value,className,unLock,vesting,eve
                     isDisabled={Math.max(vesting.feeFrozen, vesting.miscFrozen) > 0 ? false : true}
                     tx={event}
                     onSuccess={() => {
-                      vesting.setN(Math.random());
+                      stateN(Math.random())
+                      // vesting.setN(Math.random());
                     }}
                   />
                 )}

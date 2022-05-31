@@ -9,11 +9,13 @@ import {useTranslation} from "@polkadot/app-accounts/translate";
 
 type Props = {
   lookup:any
+  dataState?:any
 }
 
-export default function Balance({lookup}: Props) {
+export default function Balance({lookup,dataState}: Props) {
+  const {n,stateN} = dataState
   const { currentAccount } = useContext(AccountContext);
-  const [n, setN] = useState(0);
+  // const [n, setN] = useState(0);
   const [usableBalance, setUsableBalance] = useState<number>(0)
   const [allBalance, setAllBalance] = useState<number>(0)
   const [reserved, setReserved] = useState<number>(0)
@@ -115,9 +117,10 @@ export default function Balance({lookup}: Props) {
       <section className='details' key="details">
         {(
           <>
-            <AssetView className="small-px" key={Math.random()}    title={t('Transferrable')}  value={usableBalance > 0 ? usableBalance : 0}></AssetView>
+            <AssetView stateN={stateN}  className="small-px" key={Math.random()}    title={t('Transferrable')}  value={usableBalance > 0 ? usableBalance : 0}></AssetView>
 
             <AssetView
+              stateN={stateN}
               className="small-px"
               key={Math.random()}
               title={t('Reserved')}

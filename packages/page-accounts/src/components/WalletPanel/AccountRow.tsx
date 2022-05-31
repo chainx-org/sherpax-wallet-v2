@@ -8,9 +8,12 @@ import {AccountContext} from "@polkadot/react-components-chainx/AccountProvider"
 import {useApi, useToggle} from "@polkadot/react-hooks";
 import {useTranslation} from "@polkadot/app-accounts/translate";
 
-interface Props {}
+interface Props {
+  dataState?:any
+}
 
-const AccountRow = (props: Props) => {
+const AccountRow = ({dataState}: Props) => {
+  const {n,stateN} = dataState
   const { currentAccount } = useContext(AccountContext);
   const [isTransferOpen, toggleTransfer] = useToggle();
   const api = useApi();
@@ -34,6 +37,7 @@ const AccountRow = (props: Props) => {
           key='modal-transfer'
           onClose={toggleTransfer}
           senderId={currentAccount}
+          successCB={() => stateN(Math.random())}
         />
       )}
       <div className="send">
