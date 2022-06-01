@@ -1,34 +1,47 @@
-import React, {useContext} from 'react'
-import Candidate from "@polkadot/app-council/Overview/Candidate";
-import Transfer from "@polkadot/app-accounts/modals/Transfer";
-import {isFunction} from "@polkadot/util";
-import {Button} from "@polkadot/react-components";
-import AccountActions from "@polkadot/react-components-chainx/AccountStatus/AccountActions";
-import {AccountContext} from "@polkadot/react-components-chainx/AccountProvider";
-import {useApi, useToggle} from "@polkadot/react-hooks";
-import {useTranslation} from "@polkadot/app-accounts/translate";
+// [object Object]
+// SPDX-License-Identifier: Apache-2.0
+
+import React, { useContext } from 'react';
+
+
+import Transfer from '@polkadot/app-accounts/modals/Transfer';
+
+import { useTranslation } from '@polkadot/app-accounts/translate';
+
+import Candidate from '@polkadot/app-council/Overview/Candidate';
+
+import { Button } from '@polkadot/react-components';
+
+// import AccountActions from "@polkadot/react-components-chainx/AccountStatus/AccountActions";
+import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
+
+import { useApi, useToggle } from '@polkadot/react-hooks';
+
+import { isFunction } from '@polkadot/util';
 
 interface Props {
-  dataState?:any
+  dataState?: any
 }
 
-const AccountRow = ({dataState}: Props) => {
-  const {n,stateN} = dataState
+const AccountRow = ({ dataState }: Props) => {
+  const { n, stateN } = dataState;
   const { currentAccount } = useContext(AccountContext);
   const [isTransferOpen, toggleTransfer] = useToggle();
   const api = useApi();
-  const {t} = useTranslation()
-
+  const { t } = useTranslation();
 
   const accountActionData = {
-    address:currentAccount
-  }
+    address: currentAccount
+  };
 
   return (
     <div className='accountRow'>
-      <Candidate address={currentAccount} withShortAddress={true} iconSize={28}
-                 ShortAddressStyle={{fontSize:'16px',color:'#353D41',lineHeight: '22px'}}
-                 accountNameStyle={{fontSize:'18px',color:'#353D41',lineHeight: '25px',marginBottom:'5px'}}
+      <Candidate
+        ShortAddressStyle={{ fontSize: '16px', color: '#353D41', lineHeight: '22px' }}
+        accountNameStyle={{ fontSize: '18px', color: '#353D41', lineHeight: '25px', marginBottom: '5px' }}
+        address={currentAccount}
+        iconSize={28}
+        withShortAddress={true}
       >
       </Candidate>
       {isTransferOpen && (
@@ -40,7 +53,7 @@ const AccountRow = ({dataState}: Props) => {
           successCB={() => stateN(Math.random())}
         />
       )}
-      <div className="send">
+      <div className='send'>
         {isFunction(api.api.tx.balances?.transfer) && (
           <Button
             className='send-button'
@@ -49,12 +62,12 @@ const AccountRow = ({dataState}: Props) => {
             onClick={toggleTransfer}
           />
         )}
-        <div className="point" style={{marginLeft:"20px"}}>
+        {/* <div className="point" style={{marginLeft:"20px"}}>
           <AccountActions account={accountActionData}></AccountActions>
-        </div>
+        </div> */}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AccountRow
+export default AccountRow;

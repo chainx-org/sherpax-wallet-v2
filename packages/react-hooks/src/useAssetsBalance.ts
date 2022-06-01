@@ -145,7 +145,7 @@ export default function useAssetsBalance () {
         coinNum: balance.transBalance,
         decimals: balance.decimals,
         assetId: balance.assetId,
-        price:item.price
+        price: item.price
       };
     });
 
@@ -163,9 +163,8 @@ export default function useAssetsBalance () {
       estimatedBtc = '0.000';
     }
 
-    setEstimated({ estimatedDollar: Number(estimatedDollar.toFixed(2)).toLocaleString(), estimatedBtc });
+    setEstimated({ estimatedDollar: Number(estimatedDollar.toFixed(3)).toLocaleString(), estimatedBtc });
   }, [currentBalance, coinExchangeRate, estimated.estimatedDollar]);
-
 
   return [totalBalance, estimated];
 }
