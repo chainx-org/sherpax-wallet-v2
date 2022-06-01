@@ -7,15 +7,13 @@ import BigNumber from 'bignumber.js';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 
+import { useTranslation } from '@polkadot/app-accounts/translate';
 import { toPrecision } from '@polkadot/app-accounts-chainx/Myview/toPrecision';
-import { Icon } from '@polkadot/react-components';
+import { Icon, TxButton2 as TxButton } from '@polkadot/react-components';
+import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
 import { CoinPriceContext } from '@polkadot/react-components-chainx/CoinPriceProvider';
-import { useApi,useLocked } from '@polkadot/react-hooks';
+import { useApi, useLocked } from '@polkadot/react-hooks';
 import { formatBalance } from '@polkadot/util';
-import {  TxButton2 as TxButton } from '@polkadot/react-components';
-import {useTranslation} from "@polkadot/app-accounts/translate";
-import {AccountContext} from "@polkadot/react-components-chainx/AccountProvider";
-
 
 const Title = styled.h6`
   position: relative;
@@ -148,11 +146,11 @@ type Props = {
   help?: React.ReactNode,
   value: number,
   balancesAll?: DeriveBalancesAll,
-  className?:string,
-  unLock?:boolean,
-  vesting?:any,
-  event?:string
-  stateN?:any
+  className?: string,
+  unLock?: boolean,
+  vesting?: any,
+  event?: string
+  stateN?: any
 }
 
 const LoadingValue = styled.div`
@@ -188,21 +186,21 @@ const LoadingValue = styled.div`
   }
 `;
 
-export default function ({ bold, help, title, value,className,unLock,vesting,event,stateN}: Props): React.ReactElement<Props> {
+export default function ({ bold, className, event, help, stateN, title, unLock, value, vesting }: Props): React.ReactElement<Props> {
   const { isApiReady } = useApi();
   const preciseValue: BigNumber = new BigNumber(toPrecision(value, 18));
-  const targetValue = Number(preciseValue.toJSON()).toFixed(4)
+  const targetValue = Number(preciseValue.toJSON()).toFixed(4);
   const decimalsValue = preciseValue.toNumber().toFixed(4).slice(-4);
   const intValue = preciseValue.toNumber().toFixed(8).slice(0, -8);
   const { btcDollar, coinExchangeRate } = useContext(CoinPriceContext);
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   const { currentAccount } = useContext(AccountContext);
 
   const [wksxObj] = coinExchangeRate.filter((item: any) => item.coin === 'WKSX');
 
   return (
     <div>
-      <Title className="fonts-14">
+      <Title className='fonts-14'>
         {title}
         { help
           ? <HelpValue className='helpmsg'>
@@ -217,29 +215,29 @@ export default function ({ bold, help, title, value,className,unLock,vesting,eve
       <Value className={bold ? 'bold' : ''}>
         {isApiReady &&
           <LoadingValue>
-            <span className='ui--FormatBalance-value"'>{targetValue !== 'NaN' ? targetValue : '0.00'} KSX   </span>
+            <span className='ui--FormatBalance-value"'>{targetValue !== 'NaN' ? targetValue : '0.0000'} KSX   </span>
             {/* <span className='ui--FormatBalance-unit'> */}
             {/*  {formatBalance.getDefaults().unit && formatBalance.getDefaults().unit !== 'Unit'? formatBalance.getDefaults().unit : 'KSX'} */}
             {/* </span> */}
-              <>
-                <span className={`dollar ${className}`}>
+            <>
+              <span className={`dollar ${className}`}>
                   (≈ ${(Number(Number(targetValue) * wksxObj?.price).toFixed(2)) !== 'NaN' ? Number(Number(targetValue) * wksxObj?.price).toFixed(2) : '0.0000'})
-                </span>
-                {vesting && isApiReady &&  stateN && (<TxButton
-                    accountId={currentAccount}
-                    className="ClaimBtn"
-                    label={t('Unlock')}
-                    icon={"none-icon"}
-                    params={[]}
-                    isDisabled={Math.max(vesting.feeFrozen, vesting.miscFrozen) > 0 ? false : true}
-                    tx={event}
-                    onSuccess={() => {
-                      stateN(Math.random())
-                      // vesting.setN(Math.random());
-                    }}
-                  />
-                )}
-              </>
+              </span>
+              {vesting && isApiReady && stateN && (<TxButton
+                accountId={currentAccount}
+                className='ClaimBtn'
+                icon={'none-icon'}
+                isDisabled={!(Math.max(vesting.feeFrozen, vesting.miscFrozen) > 0)}
+                label={t('Unlock')}
+                onSuccess={() => {
+                  stateN(Math.random());
+                  // vesting.setN(Math.random());
+                }}
+                params={[]}
+                tx={event}
+              />
+              )}
+            </>
           </LoadingValue>
         }
       </Value>

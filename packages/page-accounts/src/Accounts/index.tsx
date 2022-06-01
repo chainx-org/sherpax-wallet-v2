@@ -36,7 +36,7 @@ export default React.memo(styled(Wallet)`
       border-radius: 6px;
       //overflow: hidden;
       .point {
-        cursor:pointer ;
+        /* cursor:pointer ; */
         padding: 8px;
         &:hover {
           background: #6098ff;
