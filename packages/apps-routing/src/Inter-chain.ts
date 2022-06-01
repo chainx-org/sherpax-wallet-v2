@@ -13,7 +13,7 @@ export default function create (t: TFunction): Route {
       needsApi: []
     },
     group: 'network',
-    name: 'Inter-chain',
-    text: t('nav.explorer', 'Inter-chain', { ns: 'apps-routing' })
+    name: 'Interoperability',
+    text: t('nav.explorer', 'Interoperability', { ns: 'apps-routing' })
   };
 }

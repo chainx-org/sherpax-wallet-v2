@@ -31,7 +31,7 @@ export function useLocked(address:string,n = 0) {
 
     fetchVestedFree()
 
-  }, [currentAccount, isApiReady]);
+  }, [currentAccount, isApiReady,n]);
 
   async function fetchVestedFree() {
     if (!address) {

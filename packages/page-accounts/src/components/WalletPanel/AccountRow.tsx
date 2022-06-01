@@ -3,20 +3,13 @@
 
 import React, { useContext } from 'react';
 
-
 import Transfer from '@polkadot/app-accounts/modals/Transfer';
-
 import { useTranslation } from '@polkadot/app-accounts/translate';
-
 import Candidate from '@polkadot/app-council/Overview/Candidate';
-
 import { Button } from '@polkadot/react-components';
-
-// import AccountActions from "@polkadot/react-components-chainx/AccountStatus/AccountActions";
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
-
+import AccountActions from '@polkadot/react-components-chainx/AccountStatus/AccountActions';
 import { useApi, useToggle } from '@polkadot/react-hooks';
-
 import { isFunction } from '@polkadot/util';
 
 interface Props {
@@ -62,9 +55,12 @@ const AccountRow = ({ dataState }: Props) => {
             onClick={toggleTransfer}
           />
         )}
-        {/* <div className="point" style={{marginLeft:"20px"}}>
+        <div
+          className='point'
+          style={{ marginLeft: '20px' }}
+        >
           <AccountActions account={accountActionData}></AccountActions>
-        </div> */}
+        </div>
       </div>
     </div>
   );
