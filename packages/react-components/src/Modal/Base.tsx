@@ -68,7 +68,7 @@ export default React.memo(styled(Base)`
   width: 100%;
   height: 100%;
   min-height: 100vh;
-  z-index: 2000;
+  z-index: 1000;
   overflow-y: auto;
 
   .ui--Modal__overlay {
