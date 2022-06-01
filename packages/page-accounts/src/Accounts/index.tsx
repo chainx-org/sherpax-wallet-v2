@@ -1,19 +1,18 @@
 // Copyright 2017-2022 @polkadot/app-accounts authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 
+import AssetsTable from '../components/AssetsTable';
+import Transactions from '../components/Transactions';
 import WallerPanel from '../components/WalletPanel';
-import AssetsTable from '../components/AssetsTable'
-import Transactions from '../components/Transactions'
 
 interface Props {
   className?: string;
 }
 
 function Wallet ({ className = '' }: Props): React.ReactElement<Props> {
-
   return (
     <div className={className}>
       <WallerPanel></WallerPanel>
@@ -37,6 +36,7 @@ export default React.memo(styled(Wallet)`
       border-radius: 6px;
       //overflow: hidden;
       .point {
+        cursor:pointer ;
         padding: 8px;
         &:hover {
           background: #6098ff;

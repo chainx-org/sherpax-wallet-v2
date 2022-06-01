@@ -73,7 +73,7 @@ function Account ({ account, address, className, delegation, isAccountChecked, i
             }}
             />}
       </td>
-      <td>
+      {/* <td>
         <AccountActions
           account={account}
           delegation={delegation}
@@ -81,7 +81,7 @@ function Account ({ account, address, className, delegation, isAccountChecked, i
           propsIsValid={propsIsValid}
           proxy={proxy}
         />
-      </td>
+      </td> */}
 
     </tr>
   );

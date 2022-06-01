@@ -140,13 +140,13 @@ function AccountList ({ className = '', onClose, onStatusChange, setStoredValue,
               </div>
               <div>
                 <Button
-                  className="send-button"
+                  className='send-button'
                   icon={'plus'}
                   label={t('Add account')}
                   onClick={_toggleCreate}
                 />
                 <Button
-                  className="send-button"
+                  className='send-button'
                   icon={'sync'}
                   label={t('Restore JSON')}
                   onClick={_toggleImport}
