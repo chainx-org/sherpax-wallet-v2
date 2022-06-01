@@ -116,3 +116,23 @@ spec:
                 name: sherpax-wallet-v2
                 port:
                   number: 80
+    - host: apps.sherpax.io
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: sherpax-wallet-v2
+                port:
+                  number: 80
+    - host: wallet.sherpax.io
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: sherpax-wallet-v2
+                port:
+                  number: 80
