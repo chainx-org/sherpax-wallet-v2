@@ -25,6 +25,7 @@ function Wallet ({ className = '' }: Props): React.ReactElement<Props> {
 export default React.memo(styled(Wallet)`
   padding:16px 26px ;
   font-family: 'PingFangSC-Medium, PingFang SC,serif';
+
   .walletPanel {
     display:flex;
     justify-content: space-between;
@@ -167,8 +168,29 @@ export default React.memo(styled(Wallet)`
       }
     }
   }
+  @media screen and (max-width:1150px) {
+    .walletPanel {
+      flex-direction: column;
+      .left {
+        margin-right:0 ;
+      }
+      .right {
+        width: 100%;
+        margin-top: 20px;
+      }
+    }
+  }
   .assetsTable{
     margin: 30px 0 28px 0;
+  }
+  @media screen and (max-width:1150px) {
+    .assetsTable {
+      td,th {
+        &:last-child {
+          flex: 2!important;
+        }
+      }
+    }
   }
   .transactions {
     .tableList {
@@ -180,6 +202,16 @@ export default React.memo(styled(Wallet)`
       }
       .transfersCrossTable {
         flex: 1;
+      }
+    }
+  }
+  @media screen and (max-width:1150px) {
+    .transactions {
+      .tableList {
+        flex-direction: column!important;
+        .transfersTable {
+          margin: 0 0 20px 0;
+        }
       }
     }
   }
