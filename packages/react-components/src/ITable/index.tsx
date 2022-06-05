@@ -35,6 +35,7 @@ function extractBodyChildren (children: React.ReactNode): [boolean, React.ReactN
 
 function ITable ({ children, className = '', empty, emptySpinner, filter, footer, header, isFixed, legend, noBodyTag, withCollapsibleRows = false }: TableProps): React.ReactElement<TableProps> {
   const [isEmpty, bodyChildren] = extractBodyChildren(children);
+
   return (
     <div className={`ui--Table ${className}`}>
       {legend}
@@ -68,7 +69,6 @@ export default React.memo(styled(ITable)`
 
   &.transfer {
     table {
-      background: red!important;
       tbody {
         tr {
 
