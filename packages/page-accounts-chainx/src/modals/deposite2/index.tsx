@@ -165,37 +165,37 @@ export default function ({ address, onClose }: Props) {
       <div className='center'>
         <Modal.Content>
           <main className='step'>
-            {/* <div className='step-1'>
+            <div className='step-1'>
               <p className='tit'><span className='font-pg-medium'>Step 1: </span>  Scan the QR code via ComingChat</p>
               <div className='step-body'>
                 <div className='code'>
                   <QRCodeSVG
                     size={142}
-                    value={`{"opreturn":"${address}","address":"${hotAddress}"}`}
+                    value={`{"opreturn":"${address}","address":"${hotAddress}","cointype":"sBTC"}`}
                   ></QRCodeSVG>
                 </div>
               </div>
-            </div> */}
+            </div>
             <div className='step-2'>
-              <p className='tit'><span className='font-pg-medium'>Step 1: </span>  Wait for the content in the form below to be automatically filled into the input box.</p>
+              <p className='tit'><span className='font-pg-medium'>Step 2: </span>  Wait for the content in the form below to be automatically filled into the input box.</p>
               <div className='step-body'>
                 <div className='show-code'>
                   <p> <span className='code-tit'>Trust hot multi-signature address</span> <ClipBoard
                     className=''
                     id=''
                     onClick={_onCopy}
-                  >{hotAddress || 'In the generated.'}</ClipBoard>  </p>
+                                                                                          >{hotAddress || 'In the generated.'}</ClipBoard>  </p>
                   <p> <span className='code-tit'>OP_RETURN</span><ClipBoard
                     className=''
                     id=''
                     onClick={_onCopy}
-                  >{address}</ClipBoard></p>
+                                                                 >{address}</ClipBoard></p>
                 </div>
                 <p>（The table content is required, you can also manually copy it into the input box.）</p>
               </div>
             </div>
             <div className='step-3'>
-              <p className='tit'><span className='font-pg-medium'>Step 2: </span></p>
+              <p className='tit'><span className='font-pg-medium'>Step 3: </span></p>
               <div className='step-body'>
                 <p>Please note that the top-up amount must be greater than 0.001 sBTC.</p>
                 <p className='mt12'>Please wait patiently for the block to be generated and sBTC will be credited to your account within 1-2 hours.</p>
