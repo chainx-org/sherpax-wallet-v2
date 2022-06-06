@@ -39,6 +39,7 @@ export interface ITotalBalance {
   coinNum: number,
   decimals: number;
   assetId: number;
+  address?: string
 }
 
 export interface IEstimated {
@@ -86,7 +87,8 @@ export default function useAssetsBalance () {
           coin: item.symbol.toUpperCase(),
           logo: item.logoURI,
           assetId: item.assetId,
-          decimals: item.decimals });
+          decimals: item.decimals,
+          address: item.address });
 
         return;
       }
@@ -95,7 +97,7 @@ export default function useAssetsBalance () {
 
       if (!res?.toJSON()) {
         // 增加跨链资产中余额为0的币
-        targetArr.push({ transBalance: 0, coin: item.symbol.toUpperCase(), logo: item.logoURI, assetId: item.assetId, decimals: item.decimals });
+        targetArr.push({ transBalance: 0, coin: item.symbol.toUpperCase(), logo: item.logoURI, assetId: item.assetId, decimals: item.decimals, address: item.address });
 
         if (targetArr.length === tokenList.length) {
           setCurrentBalance(targetArr);
@@ -107,7 +109,7 @@ export default function useAssetsBalance () {
       const { balance } = res?.toJSON();
       const transBalance = balance / Math.pow(10, item.decimals);
 
-      targetArr.push({ transBalance, coin: item.symbol.toUpperCase(), logo: item.logoURI, assetId: item.assetId, decimals: item.decimals });
+      targetArr.push({ transBalance, coin: item.symbol.toUpperCase(), logo: item.logoURI, assetId: item.assetId, decimals: item.decimals, address: item.address });
 
       if (targetArr.length === tokenList.length) {
         setCurrentBalance(targetArr);
@@ -139,6 +141,7 @@ export default function useAssetsBalance () {
 
       return {
         coin: `${balance.coin}`,
+        address: balance.address,
         dollar: Number((balance.transBalance * item.price).toFixed(6)),
         percent: ((balance.transBalance * item.price) / Number(estimated.estimatedDollar)) ? ((balance.transBalance * item.price) / Number(estimated.estimatedDollar)) : 0,
         logo: balance.logo,
