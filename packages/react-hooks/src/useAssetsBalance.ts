@@ -60,7 +60,7 @@ if (process.env.NODE_ENV === 'development') {
   coinInstance = axios.create({ baseURL: '' });
 }
 
-export default function useAssetsBalance () {
+export default function useAssetsBalance (state) {
   const { currentAccount } = useContext(AccountContext);
   const [currentBalance, setCurrentBalance] = useState<ICurrentBalance[]>([]);
   // const [tokenList,setTokenList] = useState<ITokens[]>([])
@@ -115,7 +115,7 @@ export default function useAssetsBalance () {
         setCurrentBalance(targetArr);
       }
     });
-  }, [currentAccount, tokenList, allKsxBalance]);
+  }, [currentAccount, tokenList, allKsxBalance,state]);
 
   // 转为需要的数据
   // 1.所有币种对应的美元
@@ -167,7 +167,7 @@ export default function useAssetsBalance () {
     }
 
     setEstimated({ estimatedDollar: Number(estimatedDollar.toFixed(3)).toLocaleString(), estimatedBtc });
-  }, [currentBalance, coinExchangeRate, estimated.estimatedDollar]);
+  }, [currentBalance, coinExchangeRate, estimated.estimatedDollar,state]);
 
   return [totalBalance, estimated];
 }
