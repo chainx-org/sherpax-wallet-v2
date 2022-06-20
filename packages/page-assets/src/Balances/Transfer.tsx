@@ -16,9 +16,10 @@ interface Props {
   className?: string;
   minBalance: BN;
   siFormat: [number, string];
+  onSuccess: () => void
 }
 
-function Transfer ({ accountId, assetId, className, minBalance, siFormat: [siDecimals, siSymbol] }: Props): React.ReactElement<Props> {
+function Transfer ({ accountId, onSuccess, assetId, className, minBalance, siFormat: [siDecimals, siSymbol] }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();
   const [isOpen, toggleOpen] = useToggle();
@@ -56,7 +57,7 @@ function Transfer ({ accountId, assetId, className, minBalance, siFormat: [siDec
                 type='allPlus'
               />
             </Modal.Columns>
-            <Modal.Columns >
+            <Modal.Columns>
               <InputBalance
                 autoFocus
                 label={t<string>('amount to transfer')}
@@ -65,7 +66,7 @@ function Transfer ({ accountId, assetId, className, minBalance, siFormat: [siDec
                 siSymbol={siSymbol}
               />
             </Modal.Columns>
-            <Modal.Columns >
+            <Modal.Columns>
               <InputBalance
                 defaultValue={minBalance}
                 isDisabled
@@ -82,6 +83,7 @@ function Transfer ({ accountId, assetId, className, minBalance, siFormat: [siDec
               isDisabled={!recipientId || !amount}
               label={t<string>('Send')}
               onStart={toggleOpen}
+              onSuccess={onSuccess}
               params={[assetId, recipientId, amount]}
               tx={
                 isProtected

@@ -25,7 +25,9 @@ const AssetsTable = (props: Props) => {
     [t('')]
   ]);
 
-  const [totalBalance, estimated] = useAssetsBalance();
+  const [state, setState] = useState(0);
+
+  const [totalBalance, estimated] = useAssetsBalance(state);
   const api = useApi();
   const { currentAccount } = useContext(AccountContext);
   // 获取的余额
@@ -41,16 +43,17 @@ const AssetsTable = (props: Props) => {
               <td> <img
                 alt='coin'
                 src={item.logo}
-                   /> <span style={{ textAlign: 'left', width: '20px' }}>{item.coin} </span> </td>
+              /> <span style={{ textAlign: 'left', width: '20px' }}>{item.coin} </span> </td>
               <td>{item.coinNum.toFixed(4)} <span className='right'>{item.coin}</span> </td>
               <td>≈ $ {item.dollar.toFixed(2).toLocaleString()}</td>
               <td>
                 {isFunction(api.api.tx.balances?.transfer) && (
                   <Transfer
                     accountId={currentAccount}
-                    // onClose={toggleTransfer}
                     assetId={item.assetId}
+                    // onClose={toggleTransfer}
                     key='modal-transfer'
+                    onSuccess={() => setState(Math.random())}
                     siFormat={[item.decimals, item.coin]}
                   />
                 )}
