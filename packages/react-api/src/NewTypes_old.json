@@ -17,7 +17,8 @@
       "Bitcoin",
       "Ethereum",
       "Polkadot",
-      "Dogecoin"
+      "Dogecoin",
+      "Binance"
     ]
   },
   "String": "Text",
@@ -155,9 +156,7 @@
   "BtcNetwork": {
     "_enum": [
       "Mainnet",
-      "Testnet",
-      "DogeCoinMainnet",
-      "DogeCoinTestnet"
+      "Testnet"
     ]
   },
   "BtcAddress": "Text",
@@ -207,79 +206,11 @@
     "tx": "BtcTransaction",
     "trustee_list": "Vec<(AccountId, bool)>"
   },
-  "DogeTrusteeType": "Vec<u8>",
-  "DogeTrusteeAddrInfo": {
-    "addr": "DogeAddress",
-    "redeem_script": "Vec<u8>"
-  },
-  "DogeTrusteeIntentionProps": {
-    "about": "Text",
-    "hot_entity": "DogeTrusteeType",
-    "cold_entity": "DogeTrusteeType"
-  },
-  "DogeTrusteeSessionInfo": {
-    "trusteeList": "Vec<(AccountId, u64)>",
-    "threshold": "u16",
-    "hotAddress": "DogeTrusteeAddrInfo",
-    "coldAddress": "DogeTrusteeAddrInfo",
-    "multiAccount": "Option<AccountId>",
-    "startHeight": "Option<BlockNumber>",
-    "endHeight": "Option<BlockNumber>"
-  },
-  "DogecoinNetwork": {
+  "BtcTxVerifier": {
     "_enum": [
-      "Mainnet",
-      "Testnet",
-      "DogeCoinMainnet",
-      "DogeCoinTestnet"
+      "Recover",
+      "RuntimeInterface"
     ]
-  },
-  "DogeAddress": "Text",
-  "DogeHeader": "Vec<u8>",
-  "DogeTransaction": "Vec<u8>",
-  "DogePartialMerkleTree": "Vec<u8>",
-  "DogeRelayedTxInfo": {
-    "block_hash": "H256",
-    "merkle_proof": "DogePartialMerkleTree"
-  },
-  "DogeHeaderIndex": {
-    "hash": "H256",
-    "height": "u32"
-  },
-  "DogeTxResult": {
-    "_enum": [
-      "Success",
-      "Failure"
-    ]
-  },
-  "DogeTxState": {
-    "tx_type": "DogeTxType",
-    "result": "DogeTxResult"
-  },
-  "DogeTxType": {
-    "_enum": [
-      "Withdrawal",
-      "Deposit",
-      "HotAndCold",
-      "TrusteeTransition",
-      "Irrelevance"
-    ]
-  },
-  "DogeDepositCache": {
-    "txid": "H256",
-    "balance": "u64"
-  },
-  "DogeVoteResult": {
-    "_enum": [
-      "Unfinish",
-      "Finish"
-    ]
-  },
-  "DogeWithdrawalProposal": {
-    "sig_state": "DogeVoteResult",
-    "withdrawal_id_list": "Vec<u32>",
-    "tx": "DogeTransaction",
-    "trustee_list": "Vec<(AccountId, bool)>"
   },
   "RpcTotalAssetInfo": {
     "info": "AssetInfo",
@@ -480,20 +411,6 @@
     "height": "u32"
   },
   "BtcParams": {
-    "maxBits": "u32",
-    "blockMaxFuture": "u32",
-    "targetTimespanSeconds": "u32",
-    "targetSpacingSeconds": "u32",
-    "retargetingFactor": "u32",
-    "retargetingInterval": "u32",
-    "minTimespan": "u32",
-    "maxTimespan": "u32"
-  },
-  "DogeHeaderInfo": {
-    "header": "DogeHeader",
-    "height": "u32"
-  },
-  "DogeParams": {
     "maxBits": "u32",
     "blockMaxFuture": "u32",
     "targetTimespanSeconds": "u32",

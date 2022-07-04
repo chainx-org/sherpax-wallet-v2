@@ -134,7 +134,8 @@ export default function ({ address, onClose }: Props) {
   useEffect((): void => {
     async function getHotAddress () {
       if (apiUrl.includes('mainnet')) {
-        const dividendRes = await api.rpc.xgatewaycommon.bitcoinTrusteeSessionInfo(-1);
+
+        const dividendRes = await api.rpc.xgatewaycommon.trusteeSessionInfo('bitcoin',-1);
 
         setHotAddress(dividendRes.hotAddress.addr);
       } else {
@@ -143,7 +144,7 @@ export default function ({ address, onClose }: Props) {
     }
 
     getHotAddress();
-  }, []);
+  }, [api]);
 
   function _onCopy () {
     queueAction({
