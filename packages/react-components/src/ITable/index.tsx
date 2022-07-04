@@ -168,7 +168,7 @@ export default React.memo(styled(ITable)`
         display: inline-block;
         vertical-align: top;
         width: 40px;
-        text-align: right;
+        text-align: left;
       }
 
       img {
