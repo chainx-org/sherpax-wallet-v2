@@ -71,6 +71,10 @@ export default React.memo(styled(ExplorerApp) `
     }
     .coin-panel {
       .coin-card{
+        margin-bottom: 20px;
+        &:last-child {
+          margin-bottom: 0;
+        }
         padding: 24px 26px;
         background: #FFFFFF;
         border-radius: 2px;

@@ -1,5 +1,6 @@
 import React from 'react'
 import CoinCard from "./CoinCard"
+import {cardList} from '../data-local'
 
 
 interface Props  {}
@@ -7,7 +8,10 @@ interface Props  {}
 const CoinPanel = (props: Props) => {
   return (
     <div className="coin-panel">
-      <CoinCard />
+      {cardList.map(item => {
+        return <CoinCard {...item} />
+      })}
+
     </div>
   )
 }

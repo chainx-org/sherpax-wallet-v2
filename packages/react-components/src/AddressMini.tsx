@@ -117,7 +117,6 @@ export default React.memo(styled(AddressMini)`
   .ui--AddressMini-info {
     max-width: 12rem;
     min-width: 12rem;
-
     @media only screen and (max-width: 1800px) {
       max-width: 11.5rem;
       min-width: 11.5rem;
