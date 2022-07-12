@@ -12,9 +12,11 @@ import styled from 'styled-components';
 
 interface Props {
   onClose: () => void;
-  btc: number | undefined | null;
+  coinBalance: number | undefined | null;
   account: string | undefined,
   setN: Dispatch<number>
+  assetsID:number
+  title:string
 }
 
 const Wrapper = styled(Modal)`
@@ -22,10 +24,6 @@ const Wrapper = styled(Modal)`
     border: 0!important;
   }
   .white {
-    //svg {
-    //  background: rgb();
-    //  color: white!important;
-    //}
   }
   > .actions {
     border: 0!important;
@@ -65,7 +63,7 @@ const Wrapper = styled(Modal)`
   }
 `;
 
-function Withdraw({account, btc, onClose, setN}: Props): React.ReactElement<Props> {
+function Withdraw({account, coinBalance, onClose, setN,assetsID,title}: Props): React.ReactElement<Props> {
   const {t} = useTranslation();
   const {api,isApiReady} = useApi();
   const [amount, setAmount] = useState<number | undefined>(0);
@@ -96,7 +94,7 @@ function Withdraw({account, btc, onClose, setN}: Props): React.ReactElement<Prop
   useEffect((): void => {
     async function getMinWithdraw() {
       if(!isApiReady) return
-      const res = await api.rpc.xgatewaycommon.withdrawalLimit(1)
+      const res = await api.rpc.xgatewaycommon.withdrawalLimit(assetsID)
       let resFee = res.toJSON()
       setMinWithdraw(Number(resFee.minimalWithdrawal) / Math.pow(10, 8))
       setMinFee(Number(resFee.fee) / Math.pow(10, 8));
@@ -112,7 +110,7 @@ function Withdraw({account, btc, onClose, setN}: Props): React.ReactElement<Prop
 
   return (
     <Wrapper
-      header={t('sBTC Withdrawals')}
+      header={t(`${title} Withdrawals`)}
       size='large'
     >
       <Modal.Content>
@@ -125,7 +123,7 @@ function Withdraw({account, btc, onClose, setN}: Props): React.ReactElement<Prop
               label={t('Withdrawal Account')}
               labelExtra={
                 <div>
-                  {t('You can withdrawal')} {!btc ? 0 : Number(btc) / Math.pow(10, 8)} sBTC
+                  {t('You can withdrawal')} {!coinBalance ? 0 : coinBalance} {title}
                 </div>
               }
               onChange={setAccount}
@@ -141,21 +139,19 @@ function Withdraw({account, btc, onClose, setN}: Props): React.ReactElement<Prop
           <Modal.Column>
             <Input
               help={t('the actual account you wish to withdraw')}
-              label={t('sBTC withdraw address')}
+              label={t(`${title} withdraw address`)}
               onChange={setWithdrawAddress}
             />
           </Modal.Column>
           <Modal.Column className='mobs'>
-            {/* <p>{t('sBTC withdraw address')}</p> */}
             <span style={{display: (disabled === true) ? "block" : "none"}}>{t('Required')}</span>
           </Modal.Column>
         </Modal.Columns>
         <Modal.Columns className='mob'>
           <Modal.Column>
             <InputSBTCBalance
-              CrossToken={'sBTC'}
+              CrossToken={title}
               autoFocus
-              // help={t('The number of withdrawals')}
               label={t('The number of withdrawals')}
               onChange={setAmount}
             />
@@ -169,16 +165,16 @@ function Withdraw({account, btc, onClose, setN}: Props): React.ReactElement<Prop
             <div className='finalWithdrawAmount'>
               <div className='final'>{finalWithdraw>0?finalWithdraw:0}</div>
               <InputSBTCBalance
-                CrossToken={'sBTC'}
+                CrossToken={title}
                 defaultValue={0}
-                help={<p>{t<string>('Service Fee')} {minfee} sBTC</p>}
+                help={<p>{t<string>('Service Fee')} {minfee} {title}</p>}
                 isDisabled
                 label={t<string>('You will received')}
               />
             </div>
           </Modal.Column>
           <Modal.Column className='mobs'>
-            <p>{t('Service Fee')} {minfee} sBTC</p>
+            <p>{t('Service Fee')} {minfee} {title}</p>
           </Modal.Column>
         </Modal.Columns>
         <Modal.Columns className='mob'>
@@ -195,7 +191,6 @@ function Withdraw({account, btc, onClose, setN}: Props): React.ReactElement<Prop
       </Modal.Content>
 
 
-      {/*这里有问题*/}
       <Modal.Actions onCancel={onClose}>
         <TxButton
           className="white"
@@ -203,7 +198,7 @@ function Withdraw({account, btc, onClose, setN}: Props): React.ReactElement<Prop
           icon='sign-in-alt'
           label={t('withdrawals')}
           onStart={onClose}
-          params={['1', Number(amount) / Math.pow(10, 10), withdrawAddress, memo ? memo.trim() : '']}
+          params={[String(assetsID), Number(amount) / Math.pow(10, 10), withdrawAddress, memo ? memo.trim() : '']}
           tx='xGatewayCommon.withdraw'
           isDisabled={disabled}
           onSuccess={() => {

@@ -27,7 +27,7 @@ const TableCoin = (props: Props) => {
 
   const transfer = useTransfer();
   const transferHeader = useRef([
-    [t('Transfers'), '']
+    [t('transfers'), '']
   ]);
 
   const withdrawals = useWithdrawals();

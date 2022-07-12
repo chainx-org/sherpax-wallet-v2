@@ -87,7 +87,7 @@ export function useTransfer () {
 
       seTransfer(itemMaps);
     });
-  }, []);
+  }, [currentAccount]);
 
   return transfer;
 }

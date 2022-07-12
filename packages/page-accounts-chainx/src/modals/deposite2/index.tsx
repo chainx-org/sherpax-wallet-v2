@@ -10,10 +10,8 @@ import { useApi } from '@polkadot/react-hooks';
 import { u8aToHex } from '@polkadot/util';
 
 import getApiUrl from '../../../../apps/src/initSettings';
-import Button from '../../../../react-components/src/Button';
 import { useTranslation } from '../../translate';
 import ClipBoard from './ClipBoard';
-import infoIcon from './explan.svg';
 
 interface Props {
   onClose: () => void;
@@ -21,6 +19,9 @@ interface Props {
   btc: string | undefined | null;
   account: string | undefined;
   setN: Dispatch<number>;
+  addrCoin:string;
+  minNum:string
+  cointype:string
 }
 
 const Wrapper = styled(Modal)`
@@ -120,7 +121,7 @@ const Wrapper = styled(Modal)`
   }
 `;
 
-export default function ({ address, onClose }: Props) {
+export default function ({ address, onClose,addrCoin,minNum,cointype }: Props) {
   const { t } = useTranslation();
   const [channel, setChannel] = useState('');
   const { api } = useApi();
@@ -135,11 +136,11 @@ export default function ({ address, onClose }: Props) {
     async function getHotAddress () {
       if (apiUrl.includes('mainnet')) {
 
-        const dividendRes = await api.rpc.xgatewaycommon.trusteeSessionInfo('bitcoin',-1);
+        const dividendRes = await api.rpc.xgatewaycommon.trusteeSessionInfo(addrCoin,-1);
 
         setHotAddress(dividendRes.hotAddress.addr);
       } else {
-        setHotAddress('Please select [SherpaX Node] as Selected Network for sBTC cross-chain.');
+        setHotAddress(`Please select [SherpaX Node] as Selected Network for ${cointype} cross-chain.`);
       }
     }
 
@@ -154,9 +155,6 @@ export default function ({ address, onClose }: Props) {
     });
   }
 
-  function TopUpLink () {
-    location.href = `https://www.coming.chat/transfer?cointype=sBTC&address=${hotAddress}&opreturn=${addressHex}`;
-  }
 
   return (
     <Wrapper
@@ -172,7 +170,7 @@ export default function ({ address, onClose }: Props) {
                 <div className='code'>
                   <QRCodeSVG
                     size={142}
-                    value={`{"opreturn":"${address}","address":"${hotAddress}","cointype":"sBTC"}`}
+                    value={`{"opreturn":"${address}","address":"${hotAddress}","cointype":"${cointype}"}`}
                   ></QRCodeSVG>
                 </div>
               </div>
@@ -198,8 +196,8 @@ export default function ({ address, onClose }: Props) {
             <div className='step-3'>
               <p className='tit'><span className='font-pg-medium'>Step 3: </span></p>
               <div className='step-body'>
-                <p>Please note that the top-up amount must be greater than 0.001 sBTC.</p>
-                <p className='mt12'>Please wait patiently for the block to be generated and sBTC will be credited to your account within 1-2 hours.</p>
+                <p>{`Please note that the top-up amount must be greater than ${minNum} ${cointype}.`}</p>
+                <p className='mt12'>{`Please wait patiently for the block to be generated and ${cointype} will be credited to your account within 1-2 hours.`}</p>
               </div>
             </div>
           </main>

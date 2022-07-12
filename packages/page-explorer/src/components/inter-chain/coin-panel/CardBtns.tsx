@@ -3,30 +3,30 @@
 
 import React, { useContext, useState } from 'react';
 
-
 import Deposite from '@polkadot/app-accounts-chainx/modals/deposite2';
-
 import Withdraw from '@polkadot/app-accounts-chainx/modals/withdraw';
-
 import useSbtcAssets from '@polkadot/app-accounts-chainx/Myview/useSbtcAssets';
-
 import Transfer from '@polkadot/app-assets/Balances/TransferSbtc';
-
 import { useTranslation } from '@polkadot/app-explorer/translate';
 import { Button } from '@polkadot/react-components';
-
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
-
-import { useAccounts, useApi, useToggle } from '@polkadot/react-hooks';
+import {useAccounts, useAllAssetsBananceAndLocks, useApi, useToggle} from '@polkadot/react-hooks';
 import { isFunction } from '@polkadot/util';
 
-import Sbtc_svg from '../../../svg/sBTC.svg';
-import Top_up_svg from '../../../svg/TopUp-svg.svg'
-import Withdrawals_svg from '../../../svg/withdrawals-svg.svg'
+import Top_up_svg from '../../../svg/TopUp-svg.svg';
+import Withdrawals_svg from '../../../svg/withdrawals-svg.svg';
 
-interface Props {}
+interface Props {
+  title:string,
+  coinImg:string,
+  assetsID:number,
+  siFormat:string
+  addrCoin:string
+  minNum:string
+  setStateN:React.Dispatch<number>
+}
 
-const CardBtns = (props: Props) => {
+const CardBtns = ({title,coinImg,assetsID,siFormat,addrCoin,minNum,setStateN}: Props) => {
   const { currentAccount } = useContext(AccountContext);
   const [n, setN] = useState(1);
   const { isApiReady } = useApi();
@@ -37,16 +37,18 @@ const CardBtns = (props: Props) => {
   const api = useApi();
   const [isWithdraw, toggleWithdraw] = useToggle();
   const [isDepositeOpen, toggleDeposite] = useToggle();
-  const currentAccountInfo = useSbtcAssets(currentAccount, n);
+  const currentAccountInfo = useAllAssetsBananceAndLocks(currentAccount,assetsID, n);
 
   return (
     <div className='card-btns'>
       {isWithdraw && (
         <Withdraw
           account={currentAccount}
-          btc={currentAccountInfo?.balance}
+          coinBalance={currentAccountInfo?.balance}
           onClose={toggleWithdraw}
           setN={setN}
+          assetsID={assetsID}
+          title={title}
         />
       )
       }
@@ -54,17 +56,20 @@ const CardBtns = (props: Props) => {
         <Deposite
           address={currentAccount}
           onClose={toggleDeposite}
+          addrCoin={addrCoin}
+          minNum={minNum}
+          cointype={title}
         />
       )
       }
       <div className='coin-logo'>
         <img
           alt='sbtc-logo'
-          src={Sbtc_svg}
+          src={coinImg}
         />
-        sBTC
+        {title}
       </div>
-      <div className='btns'>
+      <div className='btns' style={{display:"flex",alignItems:"center"}}>
         <Button
           className='send-button padd10'
           iconUrl={Top_up_svg}
@@ -73,20 +78,21 @@ const CardBtns = (props: Props) => {
           onClick={toggleDeposite}
         ></Button>
         <Button
-          isDisabled={!isApiReady || !currentAccount || !hasAccounts || !hasCurrentName}
           className='send-button padd10'
           iconUrl={Withdrawals_svg}
+          isDisabled={!isApiReady || !currentAccount || !hasAccounts || !hasCurrentName}
           label={t<string>('withdrawals')}
           onClick={toggleWithdraw}
         ></Button>
         {isFunction(api.api.tx.balances?.transfer) && (
           <Transfer
             accountId={currentAccount}
-            assetId={1}
+            assetId={assetsID}
+            setStateN={setStateN}
             // onClose={toggleTransfer}
             className='send-28 padd16'
             key='modal-transfer card-btns'
-            siFormat={[8, 'SBTC']}
+            siFormat={[8, siFormat]}
           />
         )}
         <a
@@ -95,9 +101,9 @@ const CardBtns = (props: Props) => {
           target='_blank'
         >
           <Button
-            isReadOnly
             className='send-button padd16'
             icon={'arrow-right-arrow-left'}
+            isReadOnly
             label={t<string>('Swap')}
           ></Button>
         </a>
