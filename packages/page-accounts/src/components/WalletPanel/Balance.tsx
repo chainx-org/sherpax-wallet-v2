@@ -117,7 +117,9 @@ export default function Balance({lookup,dataState}: Props) {
       <section className='details' key="details">
         {(
           <>
-            <AssetView stateN={stateN}  className="small-px" key={Math.random()}    title={t('Transferrable')}  value={usableBalance > 0 ? usableBalance : 0}></AssetView>
+            <AssetView stateN={stateN} className="small-px" key={Math.random()} title={t('Transferrable')}
+                       value={usableBalance > 0 ? usableBalance : 0}>
+            </AssetView>
 
             <AssetView
               stateN={stateN}
