@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useState,useContext} from 'react'
 import {AccountContext} from "@polkadot/react-components-chainx/AccountProvider";
 
 import CardBtns from './CardBtns'
@@ -17,14 +17,15 @@ interface IProps {
 
 const CoinCard = (props:IProps) => {
   const {title,coinImg,unit,assetsID,siFormat,addrCoin,minNum} = props
+  const [stateN,setStateN] = useState(0)
   const { currentAccount } = useContext(AccountContext);
 
-  const assetsInfo = useAllAssetsBananceAndLocks(currentAccount,assetsID)
+  const assetsInfo = useAllAssetsBananceAndLocks(currentAccount,assetsID,stateN)
 
   return (
     <div className="coin-card">
-      <CardBtns title={title} coinImg={coinImg} assetsID={assetsID} siFormat={siFormat} addrCoin={addrCoin} minNum={minNum}/>
-      <AssetView unit={unit} assetsInfo={assetsInfo}/>
+      <CardBtns title={title} coinImg={coinImg} assetsID={assetsID} siFormat={siFormat} addrCoin={addrCoin} minNum={minNum} setStateN={setStateN}/>
+      <AssetView unit={unit} assetsInfo={assetsInfo} />
     </div>
   )
 }

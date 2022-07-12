@@ -16,9 +16,10 @@ interface Props {
   className?: string;
   minBalance: BN;
   siFormat: [number, string];
+  setStateN:React.Dispatch<number>
 }
 
-function Transfer ({ accountId, assetId, className, minBalance, siFormat: [siDecimals, siSymbol] }: Props): React.ReactElement<Props> {
+function Transfer ({ accountId, assetId, className, minBalance, siFormat: [siDecimals, siSymbol],setStateN }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();
   const [isOpen, toggleOpen] = useToggle();
@@ -74,6 +75,7 @@ function Transfer ({ accountId, assetId, className, minBalance, siFormat: [siDec
               accountId={accountId}
               icon='paper-plane'
               isDisabled={!recipientId || !amount}
+              onSuccess={() => setStateN(Math.random())}
               label={t<string>('Make transfer')}
               onStart={toggleOpen}
               params={[assetId, recipientId, amount]}

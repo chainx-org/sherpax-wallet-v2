@@ -10,7 +10,7 @@ import Transfer from '@polkadot/app-assets/Balances/TransferSbtc';
 import { useTranslation } from '@polkadot/app-explorer/translate';
 import { Button } from '@polkadot/react-components';
 import { AccountContext } from '@polkadot/react-components-chainx/AccountProvider';
-import { useAccounts, useApi, useToggle } from '@polkadot/react-hooks';
+import {useAccounts, useAllAssetsBananceAndLocks, useApi, useToggle} from '@polkadot/react-hooks';
 import { isFunction } from '@polkadot/util';
 
 import Top_up_svg from '../../../svg/TopUp-svg.svg';
@@ -23,9 +23,10 @@ interface Props {
   siFormat:string
   addrCoin:string
   minNum:string
+  setStateN:React.Dispatch<number>
 }
 
-const CardBtns = ({title,coinImg,assetsID,siFormat,addrCoin,minNum}: Props) => {
+const CardBtns = ({title,coinImg,assetsID,siFormat,addrCoin,minNum,setStateN}: Props) => {
   const { currentAccount } = useContext(AccountContext);
   const [n, setN] = useState(1);
   const { isApiReady } = useApi();
@@ -36,16 +37,18 @@ const CardBtns = ({title,coinImg,assetsID,siFormat,addrCoin,minNum}: Props) => {
   const api = useApi();
   const [isWithdraw, toggleWithdraw] = useToggle();
   const [isDepositeOpen, toggleDeposite] = useToggle();
-  const currentAccountInfo = useSbtcAssets(currentAccount, n);
+  const currentAccountInfo = useAllAssetsBananceAndLocks(currentAccount,assetsID, n);
 
   return (
     <div className='card-btns'>
       {isWithdraw && (
         <Withdraw
           account={currentAccount}
-          btc={currentAccountInfo?.balance}
+          coinBalance={currentAccountInfo?.balance}
           onClose={toggleWithdraw}
           setN={setN}
+          assetsID={assetsID}
+          title={title}
         />
       )
       }
@@ -85,6 +88,7 @@ const CardBtns = ({title,coinImg,assetsID,siFormat,addrCoin,minNum}: Props) => {
           <Transfer
             accountId={currentAccount}
             assetId={assetsID}
+            setStateN={setStateN}
             // onClose={toggleTransfer}
             className='send-28 padd16'
             key='modal-transfer card-btns'

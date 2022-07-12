@@ -59,14 +59,6 @@ function useSbtcAssets(account: string, n = 0): SbtcAssetsInfo {
           setState(curr);
         }
       }
-      // if (JSON.stringify(current) === '{}') {
-      //   current = {
-      //     balance: 0,
-      //     extra: null,
-      //     isFrozen: false,
-      //     sufficient: false,
-      //   } as SbtcAssetsInfo;
-      // }
     }
     getAssets(account);
   }, [account, isApiReady, n]);

@@ -41,7 +41,7 @@ export function useAllAssetsBananceAndLocks(account: string,assetsID:number, n =
 
     getAssets(account);
 
-  }, [account,assetsID]);
+  }, [account,assetsID,n]);
 
   return state;
 }
