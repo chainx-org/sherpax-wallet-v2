@@ -196,7 +196,7 @@ export default function ({ bold, className, event, help, stateN, title, unLock, 
   const { t } = useTranslation();
   const { currentAccount } = useContext(AccountContext);
 
-  const [wksxObj] = coinExchangeRate.filter((item: any) => item.coin === 'WKSX');
+  const [wksxObj] = coinExchangeRate.filter((item: any) => item.coin === 'KSX');
 
   return (
     <div>

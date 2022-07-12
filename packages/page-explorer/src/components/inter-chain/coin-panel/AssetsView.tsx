@@ -25,7 +25,7 @@ const AssetsView = (props: Props) => {
       </div>
       <div className='transferable'>
         <p>Transferable</p>
-        <h2>{sbtcAssets.balance - sbtcAssets.reserved} sBTC <span className='dollar small-px'> (≈ ${Number(sBTCObj?.price * sbtcAssets.reserved).toFixed(2)}) </span> </h2>
+        <h2>{(sbtcAssets.balance - sbtcAssets.reserved).toFixed(4)} sBTC <span className='dollar small-px'> (≈ ${Number(sBTCObj?.price * sbtcAssets.reserved).toFixed(2)}) </span> </h2>
       </div>
       <div className='reserved'>
         <p>Withdrawal Reserved</p>
