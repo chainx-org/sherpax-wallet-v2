@@ -9,12 +9,13 @@ interface Props {
   address: string;
   filter?: string;
   isHidden?: boolean;
-  onDeselect: (address: string) => void;
+  index:number;
+  onDeselect: (address: string,index:number) => void;
 }
 
-function Selected ({ address, filter, isHidden, onDeselect }: Props): React.ReactElement<Props> | null {
+function Selected ({ address, filter, isHidden, onDeselect,index }: Props): React.ReactElement<Props> | null {
   const _onDeselect = useCallback(
-    (): void => onDeselect(address),
+    (): void => onDeselect(address,index),
     [address, onDeselect]
   );
 

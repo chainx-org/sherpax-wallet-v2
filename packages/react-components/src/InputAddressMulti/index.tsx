@@ -16,29 +16,40 @@ interface Props {
   available: string[];
   availableLabel: React.ReactNode;
   className?: string;
-  defaultValue?: string[];
+  defaultValue?: ISelectValue[];
   help: React.ReactNode;
   maxCount: number;
-  onChange: (values: string[]) => void;
+  onChange: (values: ISelectValue[]) => void;
   valueLabel: React.ReactNode;
 }
 
-function exclude (prev: string[], address: string): string[] {
-  return prev.includes(address)
-    ? prev.filter((a) => a !== address)
-    : prev;
+interface ISelectValue {
+  addr:string,
+  index:number
 }
 
-function include (prev: string[], address: string, maxCount: number): string[] {
-  return !prev.includes(address) && (prev.length < maxCount)
-    ? prev.concat(address)
-    : prev;
+function exclude (prev: ISelectValue[], address: string,idx:number) {
+
+  return prev.map((item,index) => {
+    if(item.addr !== address && idx !== index) {
+      return item
+    }
+    return null
+  }).filter(item => item)
 }
+
+function include (prev: ISelectValue[], address: string, maxCount: number,index:number): ISelectValue[] {
+  // return !prev?.addr.includes(address) && (prev.length < maxCount)
+  //   ? prev.concat(address)
+  //   : prev;
+  return prev.length < maxCount ? [...prev,{addr:address,index}] : prev
+}
+
 
 function InputAddressMulti ({ available, availableLabel, className = '', defaultValue, maxCount, onChange, valueLabel }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [_filter, setFilter] = useState<string>('');
-  const [selected, setSelected] = useState<string[]>([]);
+  const [selected, setSelected] = useState<ISelectValue[]>([]);
   const filter = useDebounce(_filter);
   const isLoading = useLoadingDelay();
 
@@ -51,14 +62,20 @@ function InputAddressMulti ({ available, availableLabel, className = '', default
   }, [onChange, selected]);
 
   const _onSelect = useCallback(
-    (address: string) => setSelected((prev) => include(prev, address, maxCount)),
+    (address: string,index:number) => {
+      return setSelected((prev) => include(prev, address, maxCount,index))
+    },
     [maxCount]
   );
 
   const _onDeselect = useCallback(
-    (address: string) => setSelected((prev) => exclude(prev, address)),
+    (address: string,index:number) => {
+      return setSelected((prev) => exclude(prev, address,index))
+    },
     []
   );
+
+  const isHiddenAvailable = useCallback((address:string,index:number) => !!selected.filter(item => item.addr === address && item.index === index).length,[selected])
 
   return (
     <div className={`ui--InputAddressMulti ${className}`}>
@@ -75,10 +92,11 @@ function InputAddressMulti ({ available, availableLabel, className = '', default
         <div className='ui--InputAddressMulti-column'>
           <label>{valueLabel}</label>
           <div className='ui--InputAddressMulti-items'>
-            {selected.map((address): React.ReactNode => (
+            {selected.map((select): React.ReactNode => (
               <Selected
-                address={address}
-                key={address}
+                address={select.addr}
+                index={select.index}
+                key={select.index}
                 onDeselect={_onDeselect}
               />
             ))}
@@ -89,12 +107,13 @@ function InputAddressMulti ({ available, availableLabel, className = '', default
           <div className='ui--InputAddressMulti-items'>
             {isLoading
               ? <Spinner />
-              : available.map((address) => (
+              : available.map((address,index) => (
                 <Available
+                  index={index}
                   address={address}
                   filter={filter}
-                  isHidden={selected?.includes(address)}
-                  key={address}
+                  isHidden={isHiddenAvailable(address,index)}
+                  key={index}
                   onSelect={_onSelect}
                 />
               ))

@@ -14,19 +14,21 @@ const AssetsView = ({unit,assetsInfo}: Props) => {
   const { btcDollar, coinExchangeRate } = useContext(CoinPriceContext);
   const [sBTCObj] = coinExchangeRate.filter((item: any) => item.coin === 'sBTC');
 
+  const price = sBTCObj?.price ? sBTCObj.price : 0
+
   return (
     <div className='assets-view'>
       <div className='balance'>
         <p>Balance</p>
-        <h2 className='balance-tit'>{assetsInfo.balance} {unit} {unit=== 'sBTC' && <span className='dollar'> (≈ ${Number(sBTCObj?.price * assetsInfo.balance).toFixed(2)}) </span>} </h2>
+        <h2 className='balance-tit'>{assetsInfo.balance} {unit} {unit=== 'sBTC' && <span className='dollar'> (≈ ${Number(price * assetsInfo.balance).toFixed(2)}) </span>} </h2>
       </div>
       <div className='transferable'>
         <p>Transferable</p>
-        <h2>{(assetsInfo.balance - assetsInfo.reserved).toFixed(4)} {unit} {unit === 'sBTC' && <span className='dollar small-px'> (≈ ${Number(sBTCObj?.price * (assetsInfo.balance - assetsInfo.reserved)).toFixed(2)}) </span>} </h2>
+        <h2>{(assetsInfo.balance - assetsInfo.reserved).toFixed(4)} {unit} {unit === 'sBTC' && <span className='dollar small-px'> (≈ ${Number(price * (assetsInfo.balance - assetsInfo.reserved)).toFixed(2)}) </span>} </h2>
       </div>
       <div className='reserved'>
         <p>Withdrawal Reserved</p>
-        <h2>{assetsInfo.reserved} {unit} {unit === 'sBTC' && <span className='dollar small-px'> (≈ ${Number(sBTCObj?.price * assetsInfo.reserved).toFixed(2)}) </span>} </h2>
+        <h2>{assetsInfo.reserved} {unit} {unit === 'sBTC' && <span className='dollar small-px'> (≈ ${Number(price * assetsInfo.reserved).toFixed(2)}) </span>} </h2>
       </div>
     </div>
   );
