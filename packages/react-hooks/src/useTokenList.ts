@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import dog_png from "@polkadot/app-explorer/svg/dog.png"
 import axios from "axios";
 
 export interface ITokens  {
@@ -27,6 +28,7 @@ export function useTokenList() {
       })
 
       tokenList.push({symbol:'KSX',logoURI:'',chainId:0,decimals:18,name:'ksx',address:'',assetId:99})
+      tokenList.push({symbol:'DOGE',logoURI:dog_png,chainId:0,decimals:8,name:'Doge',address:'',assetId:9})
 
 
       setTokenList(tokenList)

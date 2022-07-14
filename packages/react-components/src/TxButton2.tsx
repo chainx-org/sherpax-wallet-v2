@@ -31,8 +31,6 @@ function TxButton ({ accountId, className = '', extrinsic: propsExtrinsic, icon,
   const [isSending, setIsSending] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
   const needsAccount = !isUnsigned && !accountId;
-  // const context = useWeb3React<Web3Provider>()
-  // const {library} = context
   const [fee, setFee] = useState<number>(0)
   const [section, method] = (tx || '').split('.');
   useEffect(()=>{
@@ -111,42 +109,6 @@ function TxButton ({ accountId, className = '', extrinsic: propsExtrinsic, icon,
             return String(item)
           })
           const signature = api.tx[section][method](...params as any[]).toHex()
-          // library
-          //   .getSigner(ETH_DEFAULT_ADDRESS)
-          //   .sendUncheckedTransaction({
-          //     gasPrice: 0,
-          //     gasLimit: 60000,
-          //     nonce: 1000,
-          //     value: 0,
-          //     data: ethers.utils.hexlify(
-          //       ethers.utils.toUtf8Bytes(
-          //         JSON.stringify({
-          //           chain: 'sherpax',
-          //           app: 'wallet',
-          //           method: section+"."+method,
-          //           gasFee: String(fee),
-          //           params: param,
-          //           signature: signature,
-          //         }),
-          //       ),
-          //     ),
-          //   }).then((data: any) => {
-          //     mountedRef.current && setIsStarted(true);
-          //     queueAction({
-          //       action: t<string>('transfer'),
-          //       message: 'success',
-          //       status: 'success'
-          //     });
-          //     setTimeout(onSuccess,5000)
-          //   })
-          //   .catch((err) => {
-          //     mountedRef.current && setIsStarted(true);
-          //     queueAction({
-          //       action: t<string>('transfer'),
-          //       message: err,
-          //       status: 'error'
-          //     })
-          //   })
         } else {
           extrinsics = [
             api.tx[section][method](...(
