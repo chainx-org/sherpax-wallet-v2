@@ -2,11 +2,16 @@ import type { AppProps as Props, ThemeProps } from '@polkadot/react-components/s
 import React, { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { useApi } from "@polkadot/react-hooks";
-import { Table, Expander, AddressMini, Input, Modal2 as Modal, InputAddressMulti, QrNetworkSpecs,AddressSmall } from '@polkadot/react-components';
+import { Table, Expander, AddressMini, Input, Modal2 as Modal, InputAddressMulti2, QrNetworkSpecs,AddressSmall } from '@polkadot/react-components';
 import {useTranslation} from '../../page-accounts/src/translate';
 // import { TransactionData } from '@polkadot/ui-settings';
 import { FormatBalance } from '@polkadot/react-query';
+import {prefix} from "concurrently/dist/src/defaults";
 
+interface ISelectValue {
+  addr:string,
+  index:number
+}
 
 
 function transactionList({ basePath, className = '' }: Props): React.ReactElement<Props> {
@@ -14,11 +19,11 @@ function transactionList({ basePath, className = '' }: Props): React.ReactElemen
   const [transList, setTransList] = useState([]);
   const [transactionList, setTransactionList] = useState([]);
   const [loading, setLoading] = useState(false)
-  const [fee, setFee] = useState([]);
+  const [fee, setFee] = useState(null);
+  const [dogeFee, setDogeFee] = useState(null);
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false)
   const [arrayApply, setArrayApply] = useState([])
-  const [refee, setRefee] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0)
   const [addressValue, setAddressValue] = useState<string[]>([]);
 
@@ -37,13 +42,14 @@ function transactionList({ basePath, className = '' }: Props): React.ReactElemen
       //获取提现列表
       const resData = await api.rpc.xgatewayrecords.withdrawalList()
       let resultList = resData.toJSON()
-
-      console.log(resultList)
-
+      console.log(resultList,`resData`)
       //把resultList:{x:{}} -> [{x:xx},{}]
       let result = Object.keys(resultList).reduce((pre, cur) => {
         //在resultList item中添加了id字段
         resultList[cur].id = parseInt(cur)
+        //拿到的提现列表 没有区分sbtc doge 链端拿到的数据有问题
+        //通过提现地址长度 判断asset的id
+        resultList[cur].asset_id = resultList[cur].addr.length !== 34 ? 0 : 9
         return pre.concat(resultList[cur])
       }, [])
 
@@ -53,11 +59,14 @@ function transactionList({ basePath, className = '' }: Props): React.ReactElemen
       setTransactionList([...processing])
 
 
-      //拿到coin对应手续费
+      //拿到sbtc doge对应手续费
       const res = await api.rpc.xgatewaycommon.withdrawalLimit(1)
       let resFee = res.toJSON()
       setFee(resFee.fee)
-      refee.push({ ...resFee })
+
+      const dogeRes = await api.rpc.xgatewaycommon.withdrawalLimit(9)
+      let dogeFee = dogeRes.toJSON()
+      setDogeFee(dogeFee.fee)
 
       setArrayApply(applying)
 
@@ -70,32 +79,26 @@ function transactionList({ basePath, className = '' }: Props): React.ReactElemen
 
   const getAccount = useCallback(
     //当我点击了input框
-    (value: any) => {
-      console.log(value,`value`)
+    (value: ISelectValue[]) => {
       //value -> 回调 [address]
-      if (value == '') {
+      if (!value.length) {
         setTotalAmount(Number(value))
         setQrData(initialState)
       } else {
         let standardData = []
-        for (let index = 0; index < value.length; index++) {
-          for (let i = 0; i < arrayApply.length; i++) {
-            if (value[index] === arrayApply[i].applicant) {
-              let total = Number(Number((Number(arrayApply[i].balance)-Number(fee))/ Math.pow(10, 8)))
-              standardData.push({ address: arrayApply[i].addr, amount: String(total)})
-            }
-          }
-        }
 
-        console.log(standardData,`standardData`)
+        value.forEach(item => {
+          const apply = arrayApply[item.index]
+          let total = Number(Number((Number(Number(apply?.balance))-Number(apply.asset_id ? dogeFee : fee))/ Math.pow(10, 8)))
+          standardData.push({address:apply?.addr,amount:String(total)})
+        })
 
-        let totalLarge = 0;
-        for (let i = 0; i < standardData.length; i++) {
-          totalLarge += Number(standardData[i].amount)
-          let totall = Number(totalLarge).toFixed(4)
-          setTotalAmount(Number(totall))
-        }
         setQrData(standardData)
+
+
+        const totalAmount = standardData.reduce((prev,current) => prev+ Number(current.amount),0)
+        setTotalAmount(totalAmount.toFixed(5))
+
       }
     },
     [arrayApply],
@@ -125,7 +128,7 @@ function transactionList({ basePath, className = '' }: Props): React.ReactElemen
             <Modal.Content>
               <Modal.Columns>
                 <Modal.Column>
-                  <InputAddressMulti
+                  <InputAddressMulti2
                     available={addressValue}
                     availableLabel={t<string>('Applying list')}
                     onChange={getAccount}
@@ -174,16 +177,16 @@ function transactionList({ basePath, className = '' }: Props): React.ReactElemen
                   <AddressSmall value={item.applicant} />
                 </td>
                 <td className='textCenter' style={{paddingLeft:'10px'}}>
-                  <Expander summary={String((Number((Number(item.balance)) / Math.pow(10, 8)).toFixed(4)) +' '+ 'sBTC')} >
+                  <Expander summary={String((Number((Number(item.balance)) / Math.pow(10, 8)).toFixed(4)) + ` ${item.asset_id ? 'Doge' : 'sBTC'}`)}>
                   {/*<Expander summary={<FormatBalance withCurrency={false} label={(Number(Number(item.balance) / Math.pow(10, 8)).toFixed(4))} value={'sBTC'} /> }>*/}
 
                     <AddressMini
                       children={
-                        <div style={{ textAlign: 'right',position:"relative",right:'20px' }}>
+                        <div style={{ textAlign: 'right',position:"relative"}}>
                           <div style={{ paddingLeft: '35px' }}>
                            <span className='same'>fee</span>&nbsp;
-                            {fee && <span className='content'>
-                               {String(Number(Number(fee) / Math.pow(10, 8)).toFixed(3) + ' '+'sBTC')}
+                            {fee && dogeFee && <span className='content'>
+                               {String(Number(Number(item.asset_id ? dogeFee : fee) / Math.pow(10, 8)).toFixed(3) + ` ${item.asset_id ? 'Doge' : 'sBTC'}`)}
                               {/*<FormatBalance withCurrency={false} label={Number(Number(fee)/Math.pow(10, 8)).toFixed(3)} value={'sBTC'} />*/}
                             </span>}
                           </div>
@@ -191,7 +194,7 @@ function transactionList({ basePath, className = '' }: Props): React.ReactElemen
                           <span className='same'>withdrawal</span>&nbsp;
                             <span className='content'>
                               {/*<FormatBalance withCurrency={false} label={Number(Number((item.balance)-Number(fee))/Math.pow(10, 8)).toFixed(3)} value={'sBTC'} />*/}
-                               {String(Number(Number((item.balance)-Number(fee))/Math.pow(10, 8)).toFixed(3) + ' '+'sBTC')}
+                               {String(Number(Number((item.balance)-Number(item.asset_id ? dogeFee : fee))/Math.pow(10, 8)).toFixed(3)  + ` ${item.asset_id ? 'Doge' : 'sBTC'}`)}
                             </span>
                           </div>
                         </div>}
