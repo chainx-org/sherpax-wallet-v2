@@ -90,7 +90,6 @@ function Withdraw({account, coinBalance, onClose, setN,assetsID,title}: Props): 
     }
   }, [withdrawAddress]);
 
-
   useEffect((): void => {
     async function getMinWithdraw() {
       if(!isApiReady) return

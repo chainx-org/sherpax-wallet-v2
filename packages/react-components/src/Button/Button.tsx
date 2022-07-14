@@ -54,7 +54,7 @@ function Button ({ activeOnEnter, children, className = '', dataTestId = '', ico
       onMouseLeave={_onMouseLeave}
       tabIndex={tabIndex}
     >
-      {icon && <Icon icon={icon}  />}
+      {icon && icon !== "none-icon" &&  <Icon icon={icon}  />}
       {iconUrl && <span className="icon-box"><img src={iconUrl} alt="icon"/></span>}
       {label}
       {children}
