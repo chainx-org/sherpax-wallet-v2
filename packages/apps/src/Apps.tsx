@@ -53,14 +53,14 @@ function Apps ({ className = '' }: Props): React.ReactElement<Props> {
   }, [allAccounts, isApiReady, currentAccount])
 
   useEffect(() => {
-    console.log('注入开始')
+    alert('注入开始')
     if (
       (window as any).web3 &&
       (window as any).web3.currentProvider &&
       ((window as any).web3.currentProvider.isComingWallet ||
       (window as any).web3.currentProvider.isTrust)
     ) {
-      console.log('注入完成')
+      alert('注入完成')
       setActivatingConnector(injected)
       activate(injected)
     }
