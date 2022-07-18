@@ -54,11 +54,9 @@ function useAccountsImpl (): UseAccounts {
 
   useEffect(() => {
     if (
-      (window as any).web3 &&
-      (window as any).web3.currentProvider &&
-      ((window as any).web3.currentProvider.isComingWallet ||
-      (window as any).web3.currentProvider.isTrust)
-    ) {
+      ((window as any)?.web3?.currentProvider?.isComingWallet) ||
+      (window as any)?.web3?.currentProvider?.isTrust)
+   {
       const account = JSON.parse((window as any).web3.comingUserInfo).address
       const name = JSON.parse((window as any).web3.comingUserInfo).name
       // const publicKey = keyring.decodeAddress(account)
@@ -69,10 +67,7 @@ function useAccountsImpl (): UseAccounts {
       );
     }
   }, [
-    (window as any).web3 &&
-    (window as any).web3.currentProvider &&
-    (window as any).web3.currentProvider.isComingWallet && isApiReady,
-    (window as any).web3.currentProvider.isTrust
+    (window as any)?.web3
   ])
 
   return state;

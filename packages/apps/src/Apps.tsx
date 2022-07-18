@@ -55,16 +55,14 @@ function Apps ({ className = '' }: Props): React.ReactElement<Props> {
   useEffect(() => {
     alert('注入开始')
     if (
-      (window as any).web3 &&
-      (window as any).web3.currentProvider &&
-      ((window as any).web3.currentProvider.isComingWallet ||
-      (window as any).web3.currentProvider.isTrust)
+      ((window as any)?.web3?.currentProvider?.isComingWallet) ||
+      ((window as any)?.web3?.currentProvider?.isTrust)
     ) {
       alert('注入完成')
       setActivatingConnector(injected)
       activate(injected)
     }
-  }, [(window as any).web3])
+  }, [(window as any)?.web3])
 
 
   return (
