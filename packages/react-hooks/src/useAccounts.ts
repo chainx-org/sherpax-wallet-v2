@@ -71,7 +71,8 @@ function useAccountsImpl (): UseAccounts {
   }, [
     (window as any).web3 &&
     (window as any).web3.currentProvider &&
-    (window as any).web3.currentProvider.isComingWallet && isApiReady
+    (window as any).web3.currentProvider.isComingWallet && isApiReady,
+    (window as any).web3.currentProvider.isTrust
   ])
 
   return state;
