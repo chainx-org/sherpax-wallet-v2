@@ -14,6 +14,7 @@ export default function create (t: TFunction): Route {
     },
     group: 'network',
     name: 'Interoperability',
+    icon:undefined,
     text: t('nav.explorer', 'Interoperability', { ns: 'apps-routing' })
   };
 }

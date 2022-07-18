@@ -10,6 +10,10 @@ import { ThemeProvider } from 'styled-components';
 
 import { Api } from '@polkadot/react-api';
 import Queue from '@polkadot/react-components/Status/Queue';
+import {Web3ReactProvider} from '@web3-react/core'
+import {getLibrary} from './Web3Library'
+
+
 import { AccountProvider } from '@polkadot/react-components-chainx/AccountProvider';
 import {TokenListProvider} from '@polkadot/react-components-chainx/TokenListProvider';
 import {KSXBalanceProvider} from '@polkadot/react-components-chainx/KSXBalanceProvider';
@@ -48,8 +52,9 @@ function Root ({ isElectron, store }: Props): React.ReactElement<Props> {
   return (
     <Suspense fallback='...'>
       <ThemeProvider theme={theme}>
-        <TokenListProvider>
-          <AccountProvider>
+        <Web3ReactProvider getLibrary={getLibrary}>
+          <TokenListProvider>
+            <AccountProvider>
               <Queue>
                 <Api
                   apiUrl={settings.apiUrl}
@@ -73,8 +78,10 @@ function Root ({ isElectron, store }: Props): React.ReactElement<Props> {
                   </BlockAuthors>
                 </Api>
               </Queue>
-          </AccountProvider>
-        </TokenListProvider>
+            </AccountProvider>
+          </TokenListProvider>
+        </Web3ReactProvider>
+
 
       </ThemeProvider>
     </Suspense>
