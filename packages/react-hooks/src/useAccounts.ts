@@ -56,8 +56,8 @@ function useAccountsImpl (): UseAccounts {
     if (
       (window as any).web3 &&
       (window as any).web3.currentProvider &&
-      (window as any).web3.currentProvider.isComingWallet &&
-      (window as any).web3.comingUserInfo && isApiReady
+      ((window as any).web3.currentProvider.isComingWallet ||
+      (window as any).web3.currentProvider.isTrust)
     ) {
       const account = JSON.parse((window as any).web3.comingUserInfo).address
       const name = JSON.parse((window as any).web3.comingUserInfo).name
