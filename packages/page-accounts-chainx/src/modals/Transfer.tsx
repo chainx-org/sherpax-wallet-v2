@@ -9,7 +9,7 @@ import BN from 'bn.js';
 import { checkAddress } from '@polkadot/phishing';
 import React, {Dispatch, useEffect, useState} from 'react';
 import styled from 'styled-components';
-import {Input, InputAddress, Modal, Toggle, TxButton} from '@polkadot/react-components';
+import {Input, InputAddress, Modal2 as Modal, Toggle, TxButton2 as TxButton} from '@polkadot/react-components';
 import {useApi, useCall} from '@polkadot/react-hooks';
 import {Available} from '@polkadot/react-query';
 import {BN_HUNDRED, BN_ZERO, isFunction} from '@polkadot/util';
@@ -105,6 +105,8 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
       setIsAmounts(false)
     }
   },[amount])
+
+  console.log(amount,'amount')
 
 
   return (
@@ -230,7 +232,7 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
           label={t<string>('Transfer')}
           onStart={onClose}
           onSuccess={() => {
-            setN(Math.random());
+            setN && setN(Math.random());
           }}
           params={
             canToggleAll && isAll
