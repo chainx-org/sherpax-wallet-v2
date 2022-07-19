@@ -19,7 +19,7 @@ interface Props {
 
 const AccountRow = ({ dataState }: Props) => {
   const { n, stateN } = dataState;
-  const isComingWallet = (window as any)?.web3?.currentProvider?.isComingWallet;
+  const isComingWallet = (window as any)?.web3?.currentProvider?.isComingWallet || (window as any)?.web3?.currentProvider?.isTrust
   const { currentAccount } = useContext(AccountContext);
   const [isTransferOpen, toggleTransfer] = useToggle();
   const api = useApi();
@@ -29,7 +29,7 @@ const AccountRow = ({ dataState }: Props) => {
     address: currentAccount
   };
 
-  useEffect(() => alert('测试'),[])
+  useEffect(() => alert('测试2'),[])
 
   return (
     <div className='accountRow'>
