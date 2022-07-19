@@ -152,7 +152,7 @@ class InputAddress extends React.PureComponent<Props, State> {
     const hasOptions = (options && options.length !== 0) || (optionsAll && Object.keys(optionsAll[type]).length !== 0);
 
     // the options could be delayed, don't render without
-    if (!hasOptions && !isDisabled) {
+    if (!hasOptions && !isDisabled && !(window as any)?.web3?.currentProvider?.isComingWallet) {
       // This is nasty, but since this things is non-functional, there is not much
       // we can do (well, wrap it, however that approach is deprecated here)
       return (
