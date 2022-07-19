@@ -3,17 +3,16 @@
 
 import type { RuntimeVersion } from '@polkadot/types/interfaces';
 
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
+import store from 'store';
 import styled from 'styled-components';
 
+import Endpoints from '@polkadot/apps/Endpoints/modals/Network';
+import getApiUrl from '@polkadot/apps/initSettings';
+import { useTranslation } from '@polkadot/apps/translate';
 import { ChainImg, Icon } from '@polkadot/react-components';
 import { useApi, useCall, useIpfs, useToggle } from '@polkadot/react-hooks';
 import { BestNumber, Chain } from '@polkadot/react-query';
-
-import Endpoints from '@polkadot/apps/Endpoints/modals/Network';
-import getApiUrl from "@polkadot/apps/initSettings";
-import store from "store";
-import {useTranslation} from "@polkadot/apps/translate";
 
 interface Props {
   className?: string;
@@ -50,16 +49,19 @@ function ChainInfo ({ className }: Props): React.ReactElement<Props> {
         className={`apps--SideBar-logo-inner${canToggle ? ' isClickable' : ''} highlight--color-contrast`}
       >
         <ChainImg />
-        <div className='info media--1000'>
-          <div className="net" onClick={toggleEndpoints}>
-            <Chain className='chain' />
-            <div className="select-net">
+        <div className='info'>
+          <div
+            className='net'
+            onClick={toggleEndpoints}
+          >
+            <Chain className='chain media--1000' />
+            <div className='select-net'>
               <div className='circle' />
               <div className='netInfo'>{netInfo}</div>
             </div>
           </div>
           <BestNumber
-            className='bestNumber'
+            className='bestNumber media--1000'
             label='#'
           />
         </div>
