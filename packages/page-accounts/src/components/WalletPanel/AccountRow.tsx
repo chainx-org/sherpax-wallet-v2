@@ -38,7 +38,6 @@ const AccountRow = ({ dataState }: Props) => {
       >
       </Candidate>
       {isTransferOpen && (
-
         <Transfer
           key='modal-transfer'
           onClose={toggleTransfer}
