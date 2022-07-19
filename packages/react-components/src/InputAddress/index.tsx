@@ -148,11 +148,12 @@ class InputAddress extends React.PureComponent<Props, State> {
   }
 
   public override render (): React.ReactNode {
+    const isComingWallet = (window as any)?.web3?.currentProvider?.isComingWallet;
     const { className = '', defaultValue, help, hideAddress = false, isDisabled = false, isError, isMultiple, label, labelExtra, options, optionsAll, placeholder, type = DEFAULT_TYPE, withEllipsis, withLabel } = this.props;
     const hasOptions = (options && options.length !== 0) || (optionsAll && Object.keys(optionsAll[type]).length !== 0);
 
     // the options could be delayed, don't render without
-    if (!hasOptions && !isDisabled && !(window as any)?.web3?.currentProvider?.isComingWallet) {
+    if (!hasOptions && !isDisabled && !isComingWallet) {
       // This is nasty, but since this things is non-functional, there is not much
       // we can do (well, wrap it, however that approach is deprecated here)
       return (
@@ -189,7 +190,7 @@ class InputAddress extends React.PureComponent<Props, State> {
         className={`ui--InputAddress${hideAddress ? ' hideAddress' : ''} ${className}`}
         defaultValue={_defaultValue}
         help={help}
-        isDisabled={isDisabled}
+        isDisabled={isComingWallet ? true : isDisabled}
         isError={isError}
         isMultiple={isMultiple}
         label={label}
