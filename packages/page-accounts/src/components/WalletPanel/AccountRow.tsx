@@ -29,7 +29,7 @@ const AccountRow = ({ dataState }: Props) => {
     address: currentAccount
   };
 
-  useEffect(() => alert('测试2'),[])
+  useEffect(() => alert('测试3'),[])
 
   return (
     <div className='accountRow'>
