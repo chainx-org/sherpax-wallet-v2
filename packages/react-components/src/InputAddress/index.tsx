@@ -190,7 +190,7 @@ class InputAddress extends React.PureComponent<Props, State> {
         className={`ui--InputAddress${hideAddress ? ' hideAddress' : ''} ${className}`}
         defaultValue={_defaultValue}
         help={help}
-        isDisabled={isComingWallet ? true : isDisabled}
+        isDisabled={isComingWallet ? false : isDisabled}
         isError={isError}
         isMultiple={isMultiple}
         label={label}
