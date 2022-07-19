@@ -106,8 +106,6 @@ function Transfer({className = '', onClose, recipientId: propRecipientId, sender
     }
   },[amount])
 
-  console.log(amount,'amount')
-
 
   return (
     <Modal
