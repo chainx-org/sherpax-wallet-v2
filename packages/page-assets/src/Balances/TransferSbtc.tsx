@@ -79,10 +79,8 @@ function Transfer ({ accountId, assetId, className, minBalance, siFormat: [siDec
               label={t<string>('Make transfer')}
               onStart={toggleOpen}
               params={[assetId, recipientId, amount]}
-              tx={
-                isProtected
-                  ? api.tx.assets.transferKeepAlive
-                  : api.tx.assets.transfer}
+              tx={'assets.transfer'}
+
             />
           </Modal.Actions>
         </Modal>

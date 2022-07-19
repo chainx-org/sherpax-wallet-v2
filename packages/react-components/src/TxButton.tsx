@@ -95,18 +95,18 @@ function TxButton ({ accountId, className = '', extrinsic: propsExtrinsic, icon,
           });
           onClick && onClick();
         } else {
+          const [section, method] = (tx || '').split('.');
+          assert(api.tx[section] && api.tx[section][method], `Unable to find api.tx.${section}.${method}`);
           if (
             isComingWallet
           ) {
-            const [section, method] = (tx || '').split('.');
-            assert(api.tx[section] && api.tx[section][method], `Unable to find api.tx.${section}.${method}`);
             const param = (params as any[])?.map((item)=>{
               return String(item)
             })
             const signature = api.tx[section][method](...params as any[]).toHex()
           } else {
             extrinsics = [
-              tx(...(
+              api.tx[section][method](...(
                 isFunction(params)
                   ? params()
                   : (params || [])

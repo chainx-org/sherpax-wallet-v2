@@ -85,11 +85,7 @@ function Transfer ({ accountId, onSuccess, assetId, className, minBalance, siFor
               onStart={toggleOpen}
               onSuccess={onSuccess}
               params={[assetId, recipientId, amount]}
-              tx={
-                isProtected && api.tx.balances.transferKeepAlive
-                  ? 'balances.transferKeepAlive'
-                  : 'balances.transfer'
-              }
+              tx={'assets.transfer'}
             />
           </Modal.Actions>
         </Modal>
