@@ -32,12 +32,12 @@ function TxButton ({ accountId, className = '', extrinsic: propsExtrinsic, icon,
   const [isStarted, setIsStarted] = useState(false);
   const needsAccount = !isUnsigned && !accountId;
   const [fee, setFee] = useState<number>(0)
+  const isComingWallet = (window as any)?.web3?.currentProvider?.isComingWallet || (window as any)?.web3?.currentProvider?.isTrust
+
   const [section, method] = (tx || '').split('.');
   useEffect(()=>{
     if (
-      (window as any).web3 &&
-      (window as any).web3.currentProvider &&
-      (window as any).web3.currentProvider.isComingWallet
+      isComingWallet
       ) {
         api.tx[section][method](...params as any[]).paymentInfo(currentAccount)
         .then(result => {
