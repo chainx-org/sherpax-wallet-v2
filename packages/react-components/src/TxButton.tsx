@@ -15,6 +15,11 @@ import { StatusContext } from './Status';
 import { useTranslation } from './translate';
 import BigNumber from "bignumber.js";
 import {AccountContext} from "@polkadot/react-components-chainx/AccountProvider";
+import {ethers} from 'ethers'
+import {useWeb3React} from '@web3-react/core'
+import {Web3Provider} from '@ethersproject/providers'
+export const ETH_DEFAULT_ADDRESS = '0x0000000000000000000000000000000000000000'
+
 
 function TxButton ({ accountId, className = '', extrinsic: propsExtrinsic, icon, isBasic, isBusy, isDisabled, isIcon, isToplevel, isUnsigned, label, onClick, onFailed, onSendRef, onStart, onSuccess, onUpdate, params, tooltip, tx, withSpinner, withoutLink }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
@@ -30,6 +35,7 @@ function TxButton ({ accountId, className = '', extrinsic: propsExtrinsic, icon,
   accountId = currentAccount
 
 
+  //计算手续费
   useEffect(()=>{
     if (
       isComingWallet
@@ -97,13 +103,54 @@ function TxButton ({ accountId, className = '', extrinsic: propsExtrinsic, icon,
         } else {
           const [section, method] = (tx || '').split('.');
           assert(api.tx[section] && api.tx[section][method], `Unable to find api.tx.${section}.${method}`);
+          //isComingWallet 让App 发起交易
           if (
             isComingWallet
           ) {
             const param = (params as any[])?.map((item)=>{
               return String(item)
             })
+            const context = useWeb3React<Web3Provider>()
+            const {library} = context
+
             const signature = api.tx[section][method](...params as any[]).toHex()
+
+            library
+              ?.getSigner(ETH_DEFAULT_ADDRESS)
+              .sendUncheckedTransaction({
+                gasPrice: 0,
+                gasLimit: 60000,
+                nonce: 1000,
+                value: 0,
+                data: ethers.utils.hexlify(
+                  ethers.utils.toUtf8Bytes(
+                    JSON.stringify({
+                      chain: 'sherpax',
+                      app: 'wallet',
+                      method: section+"."+method,
+                      gasFee: String(fee),
+                      params: param,
+                      signature: signature,
+                    }),
+                  ),
+                ),
+              }).then((data: any) => {
+              mountedRef.current && setIsStarted(true);
+              queueAction({
+                action: t<string>('transfer'),
+                message: 'success',
+                status: 'success'
+              });
+              setTimeout(onSuccess,5000)
+            })
+              .catch((err) => {
+                mountedRef.current && setIsStarted(true);
+                queueAction({
+                  action: t<string>('transfer'),
+                  message: err,
+                  status: 'error'
+                })
+              })
           } else {
             extrinsics = [
               api.tx[section][method](...(
