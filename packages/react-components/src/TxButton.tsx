@@ -100,6 +100,7 @@ function TxButton ({ accountId, className = '', extrinsic: propsExtrinsic, icon,
             });
           });
           onClick && onClick();
+          alert('propsExtrinsic if结束')
         } else {
           const [section, method] = (tx || '').split('.');
           assert(api.tx[section] && api.tx[section][method], `Unable to find api.tx.${section}.${method}`);
@@ -114,6 +115,8 @@ function TxButton ({ accountId, className = '', extrinsic: propsExtrinsic, icon,
             const {library} = context
 
             const signature = api.tx[section][method](...params as any[]).toHex()
+
+            alert(`signature ${signature}`,)
 
             library
               ?.getSigner(ETH_DEFAULT_ADDRESS)
@@ -152,6 +155,7 @@ function TxButton ({ accountId, className = '', extrinsic: propsExtrinsic, icon,
                 })
               })
           } else {
+            //web的交易
             extrinsics = [
               api.tx[section][method](...(
                 isFunction(params)
