@@ -1,9 +1,10 @@
 // [object Object]
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useContext } from 'react';
+import React, {useContext, useEffect} from 'react';
 
 import Transfer from '@polkadot/app-accounts/modals/Transfer';
+import TransferX from '@polkadot/app-accounts-chainx/modals/Transfer';
 import { useTranslation } from '@polkadot/app-accounts/translate';
 import Candidate from '@polkadot/app-council/Overview/Candidate';
 import { Button } from '@polkadot/react-components';
@@ -18,6 +19,7 @@ interface Props {
 
 const AccountRow = ({ dataState }: Props) => {
   const { n, stateN } = dataState;
+  const isComingWallet = (window as any)?.web3?.currentProvider?.isComingWallet || (window as any)?.web3?.currentProvider?.isTrust
   const { currentAccount } = useContext(AccountContext);
   const [isTransferOpen, toggleTransfer] = useToggle();
   const api = useApi();

@@ -151,20 +151,20 @@ class InputAddress extends React.PureComponent<Props, State> {
     const { className = '', defaultValue, help, hideAddress = false, isDisabled = false, isError, isMultiple, label, labelExtra, options, optionsAll, placeholder, type = DEFAULT_TYPE, withEllipsis, withLabel } = this.props;
     const hasOptions = (options && options.length !== 0) || (optionsAll && Object.keys(optionsAll[type]).length !== 0);
 
-    // the options could be delayed, don't render without
-    if (!hasOptions && !isDisabled && !(window as any)?.web3?.currentProvider?.isComingWallet) {
-      // This is nasty, but since this things is non-functional, there is not much
-      // we can do (well, wrap it, however that approach is deprecated here)
-      return (
-        <Static
-          className={className}
-          help={help}
-          label={label}
-        >
-          No accounts are available for selection.
-        </Static>
-      );
-    }
+    // // the options could be delayed, don't render without
+    // if (!hasOptions && !isDisabled) {
+    //   // This is nasty, but since this things is non-functional, there is not much
+    //   // we can do (well, wrap it, however that approach is deprecated here)
+    //   return (
+    //     <Static
+    //       className={className}
+    //       help={help}
+    //       label={label}
+    //     >
+    //       No accounts are available for selection.
+    //     </Static>
+    //   );
+    // }
 
     const { lastValue, value } = this.state;
     const lastOption = this.getLastOptionValue();
@@ -189,7 +189,7 @@ class InputAddress extends React.PureComponent<Props, State> {
         className={`ui--InputAddress${hideAddress ? ' hideAddress' : ''} ${className}`}
         defaultValue={_defaultValue}
         help={help}
-        isDisabled={isDisabled}
+        // isDisabled={isDisabled}
         isError={isError}
         isMultiple={isMultiple}
         label={label}

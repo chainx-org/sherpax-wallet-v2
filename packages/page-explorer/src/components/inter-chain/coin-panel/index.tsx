@@ -9,7 +9,7 @@ const CoinPanel = (props: Props) => {
   return (
     <div className="coin-panel">
       {cardList.map(item => {
-        return <CoinCard {...item} />
+        return <CoinCard key={item.assetsID} {...item} />
       })}
 
     </div>
