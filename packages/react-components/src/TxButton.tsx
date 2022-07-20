@@ -33,6 +33,8 @@ function TxButton ({ accountId, className = '', extrinsic: propsExtrinsic, icon,
   const isComingWallet = (window as any)?.web3?.currentProvider?.isComingWallet || (window as any)?.web3?.currentProvider?.isTrust
   const {currentAccount} = useContext(AccountContext)
   accountId = currentAccount
+  const context = useWeb3React<Web3Provider>()
+  const {library} = context
 
 
   //计算手续费
@@ -111,12 +113,10 @@ function TxButton ({ accountId, className = '', extrinsic: propsExtrinsic, icon,
             const param = (params as any[])?.map((item)=>{
               return String(item)
             })
-            const context = useWeb3React<Web3Provider>()
-            const {library} = context
 
             const signature = api.tx[section][method](...params as any[]).toHex()
 
-            alert(`signature ${signature}`,)
+            alert('开始执行')
 
             library
               ?.getSigner(ETH_DEFAULT_ADDRESS)
