@@ -102,7 +102,6 @@ function TxButton ({ accountId, className = '', extrinsic: propsExtrinsic, icon,
             });
           });
           onClick && onClick();
-          alert('propsExtrinsic if结束')
         } else {
           const [section, method] = (tx || '').split('.');
           assert(api.tx[section] && api.tx[section][method], `Unable to find api.tx.${section}.${method}`);
@@ -115,8 +114,6 @@ function TxButton ({ accountId, className = '', extrinsic: propsExtrinsic, icon,
             })
 
             const signature = api.tx[section][method](...params as any[]).toHex()
-
-            alert('开始执行')
 
             library
               ?.getSigner(ETH_DEFAULT_ADDRESS)
@@ -144,7 +141,7 @@ function TxButton ({ accountId, className = '', extrinsic: propsExtrinsic, icon,
                 message: 'success',
                 status: 'success'
               });
-              setTimeout(onSuccess,5000)
+              setTimeout(onSuccess,6000)
             })
               .catch((err) => {
                 mountedRef.current && setIsStarted(true);
