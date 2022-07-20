@@ -84,7 +84,8 @@ const AssetAllocation = ({totalBalance}: Props) => {
         alignRight:true,
         formatter: (text:any,record:any) => {
           const item = targetData.filter(d => d.coin === record.value)
-          return `${(item[0].percent*100).toFixed(2)} % `;
+          const percent = (item[0].percent*100).toFixed(2)
+          return `${percent > 100 ? '100.00' : percent} % `;
         },
       },
       itemName:{
