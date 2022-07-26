@@ -70,22 +70,29 @@ export function useTransfer () {
       params: {
         asset_id: 1,
         page: 0,
-        page_size: 10
+        page_size: 5
       }
     }).then((res) => {
-      if (!res) {
-        return;
-      }
 
-      const itemMaps = res.data.items.map((item: IDataItem) => {
-        item.shortHashAddrs = shortHah(item.extrinsicHash);
-        item.blockTimestamp = changeTime(Number(item.blockTimestamp));
-        item.balance = String((Number(item.balance) / Math.pow(10, 8)).toFixed(4)) + (item.assetId === 1 ? ' sBTC' : ' DOGE');
+      axiosInstance.get(`/palletAssets/${currentAccount}/transfers`, {
+        params: {
+          asset_id: 9,
+          page: 0,
+          page_size: 5
+        }
+      }).then(res2 => {
+        res.data.items.push(...res2.data.items)
+        const itemMaps = res.data.items.map((item: IDataItem) => {
+          item.shortHashAddrs = shortHah(item.extrinsicHash);
+          item.blockTimestamp = changeTime(Number(item.blockTimestamp));
+          item.balance = String((Number(item.balance) / Math.pow(10, 8)).toFixed(4)) + (item.assetId === 1 ? ' sBTC' : ' DOGE');
 
-        return item;
-      });
+          return item;
+        });
 
-      seTransfer(itemMaps);
+        seTransfer(itemMaps);
+      })
+
     });
   }, [currentAccount]);
 
