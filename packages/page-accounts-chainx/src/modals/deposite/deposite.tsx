@@ -13,6 +13,7 @@ import infoIcon from './explan.svg';
 import {useApi} from '@polkadot/react-hooks';
 import getApiUrl from '../../../../apps/src/initSettings';
 import Button from '../../../../react-components/src/Button';
+import {useIsComingChat} from "../../../../react-hooks-chainx/src";
 
 interface Props {
   onClose: () => void;
@@ -199,9 +200,7 @@ export default function ({address, onClose}: Props) {
       </Modal.Content>
       <Modal.Actions onCancel={onClose}>
         {
-          (window as any).web3 &&
-          (window as any).web3.currentProvider &&
-          (window as any).web3.currentProvider.isComingWallet && apiUrl.includes('mainnet.sherpax') &&
+          useIsComingChat() && apiUrl.includes('mainnet.sherpax') &&
           <Button
             className={''}
             onClick={TopUpLink}
