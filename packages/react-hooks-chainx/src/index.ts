@@ -5,4 +5,5 @@ export { default as useNomination } from './useNomination';
 export { default as useAccountAssets } from './useAccountAssets';
 export { default as useReadChainStorage } from './useReadChainStorage';
 export { default as useLocalStorage } from './useLocalStorage';
+export { default as useIsComingChat} from './useIsComingChat'
 
