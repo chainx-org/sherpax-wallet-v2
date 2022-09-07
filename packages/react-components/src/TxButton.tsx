@@ -9,6 +9,7 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { SubmittableResult } from '@polkadot/api';
 import {useApi, useIsMountedRef} from '@polkadot/react-hooks';
 import { assert, isFunction } from '@polkadot/util';
+import {useIsComingChat} from '../../react-hooks-chainx/src'
 
 import Button from './Button';
 import { StatusContext } from './Status';
@@ -30,17 +31,16 @@ function TxButton ({ accountId, className = '', extrinsic: propsExtrinsic, icon,
 
   const [fee, setFee] = useState<number>(0)
   const { api } = useApi();
-  const isComingWallet = (window as any)?.web3?.currentProvider?.isComingWallet || (window as any)?.web3?.currentProvider?.isTrust
+  // const isComingWallet = (window as any)?.web3?.currentProvider?.isComingWallet || (window as any)?.web3?.currentProvider?.isTrust
   const {currentAccount} = useContext(AccountContext)
   accountId = currentAccount
   const context = useWeb3React<Web3Provider>()
   const {library} = context
 
-
   //计算手续费
   useEffect(()=>{
     if (
-      isComingWallet
+      useIsComingChat()
     ) {
       const [section, method] = (tx || '')?.split('.');
       api.tx[section][method](...params as any[]).paymentInfo(currentAccount)
@@ -107,7 +107,7 @@ function TxButton ({ accountId, className = '', extrinsic: propsExtrinsic, icon,
           assert(api.tx[section] && api.tx[section][method], `Unable to find api.tx.${section}.${method}`);
           //isComingWallet 让App 发起交易
           if (
-            isComingWallet
+            useIsComingChat()
           ) {
             const param = (params as any[])?.map((item)=>{
               return String(item)
@@ -115,42 +115,53 @@ function TxButton ({ accountId, className = '', extrinsic: propsExtrinsic, icon,
 
             const signature = api.tx[section][method](...params as any[]).toHex()
 
-            library
-              ?.getSigner(ETH_DEFAULT_ADDRESS)
-              .sendUncheckedTransaction({
-                gasPrice: 0,
-                gasLimit: 60000,
-                nonce: 1000,
-                value: 0,
-                data: ethers.utils.hexlify(
-                  ethers.utils.toUtf8Bytes(
-                    JSON.stringify({
-                      chain: 'sherpax',
-                      app: 'wallet',
-                      method: section+"."+method,
-                      gasFee: String(fee),
-                      params: param,
-                      signature: signature,
-                    }),
+
+            try {
+              library
+                ?.getSigner(ETH_DEFAULT_ADDRESS)
+                .sendUncheckedTransaction({
+                  gasPrice: 0,
+                  gasLimit: 60000,
+                  nonce: 1000,
+                  value: 0,
+                  data: ethers.utils.hexlify(
+                    ethers.utils.toUtf8Bytes(
+                      JSON.stringify({
+                        chain: 'sherpax',
+                        app: 'wallet',
+                        method: section+"."+method,
+                        gasFee: String(fee),
+                        params: param,
+                        signature: signature,
+                      }),
+                    ),
                   ),
-                ),
-              }).then((data: any) => {
-              mountedRef.current && setIsStarted(true);
-              queueAction({
-                action: t<string>('transfer'),
-                message: 'success',
-                status: 'success'
-              });
-              setTimeout(onSuccess,6000)
-            })
-              .catch((err) => {
+                }).then((data: any) => {
                 mountedRef.current && setIsStarted(true);
                 queueAction({
                   action: t<string>('transfer'),
-                  message: err,
-                  status: 'error'
-                })
+                  message: 'success',
+                  status: 'success'
+                });
+                setTimeout(onSuccess,6000)
               })
+                .catch((err) => {
+                  return
+                  mountedRef.current && setIsStarted(true);
+                  queueAction({
+                    action: t<string>('transfer'),
+                    message: err,
+                    status: 'error'
+                  })
+                })
+            }catch (e) {
+              queueAction({
+                action: t<string>('transfer'),
+                message: 'transfer error',
+                status: 'error'
+              })
+            }
+
           } else {
             //web的交易
             extrinsics = [
