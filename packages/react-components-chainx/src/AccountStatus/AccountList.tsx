@@ -21,6 +21,7 @@ import keyring from '@polkadot/ui-keyring';
 import { useTranslation } from '../translate';
 import Account from './AccountListItem';
 import modalCloseIcon from './modal-close.png';
+import {useIsComingChat} from '../../../react-hooks-chainx/src'
 
 interface Props {
   setStoredValue: string | ((value: string) => void) | undefined;
@@ -55,9 +56,7 @@ function AccountList ({ className = '', onClose, onStatusChange, setStoredValue,
 
   useEffect((): void => {
     if (
-      (window as any).web3 &&
-      (window as any).web3.currentProvider &&
-      (window as any).web3.currentProvider.isComingWallet &&
+      useIsComingChat() &&
       (window as any).web3.comingUserInfo && isApiReady
     ) {
       const accounts = JSON.parse((window as any).web3.comingUserInfo).address;
@@ -108,9 +107,7 @@ function AccountList ({ className = '', onClose, onStatusChange, setStoredValue,
             onStatusChange={onStatusChange}
           />
         )}
-        <> { (window as any).web3 &&
-              (window as any).web3.currentProvider &&
-              (window as any).web3.currentProvider.isComingWallet &&
+        <> { useIsComingChat() &&
               (window as any).web3.comingUserInfo
           ? <>
             <div className={'overviewTab'}>
